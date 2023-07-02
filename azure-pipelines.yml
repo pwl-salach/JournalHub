@@ -10,9 +10,6 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
-- bash: |
-    java -version
-
 - task: Gradle@2
   inputs:
     workingDirectory: ''
@@ -23,3 +20,9 @@ steps:
     tasks: 'assembleDebug'
   env:
     JAVA_HOME: $(JAVA_HOME_17_X64)
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
+    artifact: 'debugApk'
+    publishLocation: 'pipeline'
