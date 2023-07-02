@@ -24,5 +24,5 @@ steps:
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
-    artifact: 'debugApk'
+    artifact: 'Apk'
     publishLocation: 'pipeline'
