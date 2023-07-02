@@ -20,4 +20,6 @@ steps:
     gradleOptions: '-Xmx3072m'
     publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug --scan --stacktrace --debug'
+    tasks: 'assembleDebug'
+  env:
+    JAVA_HOME: $(JAVA_HOME_17_X64)
