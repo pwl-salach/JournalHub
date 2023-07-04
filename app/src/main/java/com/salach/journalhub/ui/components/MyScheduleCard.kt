@@ -167,11 +167,11 @@ fun MySchedule(schedules: LiveData<List<Schedule>>){
     LazyColumn (
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
+//        modifier = Modifier
 //            .offset(x = 0.dp, y = 344.dp)
 //            .width(412.dp)
 //            .height(544.dp)
-            .padding(start = 16.dp, end = 16.dp)
+//            .padding(start = 16.dp, end = 16.dp)
     ){
         itemsIndexed(itemsState) { _, schedule ->
             MyScheduleCard(

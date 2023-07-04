@@ -41,7 +41,7 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(all = 8.dp)
+//            .padding(all = 8.dp)
             .clip(shape = MaterialTheme.shapes.medium)
             .background(color = Color(0xfffafafa))
     ) {
@@ -73,8 +73,7 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         )
                     )
                     Spacer(
-                        modifier = Modifier
-                            .height(height = 4.dp)
+                        modifier = Modifier.height(height = 4.dp)
                     )
                     Text(
                         text = subtitle,
@@ -98,8 +97,8 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         contentDescription = "Remove",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(24.dp)
-                            .height(24.dp)
+                            .width(32.dp)
+                            .height(32.dp)
                     )
                     Spacer(
                         modifier = Modifier.width(width = 8.dp)
@@ -109,8 +108,8 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         contentDescription = "Add",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(24.dp)
-                            .height(24.dp)
+                            .width(32.dp)
+                            .height(32.dp)
                     )
                 }
             }
@@ -142,12 +141,12 @@ fun CurrentGoals(goals: LiveData<List<Goal>>) {
 
     LazyColumn (
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally,
+//        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
 //            .offset(x = 0.dp, y = 88.dp)
-            .width(412.dp)
-            .height(152.dp)
-            .padding(start = 16.dp, end = 16.dp)
+//            .width(412.dp)
+//            .height(152.dp)
+//            .padding(start = 16.dp, end = 16.dp)
     ){
         itemsIndexed(itemsState) { _, goal ->
             GoalCard(goal.icon, goal.title, goal.subtitle, goal.progress)
