@@ -16,15 +16,15 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = ColorPalette.Lavender80,
+    secondary = ColorPalette.Leaf70,
+    tertiary = ColorPalette.FrenchGray90
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = ColorPalette.Lavender30,
+    secondary = ColorPalette.Leaf30,
+    tertiary = ColorPalette.FrenchGray50
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -35,6 +35,12 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Color(0xFF1C1B1F),
     onSurface = Color(0xFF1C1B1F),
     */
+)
+
+private val ThemeTypography = androidx.compose.material3.Typography(
+    bodyLarge = Typography.B2L,
+    titleLarge = Typography.T1B,
+    labelSmall = Typography.L3R
 )
 
 @Composable
@@ -64,7 +70,7 @@ fun JournalHubTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = ThemeTypography,
         content = content
     )
 }

@@ -33,6 +33,7 @@ import androidx.lifecycle.MutableLiveData
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Schedule
 import com.salach.journalhub.enums.TimeUnit
+import com.salach.journalhub.ui.theme.ColorPalette
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -60,7 +61,7 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 .width(56.dp)
                 .height(40.dp)
                 .background(
-                    color = Color(R.color.ThistleThistle100),
+                    color = ColorPalette.ThistleThistle100,
                     shape = RoundedCornerShape(size = 4.dp)
                 )
                 .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 8.dp)
@@ -93,7 +94,7 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
 //                .offset(x = 120.dp, y = 0.dp)
                 .border(
                     width = 1.dp,
-                    color = Color(R.color.ThistleThistle100),
+                    color = ColorPalette.ThistleThistle100,
                     shape = RoundedCornerShape(size = 4.dp)
                 )
                 .width(260.dp)
