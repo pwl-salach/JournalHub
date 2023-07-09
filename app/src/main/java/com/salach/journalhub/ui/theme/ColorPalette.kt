@@ -45,4 +45,11 @@ object ColorPalette {
     val AlertsNegative50 = Color(0xFFF0484D)
     val AlertsWarning50 = Color(0xFFF18622)
     val AlertsAlert50 = Color(0xFFFAC800)
+
+
+    val PrimarySurface5 = Color(0xFFEAE5F0)
+    val PrimarySurface4 = Color(0xFFEDE9F2)
+    val PrimarySurface3 = Color(0xFFF1EEF5)
+    val PrimarySurface2 = Color(0xFFF5F3F8)
+    val PrimarySurface1 = Color(0xFFF8F7FA)
 }

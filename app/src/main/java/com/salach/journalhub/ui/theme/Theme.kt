@@ -24,8 +24,7 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = ColorPalette.Lavender30,
     secondary = ColorPalette.Leaf30,
-    tertiary = ColorPalette.FrenchGray50
-
+    tertiary = ColorPalette.FrenchGray50,
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
@@ -45,9 +44,10 @@ private val ThemeTypography = androidx.compose.material3.Typography(
 
 @Composable
 fun JournalHubTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+//    darkTheme: Boolean = isSystemInDarkTheme(),
+    // Dynamic color is available on Android 12+\
+    darkTheme: Boolean = false,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
