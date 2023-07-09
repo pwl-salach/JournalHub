@@ -40,7 +40,7 @@ fun MainScreenBottomBar(navController: NavHostController, rootController: NavHos
     var selectedItem by remember { mutableStateOf(0) }
 
     BottomNavigation(
-        backgroundColor = ColorPalette.PrimarySurface3,
+        backgroundColor = ColorPalette.primarySurface3,
         modifier = Modifier.height(Dimensions.bottomBarHeight)
     ) {
         Row(
@@ -78,7 +78,7 @@ fun MainScreenBottomBar(navController: NavHostController, rootController: NavHos
             NavBarIconButton(
                 icon = R.drawable.ic_pencil_plus,
                 isSelected = true,
-                highlightedColor = MaterialTheme.colorScheme.tertiary,
+                highlightedColor = ColorPalette.primary,
                 shape = CircleShape
             ) {
                 rootController.navigate(Graph.NEW_JOURNAL)

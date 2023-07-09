@@ -20,10 +20,10 @@ import com.salach.journalhub.ui.theme.ColorPalette
 
 
 @Composable
-fun NavBarIconButton(
+fun  NavBarIconButton(
     icon: Int,
     isSelected: Boolean,
-    highlightedColor: Color = ColorPalette.Lavender30,
+    highlightedColor: Color = ColorPalette.tertiary,
     shape: Shape = RoundedCornerShape(size = 4.dp),
     onClick: () -> Unit
 ){
@@ -31,7 +31,7 @@ fun NavBarIconButton(
         contentAlignment = Alignment.Center,
         modifier = Modifier.width(48.dp).height(48.dp)
             .background(
-                if (isSelected) highlightedColor else ColorPalette.PrimarySurface3,
+                if (isSelected) highlightedColor else ColorPalette.primarySurface3,
                 shape = shape
             )
     ) {

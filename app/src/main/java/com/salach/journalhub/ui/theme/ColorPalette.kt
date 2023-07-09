@@ -47,9 +47,21 @@ object ColorPalette {
     val AlertsAlert50 = Color(0xFFFAC800)
 
 
-    val PrimarySurface5 = Color(0xFFEAE5F0)
-    val PrimarySurface4 = Color(0xFFEDE9F2)
-    val PrimarySurface3 = Color(0xFFF1EEF5)
-    val PrimarySurface2 = Color(0xFFF5F3F8)
-    val PrimarySurface1 = Color(0xFFF8F7FA)
+    val primaryDark = Color(0xFF4A3760)
+    val primary = Color(0xFF8264A6)
+    val primaryLight = Color(0xFFB7A6CC)
+
+    val secondaryDark = Color(0xFF408353)
+    val secondary = Color(0xFF8FC89F)
+    val secondaryLight = Color(0xFFBFDFC8)
+
+    val tertiaryDark = Color(0xFF3E4776)
+    val tertiary = Color(0xFF8089BC)
+    val tertiaryLight = Color(0xFFB6BCD9)
+
+    val primarySurface5 = Color(0xFFEAE5F0)
+    val primarySurface4 = Color(0xFFEDE9F2)
+    val primarySurface3 = Color(0xFFF1EEF5)
+    val primarySurface2 = Color(0xFFF5F3F8)
+    val primarySurface1 = Color(0xFFF8F7FA)
 }
