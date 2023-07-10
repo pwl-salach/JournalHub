@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +32,7 @@ import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.BigJournal
+import com.salach.journalhub.ui.theme.ColorPalette
 import java.time.LocalDate
 
 @Composable
@@ -75,16 +77,17 @@ fun NoJournalView(navController: NavController, viewModel: JournalsViewModel) {
                 color = Color(0xFFFFFFFF),
                 textAlign = TextAlign.Center,
                 letterSpacing = 0.22.sp,
+
                 modifier = Modifier.clickable {
                     viewModel.addJournal(
                         Journal("Title", "Test",
-                            R.drawable.ic_planetscale, 0x000000DC, 0xFFCCC2DC,
+                            R.drawable.ic_planetscale, ColorPalette.FrenchGray40.toArgb(), ColorPalette.Leaf70.toArgb(),
                             LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
                         )
                     )
                     viewModel.addJournal(
                         Journal("Title", "Test",
-                            R.drawable.ic_planetscale, 0x000000DC, 0xFFCCC2DC,
+                            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
                             LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
                         )
                     )

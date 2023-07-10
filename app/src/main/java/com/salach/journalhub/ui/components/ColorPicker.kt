@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -18,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.ui.theme.ColorPalette
@@ -25,12 +28,21 @@ import com.salach.journalhub.ui.theme.Typography
 
 
 @Composable
-fun ColorPicker(onReturnedValue: (Long) -> Unit) {
-    val colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Yellow)
+fun ColorPicker(onReturnedValue: (Int) -> Unit) {
+    val colors = listOf(
+        ColorPalette.Lavender70, ColorPalette.Lavender40, ColorPalette.Lavender20,
+        ColorPalette.Leaf70, ColorPalette.Leaf40, ColorPalette.Leaf20,
+        ColorPalette.FrenchGray70, ColorPalette.FrenchGray40, ColorPalette.FrenchGray20,
+    )
     val gradientBrushes = listOf(
         Brush.verticalGradient(listOf(Color.Red, Color.Yellow)),
         Brush.horizontalGradient(listOf(Color.Green, Color.Blue)),
-        Brush.linearGradient(listOf(Color.Magenta, Color.Cyan))
+        Brush.linearGradient(listOf(Color.Magenta, Color.Cyan)),Brush.verticalGradient(listOf(Color.Red, Color.Yellow)),
+        Brush.horizontalGradient(listOf(Color.Green, Color.Blue)),
+        Brush.linearGradient(listOf(Color.Magenta, Color.Cyan)),
+        Brush.verticalGradient(listOf(Color.Red, Color.Yellow)),
+        Brush.horizontalGradient(listOf(Color.Green, Color.Blue)),
+        Brush.linearGradient(listOf(Color.Magenta, Color.Cyan)),
     )
 
     Column(
@@ -57,17 +69,18 @@ fun ColorPicker(onReturnedValue: (Long) -> Unit) {
                 text = "Solid colours",
                 style = Typography.L1R
             )
-            Row(
+
+            LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                colors.forEach { color ->
+                items(colors) { color ->
                     Box(modifier = Modifier
                         .size(32.dp)
                         .background(color, shape = CircleShape)
                         .clickable {
-                            onReturnedValue(color.value.toLong())
+                            onReturnedValue(color.toArgb())
                         }
                     )
                 }
@@ -81,12 +94,12 @@ fun ColorPicker(onReturnedValue: (Long) -> Unit) {
                 text = "Gradients",
                 style = Typography.L1R
             )
-            Row(
+            LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                gradientBrushes.forEach { brush ->
+                items(gradientBrushes) { brush ->
                     Box(modifier = Modifier
                         .size(32.dp)
                         .background(brush, shape = CircleShape)

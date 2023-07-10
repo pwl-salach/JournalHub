@@ -14,6 +14,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
@@ -21,6 +22,7 @@ import androidx.lifecycle.MutableLiveData
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.BigJournal
+import com.salach.journalhub.ui.theme.ColorPalette
 import java.time.LocalDate
 
 
@@ -57,15 +59,15 @@ fun PreviewCarouselJournalView(){
     val previewData = MutableLiveData<List<Journal>>()
     previewData.value = listOf(
         Journal("Title", "Test",
-            R.drawable.ic_planetscale, 0x000000DC, 0xFFCCC2DC,
+            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
             LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
         ),
         Journal("Title", "Test",
-            R.drawable.ic_planetscale, 0x000000DC, 0xFFCCC2DC,
+            R.drawable.ic_planetscale, ColorPalette.FrenchGray03.toArgb(), ColorPalette.FrenchGray30.toArgb(),
             LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
         ),
         Journal("Title", "Test",
-            R.drawable.ic_planetscale, 0x000000DC, 0xFFCCC2DC,
+            R.drawable.ic_planetscale, ColorPalette.Leaf50.toArgb(), ColorPalette.Leaf80.toArgb(),
             LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
         )
     )

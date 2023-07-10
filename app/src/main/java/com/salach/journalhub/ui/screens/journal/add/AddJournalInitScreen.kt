@@ -1,5 +1,6 @@
 package com.salach.journalhub.ui.screens.journal.add
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -55,7 +56,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
         Box(
             modifier = Modifier.padding(vertical = 16.dp)
         ){
-            BigJournal()
+            BigJournal(journal.value)
         }
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -165,8 +166,10 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddJournalScreen(){
-//    AddJournalInitScreen(Journal("","")){}
+    val mutableJournal = mutableStateOf(Journal("",""))
+    AddJournalInitScreen(mutableJournal)
 }

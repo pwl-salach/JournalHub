@@ -1,9 +1,11 @@
 package com.salach.journalhub.ui.screens.journals
 
+import androidx.compose.ui.graphics.toArgb
 import com.salach.journalhub.R
 import com.salach.journalhub.db.daos.JournalDao
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.repositories.JournalsRepository
+import com.salach.journalhub.ui.theme.ColorPalette
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,11 +21,11 @@ class MockedJournalDao: JournalDao {
     override fun getAll(): Flow<List<Journal>> {
         val mockedList = listOf<Journal>(
             Journal("Title", "Test",
-                R.drawable.ic_planetscale, 0x000000DC, 0xFFCCC2DC,
+                R.drawable.ic_planetscale, ColorPalette.FrenchGray40.toArgb(), ColorPalette.Leaf70.toArgb(),
                 LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
             ),
             Journal("Title", "Test",
-                R.drawable.ic_planetscale, 0x000000DC, 0xFFCCC2DC,
+                R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
                 LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
             )
         )

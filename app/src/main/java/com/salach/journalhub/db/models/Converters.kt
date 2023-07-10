@@ -1,6 +1,7 @@
 package com.salach.journalhub.db.models
 
 import androidx.room.TypeConverter
+import java.math.BigInteger
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -24,4 +25,5 @@ class Converters {
     fun toLocalTime(value: Long?): LocalTime? {
         return value?.let { LocalTime.ofNanoOfDay(it) }
     }
+
 }

@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -23,17 +24,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
+import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.utils.DateUtils
 import java.time.LocalDate
 
 @Composable
 fun BigJournal(journal: Journal){
-    BigJournal(journal.title, journal.subtitle, journal.icon, journal.createdDate, journal.editedDate)
+    BigJournal(journal.title, journal.subtitle, journal.createdDate, journal.editedDate, journal.icon, journal.iconColor, journal.backgroundColor)
 }
 
 @Composable
 fun BigJournal(
-        title: String? = null, subtitle: String? = null, icon: Int? = null, createdDate: LocalDate? = null, lastEdited: LocalDate? = null
+        title: String? = null, subtitle: String? = null,
+        createdDate: LocalDate? = null, lastEdited: LocalDate? = null,
+        icon: Int? = null, iconColor: Int = ColorPalette.FrenchGray30.toArgb(),
+        backgroundColor: Int = ColorPalette.FrenchGray40.toArgb()
 ) {
     Box {
         Box(
@@ -42,7 +47,7 @@ fun BigJournal(
                 .width(224.dp)
                 .height(352.dp)
                 .background(
-                    color = Color(0xFFD6D6D6),
+                    color = Color(backgroundColor),
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         topEnd = 16.dp,
@@ -133,16 +138,16 @@ fun BigJournal(
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewFullBigJournal(){
     BigJournal(
         "My title",
         "New Subtitle",
-        R.drawable.ic_planetscale,
         LocalDate.of(2005, 4, 2),
-        LocalDate.of(2023, 6, 26)
-    )
+        LocalDate.of(2023, 6, 26),
+        R.drawable.ic_planetscale
+        )
 }
 
 
