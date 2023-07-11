@@ -30,16 +30,6 @@ import java.time.LocalDate
 
 @Composable
 fun BigJournal(journal: Journal){
-    BigJournal(journal.title, journal.subtitle, journal.createdDate, journal.editedDate, journal.icon, journal.iconColor, journal.backgroundColor)
-}
-
-@Composable
-fun BigJournal(
-        title: String? = null, subtitle: String? = null,
-        createdDate: LocalDate? = null, lastEdited: LocalDate? = null,
-        icon: Int? = null, iconColor: Int = ColorPalette.FrenchGray30.toArgb(),
-        backgroundColor: Int = ColorPalette.FrenchGray40.toArgb()
-) {
     Box {
         Box(
             Modifier
@@ -47,7 +37,7 @@ fun BigJournal(
                 .width(224.dp)
                 .height(352.dp)
                 .background(
-                    color = Color(backgroundColor),
+                    color = Color(journal.backgroundColor),
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         topEnd = 16.dp,
@@ -68,35 +58,31 @@ fun BigJournal(
         Column(
             verticalArrangement = Arrangement.Center
         ) {
-            if(title != null){
-                Text(
-                    text = title,
-                    fontSize = 22.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto)),
-                    letterSpacing = 0.22.sp,
-                    modifier = Modifier
-                        .offset(x = 69.dp, y = 70.dp)
-                    //            .width(80.dp)
-                    //                .height(28.dp)
-                )
-            }
-            if(subtitle != null){
-                Text(
-                    text = subtitle,
-                    fontSize = 14.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto)),
-                    color = Color(0xFF464646),
-                    textAlign = TextAlign.Center,
-                    letterSpacing = 0.14.sp,
-                    modifier = Modifier
-                        .offset(x = 65.dp, y = 74.dp)
-                    //                    .width(81.dp)
-                    //                    .height(16.dp)
-                )
-            }
-            if (icon != null){
+            Text(
+                text = journal.title,
+                fontSize = 22.sp,
+                fontFamily = FontFamily(Font(R.font.roboto)),
+                letterSpacing = 0.22.sp,
+                modifier = Modifier
+                    .offset(x = 69.dp, y = 70.dp)
+                //            .width(80.dp)
+                //                .height(28.dp)
+            )
+            Text(
+                text = journal.subtitle,
+                fontSize = 14.sp,
+                fontFamily = FontFamily(Font(R.font.roboto)),
+                color = Color(0xFF464646),
+                textAlign = TextAlign.Center,
+                letterSpacing = 0.14.sp,
+                modifier = Modifier
+                    .offset(x = 65.dp, y = 74.dp)
+                //                    .width(81.dp)
+                //                    .height(16.dp)
+            )
+            if (journal.icon != null){
                 Image(
-                    painter = painterResource(id = icon),
+                    painter = painterResource(id = journal.icon),
                     contentDescription = "image description",
                     contentScale = ContentScale.None,
                     modifier = Modifier
@@ -105,9 +91,9 @@ fun BigJournal(
                         .height(128.dp)
                 )
             }
-            if (createdDate != null){
+            if (journal.showCreatedDate && journal.createdDate != null){
                 Text(
-                    text = "Created: " + DateUtils.formatDate(createdDate),
+                    text = "Created: " + DateUtils.formatDate(journal.createdDate),
                     fontSize = 8.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     color = Color(0xFF464646),
@@ -119,9 +105,9 @@ fun BigJournal(
                         .height(10.dp)
                 )
             }
-            if (lastEdited != null){
+            if (journal.showEditedDate && journal.editedDate != null){
                 Text(
-                    text = "Last edited: " + DateUtils.formatDate(lastEdited),
+                    text = "Last edited: " + DateUtils.formatDate(journal.editedDate),
                     fontSize = 8.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     color = Color(0xFF464646),
@@ -142,17 +128,19 @@ fun BigJournal(
 @Composable
 fun PreviewFullBigJournal(){
     BigJournal(
-        "My title",
-        "New Subtitle",
-        LocalDate.of(2005, 4, 2),
-        LocalDate.of(2023, 6, 26),
-        R.drawable.ic_planetscale
+        Journal(
+            "My title",
+            "New Subtitle",
+            createdDate = LocalDate.of(2005, 4, 2),
+            editedDate = LocalDate.of(2023, 6, 26),
+            icon = R.drawable.ic_planetscale
         )
+    )
 }
 
 
 @Preview
 @Composable
 fun PreviewEmptyBigJournal(){
-    BigJournal()
+    BigJournal(Journal("", ""))
 }

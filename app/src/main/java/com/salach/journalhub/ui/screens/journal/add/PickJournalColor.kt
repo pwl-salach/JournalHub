@@ -60,7 +60,6 @@ fun PickJournalColor(journal: MutableState<Journal>) {
                     .padding(16.dp)
                     .fillMaxWidth()
             ) {
-
                 ColorPicker(
                     onReturnedValue = {
                         pickedColor.value = it

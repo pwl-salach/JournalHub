@@ -35,15 +35,18 @@ import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.BigJournal
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.Typography
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddJournalInitScreen(journal: MutableState<Journal>){
-    val title = remember { mutableStateOf("") }
-    val subtitle = remember { mutableStateOf("") }
-    val showCreationDate = remember { mutableStateOf(false) }
-    val showLastEditedDate = remember { mutableStateOf(false) }
+fun AddJournalInitScreen(
+    journal: MutableState<Journal>
+){
+    val title = remember { mutableStateOf(journal.value.title) }
+    val subtitle = remember { mutableStateOf(journal.value.subtitle) }
+    val showCreationDate = remember { mutableStateOf(journal.value.showCreatedDate) }
+    val showLastEditedDate = remember { mutableStateOf(journal.value.showEditedDate) }
 
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -76,11 +79,8 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
             ) {
                 Text(
                     text = "Add text on the cover.",
-                    fontSize = 14.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto)),
-                    fontWeight = FontWeight(700),
+                    style = Typography.T2B,
                     textAlign = TextAlign.Center,
-                    letterSpacing = 0.14.sp,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Column(
@@ -93,15 +93,8 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                             title.value = it
                             journal.value.title = it
                         },
-                        placeholder = {
-                            Text("Title...", color = Color.Gray)
-                        },
-                        textStyle = TextStyle(
-                            fontSize = 22.sp,
-                            fontFamily = FontFamily(Font(R.font.roboto)),
-                            color = Color(0xFF464646),
-                            letterSpacing = 0.22.sp,
-                        ),
+                        placeholder = { Text("Title...", color = Color.Gray) },
+                        textStyle = Typography.T2R
                     )
                     TextField(
                         value = subtitle.value,
@@ -109,15 +102,9 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                             subtitle.value = it
                             journal.value.subtitle = it
                         },
-                        placeholder = {
-                            Text("Subtitle...", color = Color.Gray)
-                        },
-                        textStyle = TextStyle(
-                            fontSize = 22.sp,
-                            fontFamily = FontFamily(Font(R.font.roboto)),
-                            color = Color(0xFF929292),
-                            letterSpacing = 0.22.sp
-                        ),
+                        placeholder = { Text("Subtitle...", color = Color.Gray) },
+                        textStyle = Typography.T2R,
+//                        color = Color(0xFF929292),
                     )
                 }
                 Column(
@@ -132,14 +119,13 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                             checked = showCreationDate.value,
                             onCheckedChange = {
                                 showCreationDate.value = !showCreationDate.value
+                                journal.value.showCreatedDate = showCreationDate.value
                             },
                             modifier = Modifier.height(24.dp)
                         )
                         Text(
                             text = "Show creation date.",
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(Font(R.font.roboto)),
-                            letterSpacing = 0.14.sp
+                            style = Typography.T2R
                         )
                     }
                     Row(
@@ -150,14 +136,13 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                             checked = showLastEditedDate.value,
                             onCheckedChange = {
                                 showLastEditedDate.value = !showLastEditedDate.value
+                                journal.value.showEditedDate = showLastEditedDate.value
                             },
                             modifier = Modifier.height(24.dp)
                         )
                         Text(
                             text = "Show “last edited” date.",
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(Font(R.font.roboto)),
-                            letterSpacing = 0.14.sp
+                            style = Typography.T2R
                         )
                     }
                 }

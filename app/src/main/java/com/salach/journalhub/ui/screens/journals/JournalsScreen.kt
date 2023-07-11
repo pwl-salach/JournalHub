@@ -31,7 +31,7 @@ fun JournalsScreen(navController: NavHostController) {
         val itemsState by viewModel.journals.observeAsState(emptyList())
 
         if (itemsState.isEmpty()){
-            NoJournalView(navController, viewModel)
+            NoJournalView(navController)
         } else {
             CarouselJournalView(viewModel.journals)
         }

@@ -15,6 +15,8 @@ data class Journal(
     @ColumnInfo val iconColor: Int = ColorPalette.FrenchGray10.toArgb(),
     @ColumnInfo var backgroundColor: Int = ColorPalette.FrenchGray40.toArgb(),
     @ColumnInfo val createdDate: LocalDate? = null,
+    @ColumnInfo var showCreatedDate: Boolean = true,
     @ColumnInfo val editedDate: LocalDate? = null,
+    @ColumnInfo var showEditedDate: Boolean = false,
     @PrimaryKey(autoGenerate = true) val id: Int? = null
 )

@@ -22,11 +22,11 @@ class MockedJournalDao: JournalDao {
         val mockedList = listOf<Journal>(
             Journal("Title", "Test",
                 R.drawable.ic_planetscale, ColorPalette.FrenchGray40.toArgb(), ColorPalette.Leaf70.toArgb(),
-                LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
+                LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
             ),
             Journal("Title", "Test",
                 R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
-                LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
+                LocalDate.of(2012, 5, 10), false, LocalDate.of(2012, 5, 10)
             )
         )
         val mutableStateFlow = MutableStateFlow(mockedList)

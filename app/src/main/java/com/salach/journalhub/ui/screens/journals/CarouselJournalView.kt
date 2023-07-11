@@ -60,15 +60,15 @@ fun PreviewCarouselJournalView(){
     previewData.value = listOf(
         Journal("Title", "Test",
             R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
-            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
+            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
         ),
         Journal("Title", "Test",
             R.drawable.ic_planetscale, ColorPalette.FrenchGray03.toArgb(), ColorPalette.FrenchGray30.toArgb(),
-            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
+            LocalDate.of(2012, 5, 10), false, LocalDate.of(2012, 5, 10)
         ),
         Journal("Title", "Test",
             R.drawable.ic_planetscale, ColorPalette.Leaf50.toArgb(), ColorPalette.Leaf80.toArgb(),
-            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
+            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
         )
     )
     CarouselJournalView(previewData)

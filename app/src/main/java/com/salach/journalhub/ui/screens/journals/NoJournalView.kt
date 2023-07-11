@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,10 +34,14 @@ import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.BigJournal
 import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.theme.Typography
 import java.time.LocalDate
 
 @Composable
-fun NoJournalView(navController: NavController, viewModel: JournalsViewModel) {
+fun NoJournalView(
+    navController: NavController,
+//    viewModel: JournalsViewModel
+) {
     val navigateToJournals = remember { mutableStateOf(false) }
 
     Column(
@@ -44,53 +49,41 @@ fun NoJournalView(navController: NavController, viewModel: JournalsViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(modifier = Modifier.scale(1f)){
-            BigJournal(icon = R.drawable.ic_planetscale)
+            BigJournal(Journal("", "", icon = R.drawable.ic_planetscale))
         }
         Text(
             text = """
                 |You haven’t created any journals yet.
                 |Would you like to do it now?
             """.trimMargin(),
-            fontSize = 14.sp,
-            fontFamily = FontFamily(Font(R.font.roboto)),
-            fontWeight = FontWeight(700),
+            style = Typography.T2R,
             textAlign = TextAlign.Center,
-            letterSpacing = 0.14.sp,
-//            modifier = Modifier
-//                .offset(x = 88.dp, y = 540.dp)
-//                .width(236.dp)
-//                .height(32.dp)
         )
         Box(modifier = Modifier
 //            .offset(x = 100.dp, y = 604.dp)
             .shadow(elevation = 4.dp, spotColor = Color(0x26000000), ambientColor = Color(0x26000000))
-            .width(212.dp)
-            .height(56.dp)
-            .background(color = Color(0xFFD8BFD8), shape = RoundedCornerShape(size = 4.dp))
+            .background(color = ColorPalette.primary, shape = RoundedCornerShape(size = 4.dp))
             .padding(start = 40.dp, top = 16.dp, end = 40.dp, bottom = 16.dp)
         ){
             Text(
                 text = "Let’s START!",
-                fontSize = 22.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                fontWeight = FontWeight(900),
-                color = Color(0xFFFFFFFF),
-                textAlign = TextAlign.Center,
-                letterSpacing = 0.22.sp,
+                style = Typography.L2R,
+//                color = Color(0xFFFFFFFF),
+//                textAlign = TextAlign.Center,
 
                 modifier = Modifier.clickable {
-                    viewModel.addJournal(
-                        Journal("Title", "Test",
-                            R.drawable.ic_planetscale, ColorPalette.FrenchGray40.toArgb(), ColorPalette.Leaf70.toArgb(),
-                            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
-                        )
-                    )
-                    viewModel.addJournal(
-                        Journal("Title", "Test",
-                            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
-                            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
-                        )
-                    )
+//                    viewModel.addJournal(
+//                        Journal("Title", "Test",
+//                            R.drawable.ic_planetscale, ColorPalette.FrenchGray40.toArgb(), ColorPalette.Leaf70.toArgb(),
+//                            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
+//                        )
+//                    )
+//                    viewModel.addJournal(
+//                        Journal("Title", "Test",
+//                            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
+//                            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
+//                        )
+//                    )
                     navigateToJournals.value = true
                 }
             )
@@ -106,8 +99,10 @@ fun NoJournalView(navController: NavController, viewModel: JournalsViewModel) {
 }
 
 
-//@Preview
-//@Composable
-//fun PreviewNoJournalView(){
-//    NoJournalView(rememberNavController())
-//}
+@Preview
+@Composable
+fun PreviewNoJournalView(){
+    CompositionLocalProvider(LocalViewModel provides provideViewModelForPreview()) {
+        NoJournalView(rememberNavController())
+    }
+}

@@ -10,10 +10,13 @@ import androidx.navigation.compose.composable
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.screens.journal.add.AddJournalInitScreen
 import com.salach.journalhub.ui.screens.journal.add.PickJournalColor
+import java.time.LocalDate
 
 @Composable
 fun AddJournalNavGraph(navController: NavHostController){
-    val journal = remember { mutableStateOf(Journal("", "")) }
+    val journal = remember { mutableStateOf(
+        Journal("", "", createdDate = LocalDate.now(), editedDate = LocalDate.now())
+    )}
 
     NavHost(
         navController = navController,
