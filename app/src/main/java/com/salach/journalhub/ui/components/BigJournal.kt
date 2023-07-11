@@ -1,5 +1,7 @@
 package com.salach.journalhub.ui.components
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -29,17 +32,27 @@ import com.salach.journalhub.utils.DateUtils
 import java.time.LocalDate
 
 @Composable
-fun BigJournal(journal: Journal){
-    BigJournal(journal.title, journal.subtitle, journal.createdDate, journal.editedDate, journal.icon, journal.iconColor, journal.backgroundColor)
+fun BigJournal(journal: Journal, showCreatedDate: Boolean = true, showLastEdited: Boolean = true,){
+    BigJournal(
+        journal.title, journal.subtitle,
+        journal.createdDate, journal.editedDate,
+        showCreatedDate, showLastEdited,
+        journal.icon, journal.iconColor, journal.backgroundColor)
 }
 
 @Composable
 fun BigJournal(
         title: String? = null, subtitle: String? = null,
         createdDate: LocalDate? = null, lastEdited: LocalDate? = null,
+        showCreatedDate: Boolean = true, showLastEdited: Boolean = true,
         icon: Int? = null, iconColor: Int = ColorPalette.FrenchGray30.toArgb(),
         backgroundColor: Int = ColorPalette.FrenchGray40.toArgb()
 ) {
+    val transition = updateTransition(targetState = backgroundColor, label = "ColorTransition")
+    val color by transition.animateColor(label = "CoverColor") { state ->
+        Color(state)
+    }
+
     Box {
         Box(
             Modifier
@@ -47,7 +60,7 @@ fun BigJournal(
                 .width(224.dp)
                 .height(352.dp)
                 .background(
-                    color = Color(backgroundColor),
+                    color = color,
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         topEnd = 16.dp,
@@ -146,6 +159,7 @@ fun PreviewFullBigJournal(){
         "New Subtitle",
         LocalDate.of(2005, 4, 2),
         LocalDate.of(2023, 6, 26),
+        true, false,
         R.drawable.ic_planetscale
         )
 }
