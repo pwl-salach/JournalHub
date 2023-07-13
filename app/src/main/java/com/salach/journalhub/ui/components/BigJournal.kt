@@ -101,7 +101,7 @@ fun BigJournal(journal: Journal, updateTrigger: Boolean = false){
             }
             if (journal.icon != null){
                 Image(
-                    painter = painterResource(id = journal.icon),
+                    painter = painterResource(id = journal.icon!!),
                     contentDescription = "image description",
                     contentScale = ContentScale.None,
                     modifier = Modifier

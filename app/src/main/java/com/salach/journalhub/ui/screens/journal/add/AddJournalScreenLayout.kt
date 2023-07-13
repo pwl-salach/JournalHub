@@ -45,7 +45,7 @@ fun AddJournalScreenLayout(journal: MutableState<Journal>, updateTrigger: Boolea
             BigJournal(journal.value, updateTrigger)
         }
         Column(
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .height(300.dp)

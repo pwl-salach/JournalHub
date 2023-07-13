@@ -34,7 +34,6 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddJournalBottomBar(rootController: NavHostController, navController: NavHostController){
-    val journal = remember { mutableStateOf(Journal("","", createdDate = LocalDate.now())) }
     val flowStages = listOf(
         FlowStage.Init,
         FlowStage.PickCoverColor,
