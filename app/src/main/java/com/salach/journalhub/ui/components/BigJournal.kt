@@ -1,5 +1,9 @@
 package com.salach.journalhub.ui.components
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +18,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -34,6 +40,10 @@ import java.time.LocalDate
 
 @Composable
 fun BigJournal(journal: Journal){
+    val transition = updateTransition(targetState = journal.backgroundColor, label = "ColorTransition")
+    val color by transition.animateColor(label = "CoverColor") { state ->
+        Color(state)
+    }
     Box(
         modifier = Modifier
             .width(240.dp)
@@ -41,12 +51,11 @@ fun BigJournal(journal: Journal){
     ) {
         Box(
             Modifier
-
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .padding(bottom = 16.dp)
                 .background(
-                    color = Color(journal.backgroundColor),
+                    color = color,
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         topEnd = 16.dp,
