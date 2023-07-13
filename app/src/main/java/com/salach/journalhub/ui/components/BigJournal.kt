@@ -5,12 +5,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -30,12 +34,17 @@ import java.time.LocalDate
 
 @Composable
 fun BigJournal(journal: Journal){
-    Box {
+    Box(
+        modifier = Modifier
+            .width(240.dp)
+            .height(360.dp)
+    ) {
         Box(
             Modifier
-                .offset(x = 0.dp, y = 0.dp)
-                .width(224.dp)
-                .height(352.dp)
+
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(bottom = 16.dp)
                 .background(
                     color = Color(journal.backgroundColor),
                     shape = RoundedCornerShape(
@@ -48,76 +57,82 @@ fun BigJournal(journal: Journal){
         )
         Image(
             painter = painterResource(id = R.drawable.bookmark_85),
-            contentDescription = "image description",
-            contentScale = ContentScale.None,
+            contentDescription = "bookmark",
+//            contentScale = ContentScale.None,
             modifier = Modifier
-                .offset(x = 14.14727.dp, y = 0.dp)
-                .width(16.dp)
-                .height(368.dp)
+                .offset(x = 16.dp, y = 0.dp)
+                .fillMaxHeight()
+                .height(360.dp)
         )
         Column(
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
         ) {
-            Text(
-                text = journal.title,
-                fontSize = 22.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                letterSpacing = 0.22.sp,
-                modifier = Modifier
-                    .offset(x = 69.dp, y = 70.dp)
-                //            .width(80.dp)
-                //                .height(28.dp)
-            )
-            Text(
-                text = journal.subtitle,
-                fontSize = 14.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                color = Color(0xFF464646),
-                textAlign = TextAlign.Center,
-                letterSpacing = 0.14.sp,
-                modifier = Modifier
-                    .offset(x = 65.dp, y = 74.dp)
-                //                    .width(81.dp)
-                //                    .height(16.dp)
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(top = 32.dp),
+            ) {
+                Text(
+                    text = journal.title,
+                    fontSize = 22.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto)),
+                    letterSpacing = 0.22.sp,
+                )
+                Text(
+                    text = journal.subtitle,
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto)),
+                    color = Color(0xFF464646),
+                    textAlign = TextAlign.Center,
+                    letterSpacing = 0.14.sp,
+                )
+            }
             if (journal.icon != null){
                 Image(
                     painter = painterResource(id = journal.icon),
                     contentDescription = "image description",
                     contentScale = ContentScale.None,
                     modifier = Modifier
-                        .offset(x = 48.dp, y = 80.dp)
                         .width(128.dp)
                         .height(128.dp)
                 )
             }
-            if (journal.showCreatedDate && journal.createdDate != null){
-                Text(
-                    text = "Created: " + DateUtils.formatDate(journal.createdDate),
-                    fontSize = 8.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto)),
-                    color = Color(0xFF464646),
-                    textAlign = TextAlign.Center,
-                    letterSpacing = 0.08.sp,
-                    modifier = Modifier
-                        .offset(x = 70.dp, y = 135.dp)
-                        //                .width(77.dp)
-                        .height(10.dp)
-                )
-            }
-            if (journal.showEditedDate && journal.editedDate != null){
-                Text(
-                    text = "Last edited: " + DateUtils.formatDate(journal.editedDate),
-                    fontSize = 8.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto)),
-                    color = Color(0xFF464646),
-                    textAlign = TextAlign.Center,
-                    letterSpacing = 0.08.sp,
-                    modifier = Modifier
-                        .offset(x = 64.dp, y = 139.dp)
-                        //                .width(89.dp)
-                        .height(10.dp)
-                )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(bottom = 24.dp),
+            ){
+                if (journal.showCreatedDate && journal.createdDate != null){
+                    Text(
+                        text = "Created: " + DateUtils.formatDate(journal.createdDate),
+                        fontSize = 8.sp,
+                        fontFamily = FontFamily(Font(R.font.roboto)),
+                        color = Color(0xFF464646),
+                        textAlign = TextAlign.Center,
+                        letterSpacing = 0.08.sp,
+                        modifier = Modifier
+//                        .offset(x = 70.dp, y = 135.dp)
+                            //                .width(77.dp)
+                            .height(10.dp)
+                    )
+                }
+                if (journal.showEditedDate && journal.editedDate != null){
+                    Text(
+                        text = "Last edited: " + DateUtils.formatDate(journal.editedDate),
+                        fontSize = 8.sp,
+                        fontFamily = FontFamily(Font(R.font.roboto)),
+                        color = Color(0xFF464646),
+                        textAlign = TextAlign.Center,
+                        letterSpacing = 0.08.sp,
+                        modifier = Modifier
+//                        .offset(x = 64.dp, y = 139.dp)
+                            //                .width(89.dp)
+                            .height(10.dp)
+                    )
+                }
             }
         }
     }
@@ -133,7 +148,8 @@ fun PreviewFullBigJournal(){
             "New Subtitle",
             createdDate = LocalDate.of(2005, 4, 2),
             editedDate = LocalDate.of(2023, 6, 26),
-            icon = R.drawable.ic_planetscale
+            icon = R.drawable.ic_planetscale,
+            showEditedDate = true
         )
     )
 }

@@ -36,13 +36,12 @@ import com.salach.journalhub.ui.components.BigJournal
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
+import java.time.LocalDate
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddJournalInitScreen(
-    journal: MutableState<Journal>
-){
+fun AddJournalInitScreen(journal: MutableState<Journal>){
     val title = remember { mutableStateOf(journal.value.title) }
     val subtitle = remember { mutableStateOf(journal.value.subtitle) }
     val showCreationDate = remember { mutableStateOf(journal.value.showCreatedDate) }
@@ -66,7 +65,7 @@ fun AddJournalInitScreen(
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
                 .background(
-                    color = ColorPalette.FrenchGray20,
+                    color = ColorPalette.primarySurface1,
                     shape = RoundedCornerShape(size = 4.dp)
                 )
         ) {
@@ -155,6 +154,8 @@ fun AddJournalInitScreen(
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddJournalScreen(){
-    val mutableJournal = mutableStateOf(Journal("",""))
+    val mutableJournal = mutableStateOf(
+        Journal("","", createdDate = LocalDate.now(), editedDate = LocalDate.now())
+    )
     AddJournalInitScreen(mutableJournal)
 }

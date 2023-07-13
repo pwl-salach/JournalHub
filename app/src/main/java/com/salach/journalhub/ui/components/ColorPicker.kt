@@ -4,9 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,7 +26,7 @@ import com.salach.journalhub.ui.theme.Typography
 
 
 @Composable
-fun ColorPicker(onReturnedValue: (Int) -> Unit) {
+fun ColorPicker(onColorPicked: (Int) -> Unit) {
     val colors = listOf(
         ColorPalette.Lavender70, ColorPalette.Lavender40, ColorPalette.Lavender20,
         ColorPalette.Leaf70, ColorPalette.Leaf40, ColorPalette.Leaf20,
@@ -80,7 +78,7 @@ fun ColorPicker(onReturnedValue: (Int) -> Unit) {
                         .size(32.dp)
                         .background(color, shape = CircleShape)
                         .clickable {
-                            onReturnedValue(color.toArgb())
+                            onColorPicked(color.toArgb())
                         }
                     )
                 }

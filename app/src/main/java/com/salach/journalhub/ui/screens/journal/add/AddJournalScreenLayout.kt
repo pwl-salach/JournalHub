@@ -11,76 +11,62 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.BigJournal
-import com.salach.journalhub.ui.components.ColorPicker
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
-import java.time.LocalDate
 
 @Composable
-fun PickJournalColor(journal: MutableState<Journal>) {
-    val pickedColor = remember { mutableStateOf(journal.value.backgroundColor) }
+fun AddJournalScreenLayout(journal: MutableState<Journal>, content: @Composable () -> Unit) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxHeight().padding(
-            start = 16.dp, top = 16.dp, end = 16.dp, bottom = (Dimensions.bottomBarHeight + 16.dp)
-        )
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(
+                start = 16.dp,
+                top = 16.dp,
+                end = 16.dp,
+                bottom = (Dimensions.bottomBarHeight + 16.dp)
+            )
+
     ) {
         Box(
             modifier = Modifier.padding(vertical = 16.dp)
         ){
-            // FIXME find a better way to force nested Composable to reload
-            Box(Modifier.height(1.dp).width(1.dp).background(Color(pickedColor.value)))
             BigJournal(journal.value)
         }
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.Start,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
+                .height(300.dp)
+                .fillMaxWidth()
                 .background(
                     color = ColorPalette.primarySurface1,
                     shape = RoundedCornerShape(size = 4.dp)
                 )
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp)
+
         ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
-                horizontalAlignment = Alignment.Start,
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
-            ) {
-                ColorPicker(
-                    onColorPicked = {
-                        pickedColor.value = it
-                        journal.value.backgroundColor = pickedColor.value
-                    }
-                )
-            }
+            content()
         }
     }
 }
 
 @SuppressLint("UnrememberedMutableState")
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun PreviewPickJournalColor(){
-    val mutableState = mutableStateOf(Journal(
-        "New Title",
-        "New Subtitle",
-        createdDate = LocalDate.now()
-    ))
-    PickJournalColor(
-            mutableState
-    )
+fun PreviewAddJournalScreenLayout(){
+    AddJournalScreenLayout(mutableStateOf(Journal("",""))){
+        Text(text = "TEST")
+    }
 }

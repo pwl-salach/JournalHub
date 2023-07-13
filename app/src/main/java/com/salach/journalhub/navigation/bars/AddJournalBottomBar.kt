@@ -38,6 +38,7 @@ fun AddJournalBottomBar(rootController: NavHostController, navController: NavHos
     val flowStages = listOf(
         FlowStage.Init,
         FlowStage.PickCoverColor,
+        FlowStage.PickIconsGroup
 //        FlowStage.PickIcon,
 //        FlowStage.PickIconColor
     )
@@ -86,6 +87,7 @@ fun AddJournalBottomBar(rootController: NavHostController, navController: NavHos
 sealed class FlowStage(val route: String) {
     object Init : FlowStage(Route.AddJournalInit.link)
     object PickCoverColor : FlowStage(Route.AddJournalPickColor.link)
+    object PickIconsGroup : FlowStage(Route.AddJournalPickIconsGroup.link)
 //    object PickIcon : FlowStage("")
 //    object PickIconColor : FlowStage("")
 }
