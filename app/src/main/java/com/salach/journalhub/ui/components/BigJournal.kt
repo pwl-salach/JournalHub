@@ -39,7 +39,7 @@ import com.salach.journalhub.utils.DateUtils
 import java.time.LocalDate
 
 @Composable
-fun BigJournal(journal: Journal){
+fun BigJournal(journal: Journal, updateTrigger: Boolean = false){
     val transition = updateTransition(targetState = journal.backgroundColor, label = "ColorTransition")
     val color by transition.animateColor(label = "CoverColor") { state ->
         Color(state)

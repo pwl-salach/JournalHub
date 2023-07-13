@@ -25,9 +25,9 @@ import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
 
 @Composable
-fun AddJournalScreenLayout(journal: MutableState<Journal>, content: @Composable () -> Unit) {
+fun AddJournalScreenLayout(journal: MutableState<Journal>, updateTrigger: Boolean = false, content: @Composable () -> Unit) {
     Column(
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxHeight()
@@ -42,7 +42,7 @@ fun AddJournalScreenLayout(journal: MutableState<Journal>, content: @Composable 
         Box(
             modifier = Modifier.padding(vertical = 16.dp)
         ){
-            BigJournal(journal.value)
+            BigJournal(journal.value, updateTrigger)
         }
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
