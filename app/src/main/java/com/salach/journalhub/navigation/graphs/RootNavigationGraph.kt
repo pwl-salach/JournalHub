@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.salach.journalhub.ui.screens.MainScreen
 import com.salach.journalhub.ui.screens.journal.add.AddJournalScreen
+import com.salach.journalhub.ui.screens.journals.ProvideJournalViewModel
 
 @Composable
 fun RootNavigationGraph(navController: NavHostController) {
@@ -18,7 +19,9 @@ fun RootNavigationGraph(navController: NavHostController) {
             MainScreen(navController)
         }
         composable(route = Graph.NEW_JOURNAL){
-            AddJournalScreen(navController)
+            ProvideJournalViewModel {
+                AddJournalScreen(navController)
+            }
         }
     }
 }

@@ -15,6 +15,8 @@ import com.salach.journalhub.navigation.bars.AddJournalBottomBar
 import com.salach.journalhub.navigation.graphs.AddJournalNavGraph
 import com.salach.journalhub.navigation.graphs.Route
 import com.salach.journalhub.navigation.graphs.TabNavGraph
+import com.salach.journalhub.ui.screens.journals.JournalsViewModel
+import com.salach.journalhub.ui.screens.journals.LocalViewModel
 import java.time.LocalDate
 
 
@@ -22,6 +24,7 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddJournalScreen(rootController: NavHostController) {
+    val viewModel: JournalsViewModel = LocalViewModel.current
     val journal = remember { mutableStateOf(
         Journal("", "", createdDate = LocalDate.now(), editedDate = LocalDate.now())
     )}
@@ -29,7 +32,7 @@ fun AddJournalScreen(rootController: NavHostController) {
     Scaffold(
         bottomBar = {
             AddJournalBottomBar(rootController, nestedNavController){
-                print(journal)
+                viewModel.addJournal(journal.value)
             }
         }
     ) {
