@@ -64,4 +64,21 @@ object ColorPalette {
     val primarySurface3 = Color(0xFFF1EEF5)
     val primarySurface2 = Color(0xFFF5F3F8)
     val primarySurface1 = Color(0xFFF8F7FA)
+
+    val Pastels = listOf(
+        Color(0xFF9747FF),
+        Color(0xFF94E4F7),
+        Color(0xFFADE3DF),
+        Color(0xFFAFD2F5),
+        Color(0xFFC6E2C6),
+        Color(0xFFCABFF2),
+        Color(0xFFE5ACEF),
+        Color(0xFFF79494),
+        Color(0xFFF7BA94),
+        Color(0xFFF7CD94),
+    )
+    val Neutrals = listOf(
+        Color(0xFF000000),
+        Color(0xFFFFFFFF)
+    )
 }

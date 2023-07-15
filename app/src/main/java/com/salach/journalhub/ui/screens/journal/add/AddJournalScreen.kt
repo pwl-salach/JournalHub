@@ -38,17 +38,4 @@ fun AddJournalScreen(rootController: NavHostController) {
     ) {
         AddJournalNavGraph(journal, nestedNavController)
     }
-//}
-//    Box(modifier = androidx.compose.ui.Modifier.padding(innerPadding)) {
-//        when (currentStage?.destination?.route) {
-//            FlowStage.Init.route -> AddJournalInitScreen(journal.value) {
-//                // Update the object state or perform any necessary validation
-//                // Navigate to the next stage
-//                navController.navigate(flowStages[currentIndex + 1].route)
-//            }
-//            FlowStage.PickCoverColor.route -> PickJournalColor(journal.value) {
-//                navController.navigate(flowStages[currentIndex + 1].route)
-//            }
-//        }
-//    }
 }
