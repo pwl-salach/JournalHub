@@ -9,7 +9,8 @@ object NavRouteName {
     const val settings = "settings"
     const val addJournalInit = "addJournalInit"
     const val addJournalPickColor = "addJournalPickColor"
-    const val addJournalPickIconsGroup = "addJournalPickIconGroup"
+    const val addJournalPickIcon = "addJournalPickIcon"
+    const val addJournalPickIconColor = "addJournalPickIconColor"
 }
 
 sealed class Route(val link: String, val arguments: List<NamedNavArgument> = emptyList()){
@@ -18,5 +19,6 @@ sealed class Route(val link: String, val arguments: List<NamedNavArgument> = emp
     object Settings: Route(NavRouteName.settings)
     object AddJournalInit: Route(NavRouteName.addJournalInit)
     object AddJournalPickColor: Route(NavRouteName.addJournalPickColor)
-    object AddJournalPickIconsGroup: Route(NavRouteName.addJournalPickIconsGroup)
+    object AddJournalPickIcon: Route(NavRouteName.addJournalPickIcon)
+    object AddJournalPickIconColor: Route(NavRouteName.addJournalPickIconColor)
 }

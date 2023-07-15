@@ -10,8 +10,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
@@ -24,22 +22,21 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
-import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.navigation.graphs.Route
 import com.salach.journalhub.ui.components.NavBarIconButton
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
-import java.time.LocalDate
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddJournalBottomBar(rootController: NavHostController, navController: NavHostController){
+fun AddJournalBottomBar(
+    rootController: NavHostController, navController: NavHostController,
+    finishedFlowCallback: () -> Unit
+){
     val flowStages = listOf(
         FlowStage.Init,
         FlowStage.PickCoverColor,
-        FlowStage.PickIconsGroup
-//        FlowStage.PickIcon,
-//        FlowStage.PickIconColor
+        FlowStage.PickIcon,
+        FlowStage.PickIconColor
     )
     val currentStage by navController.currentBackStackEntryAsState()
     val currentIndex = flowStages.indexOfFirst { it.route == currentStage?.destination?.route }
@@ -68,16 +65,27 @@ fun AddJournalBottomBar(rootController: NavHostController, navController: NavHos
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
-        ){
-            NavBarIconButton(
-                icon = R.drawable.ic_chevron_left,isSelected = false
-            ) {
-                navController.popBackStack()
+        ) {
+            if (currentIndex > 0) {
+                NavBarIconButton(
+                    icon = R.drawable.ic_chevron_left, isSelected = false
+                ) {
+                    navController.popBackStack()
+                }
             }
-            NavBarIconButton(
-                icon = R.drawable.ic_chevron_right,isSelected = false
-            ) {
-                navController.navigate(flowStages[currentIndex + 1].route)
+            if (currentIndex + 1 < flowStages.size) {
+                NavBarIconButton(
+                    icon = R.drawable.ic_chevron_right, isSelected = false
+                ) {
+                    navController.navigate(flowStages[currentIndex + 1].route)
+                }
+            } else {
+                NavBarIconButton(
+                    icon = R.drawable.ic_arrow_back, isSelected = false
+                ) {
+                    finishedFlowCallback()
+                    rootController.popBackStack()
+                }
             }
         }
     }
@@ -86,15 +94,14 @@ fun AddJournalBottomBar(rootController: NavHostController, navController: NavHos
 sealed class FlowStage(val route: String) {
     object Init : FlowStage(Route.AddJournalInit.link)
     object PickCoverColor : FlowStage(Route.AddJournalPickColor.link)
-    object PickIconsGroup : FlowStage(Route.AddJournalPickIconsGroup.link)
-//    object PickIcon : FlowStage("")
-//    object PickIconColor : FlowStage("")
+    object PickIcon : FlowStage(Route.AddJournalPickIcon.link)
+    object PickIconColor : FlowStage(Route.AddJournalPickIconColor.link)
 }
 
 @Preview
 @Composable
 fun PreviewAddJournalBottomBar(){
     val navController = rememberNavController()
-    AddJournalBottomBar(navController, navController)
+    AddJournalBottomBar(navController, navController){}
 }
 

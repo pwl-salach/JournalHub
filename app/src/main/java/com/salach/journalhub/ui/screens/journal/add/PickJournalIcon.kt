@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -31,7 +29,7 @@ import com.salach.journalhub.ui.theme.IconsGroup
 import com.salach.journalhub.ui.theme.Typography
 
 @Composable
-fun PickJournalIconsGroup(journal: MutableState<Journal>) {
+fun PickJournalIcon(journal: MutableState<Journal>) {
     val groupsPerRow = 4
     val updateTrigger = remember { mutableStateOf(false) }
     val selectedGroup = remember { mutableStateOf("") }
@@ -118,5 +116,5 @@ fun PickJournalIconsGroup(journal: MutableState<Journal>) {
 @Preview
 @Composable
 fun PreviewPickJournalIcon(){
-    PickJournalIconsGroup(mutableStateOf(Journal("","")))
+    PickJournalIcon(mutableStateOf(Journal("","")))
 }

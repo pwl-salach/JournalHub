@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -104,6 +105,7 @@ fun BigJournal(journal: Journal, updateTrigger: Boolean = false){
                     painter = painterResource(id = journal.icon!!),
                     contentDescription = "image description",
                     contentScale = ContentScale.None,
+                    colorFilter = ColorFilter.tint(Color(journal.iconColor)),
                     modifier = Modifier
                         .width(128.dp)
                         .height(128.dp)

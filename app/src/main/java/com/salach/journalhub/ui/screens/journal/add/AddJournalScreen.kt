@@ -15,17 +15,25 @@ import com.salach.journalhub.navigation.bars.AddJournalBottomBar
 import com.salach.journalhub.navigation.graphs.AddJournalNavGraph
 import com.salach.journalhub.navigation.graphs.Route
 import com.salach.journalhub.navigation.graphs.TabNavGraph
+import java.time.LocalDate
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddJournalScreen(rootController: NavHostController) {
+    val journal = remember { mutableStateOf(
+        Journal("", "", createdDate = LocalDate.now(), editedDate = LocalDate.now())
+    )}
     val nestedNavController = rememberNavController()
     Scaffold(
-        bottomBar = { AddJournalBottomBar(rootController, nestedNavController) }
+        bottomBar = {
+            AddJournalBottomBar(rootController, nestedNavController){
+                print(journal)
+            }
+        }
     ) {
-        AddJournalNavGraph(nestedNavController)
+        AddJournalNavGraph(journal, nestedNavController)
     }
 //}
 //    Box(modifier = androidx.compose.ui.Modifier.padding(innerPadding)) {

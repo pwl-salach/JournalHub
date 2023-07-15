@@ -12,7 +12,7 @@ data class Journal(
     @ColumnInfo var title: String,
     @ColumnInfo var subtitle: String,
     @ColumnInfo var icon: Int? = null,
-    @ColumnInfo val iconColor: Int = ColorPalette.FrenchGray10.toArgb(),
+    @ColumnInfo var iconColor: Int = ColorPalette.FrenchGray10.toArgb(),
     @ColumnInfo var backgroundColor: Int = ColorPalette.FrenchGray40.toArgb(),
     @ColumnInfo val createdDate: LocalDate? = null,
     @ColumnInfo var showCreatedDate: Boolean = true,
