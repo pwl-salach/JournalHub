@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -23,13 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PaintingStyle.Companion.Stroke
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
@@ -40,17 +35,17 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
     val selectedItemId = remember { mutableStateOf(-1) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .background(
                 color = ColorPalette.SurfaceLight,
-                shape = RoundedCornerShape(size = Dimensions.half)
+                shape = RoundedCornerShape(size = Dimensions.Half)
             )
-            .padding(Dimensions.s)
+            .padding(Dimensions.S)
     ){
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.l, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.L, Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -59,7 +54,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
             )
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
@@ -68,7 +63,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
             )
 
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -85,7 +80,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
             }
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
@@ -93,7 +88,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
                 style = Typography.L1R
             )
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -125,16 +120,16 @@ fun PreviewColorPicker(){
 fun SelectableColor(color: Color, isSelected: Boolean, onItemSelected: (Int) -> Unit){
     Box(
         modifier = Modifier
-            .size(Dimensions.l)
+            .size(Dimensions.L)
             .clip(shape = CircleShape)
             .clickable {
                 onItemSelected(color.toArgb())
             }
             .drawBehind {
-                val outerRadius = Dimensions.l.toPx() / 2
-                val innerRadius = Dimensions.s.toPx() / 2
+                val outerRadius = Dimensions.L.toPx() / 2
+                val innerRadius = Dimensions.S.toPx() / 2
                 val filledRadius = if (isSelected) innerRadius else outerRadius
-                val outerRingWidth = Dimensions.xs.toPx() + Dimensions.half.toPx()
+                val outerRingWidth = Dimensions.XS.toPx() + Dimensions.Half.toPx()
                 drawCircle(
                     color = color,
                     radius = filledRadius,
@@ -153,7 +148,7 @@ fun SelectableColor(color: Color, isSelected: Boolean, onItemSelected: (Int) -> 
 @Preview
 @Composable
 fun PreviewSelectableColor(){
-    Row(horizontalArrangement = Arrangement.spacedBy(Dimensions.s)) {
+    Row(horizontalArrangement = Arrangement.spacedBy(Dimensions.S)) {
         SelectableColor(ColorPalette.Lavender50, false) {}
         SelectableColor(ColorPalette.Lavender50, true) {}
     }

@@ -47,7 +47,7 @@ fun UpcomingSchedule(){
 fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                    title: String, subtitle: String, isDone: Boolean){
     Row(
-        horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
+        horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .width(380.dp)
@@ -62,9 +62,9 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 .height(40.dp)
                 .background(
                     color = ColorPalette.ThistleThistle100,
-                    shape = RoundedCornerShape(size = Dimensions.half)
+                    shape = RoundedCornerShape(size = Dimensions.Half)
                 )
-                .padding(Dimensions.xs)
+                .padding(Dimensions.XS)
         ) {
             Text(
                 text = "07:30",
@@ -76,15 +76,15 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 modifier = Modifier
 //                    .offset(x = 8.dp, y = 12.dp)
                     .width(40.dp)
-                    .height(Dimensions.s)
+                    .height(Dimensions.S)
             )
         }
         Icon(
             painter = painterResource(id = icon),
             contentDescription = "icon",
             modifier = Modifier
-                .width(Dimensions.l)
-                .height(Dimensions.l)
+                .width(Dimensions.L)
+                .height(Dimensions.L)
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -93,19 +93,19 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 .border(
                     width = 1.dp,
                     color = ColorPalette.ThistleThistle100,
-                    shape = RoundedCornerShape(size = Dimensions.half)
+                    shape = RoundedCornerShape(size = Dimensions.Half)
                 )
                 .width(260.dp)
                 .height(40.dp)
-                .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = Dimensions.half))
-                .padding(vertical = Dimensions.half, horizontal = Dimensions.xs)
+                .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = Dimensions.Half))
+                .padding(vertical = Dimensions.Half, horizontal = Dimensions.XS)
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(Dimensions.half, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(Dimensions.Half, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                     .width(54.dp)
-                    .height(Dimensions.l)
+                    .height(Dimensions.L)
             ) {
                 Text(
                     text = title,
@@ -117,7 +117,7 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                     textDecoration = TextDecoration.LineThrough,
                     modifier = Modifier
 //                        .width(54.dp)
-                        .height(Dimensions.s)
+                        .height(Dimensions.S)
                 )
                 Text(
                     text = subtitle,
@@ -138,8 +138,8 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 contentDescription = "icon",
                 modifier = Modifier
 //                    .offset(x = 228.dp, y = 8.dp)
-                    .width(Dimensions.m)
-                    .height(Dimensions.m)
+                    .width(Dimensions.M)
+                    .height(Dimensions.M)
             )
         }
     }
@@ -163,7 +163,7 @@ fun MySchedule(schedules: LiveData<List<Schedule>>){
     val itemsState by schedules.observeAsState(emptyList())
     val now = LocalTime.now()
     LazyColumn (
-        verticalArrangement = Arrangement.spacedBy(Dimensions.xs, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.XS, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
 //        modifier = Modifier
 //            .offset(x = 0.dp, y = 344.dp)

@@ -12,11 +12,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,10 +38,10 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
     val updateTrigger = remember { mutableStateOf(false) }
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
-                .padding(Dimensions.s)
+                .padding(Dimensions.S)
                 .fillMaxWidth()
         ) {
             Text(
@@ -53,7 +51,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                 modifier = Modifier.fillMaxWidth()
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
             ) {
                 TextField(
@@ -81,11 +79,11 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                 )
             }
             Column(
-                verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(Dimensions.xs, Alignment.CenterHorizontally),
+                    horizontalArrangement = Arrangement.spacedBy(Dimensions.XS, Alignment.CenterHorizontally),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Checkbox(
@@ -95,7 +93,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                             journal.value.showCreatedDate = showCreationDate.value
                             updateTrigger.value = !updateTrigger.value
                         },
-                        modifier = Modifier.height(Dimensions.m)
+                        modifier = Modifier.height(Dimensions.M)
                     )
                     Text(
                         text = "Show creation date.",
@@ -103,7 +101,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                     )
                 }
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(Dimensions.xs, Alignment.CenterHorizontally),
+                    horizontalArrangement = Arrangement.spacedBy(Dimensions.XS, Alignment.CenterHorizontally),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Checkbox(
@@ -113,7 +111,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                             journal.value.showEditedDate = showLastEditedDate.value
                             updateTrigger.value = !updateTrigger.value
                         },
-                        modifier = Modifier.height(Dimensions.m)
+                        modifier = Modifier.height(Dimensions.M)
                     )
                     Text(
                         text = "Show “last edited” date.",

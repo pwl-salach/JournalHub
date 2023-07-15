@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomNavigation
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
@@ -41,12 +39,12 @@ fun MainScreenBottomBar(navController: NavHostController, rootController: NavHos
 
     BottomNavigation(
         backgroundColor = ColorPalette.primarySurface3,
-        modifier = Modifier.height(Dimensions.bottomBarHeight)
+        modifier = Modifier.height(Dimensions.BottomBarHeight)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(Dimensions.s)
+            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(Dimensions.S)
         ){
             items.forEachIndexed { index, screen ->
                 val isSelected = selectedItem == index

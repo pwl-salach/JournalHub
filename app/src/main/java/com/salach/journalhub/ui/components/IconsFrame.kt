@@ -27,8 +27,8 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
         verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .background(color = ColorPalette.primarySurface2, shape = RoundedCornerShape(size = Dimensions.half))
-            .padding(Dimensions.xs)
+            .background(color = ColorPalette.primarySurface2, shape = RoundedCornerShape(size = Dimensions.Half))
+            .padding(Dimensions.XS)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
@@ -37,7 +37,7 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
             for(i in 0..1) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(
-                        Dimensions.xs,
+                        Dimensions.XS,
                         Alignment.CenterHorizontally
                     ),
                     verticalAlignment = Alignment.CenterVertically,
@@ -46,7 +46,7 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
                         Icon(
                             painter = painterResource(id = iconsGroup[i*2 + j]),
                             contentDescription = "",
-                            modifier = Modifier.width(Dimensions.s).height(Dimensions.s)
+                            modifier = Modifier.width(Dimensions.S).height(Dimensions.S)
                         )
                     }
                 }

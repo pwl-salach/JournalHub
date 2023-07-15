@@ -33,14 +33,14 @@ fun CollapsableColumn(title: String, content: @Composable () -> Unit){
     val isCollapsed = remember { mutableStateOf(false) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .height(Dimensions.l)
+                .height(Dimensions.L)
                 .fillMaxWidth()
         ) {
             Text(
@@ -53,28 +53,28 @@ fun CollapsableColumn(title: String, content: @Composable () -> Unit){
                 modifier = Modifier
                     .offset(x = 0.dp, y = 0.dp)
 //                    .width(119.dp)
-                    .height(Dimensions.l)
+                    .height(Dimensions.L)
             )
             Row(
-                horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
                 verticalAlignment = Alignment.Top,
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.plus),
                     contentDescription = "Show/hide",
                     modifier = Modifier
-                        .width(Dimensions.l)
-                        .height(Dimensions.l)
-                        .padding(Dimensions.half)
+                        .width(Dimensions.L)
+                        .height(Dimensions.L)
+                        .padding(Dimensions.Half)
                 )
                 Image(
                     painter = painterResource(id = R.drawable.tabler_icon_eye_off),
                     contentDescription = "Show/hide",
                     modifier = Modifier
 //                        .offset(x = 0.dp, y = 0.dp)
-                        .width(Dimensions.l)
-                        .height(Dimensions.l)
-                        .padding(Dimensions.half)
+                        .width(Dimensions.L)
+                        .height(Dimensions.L)
+                        .padding(Dimensions.Half)
                         .clickable {
                             isCollapsed.value = !isCollapsed.value
                         }

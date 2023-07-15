@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,41 +19,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.components.BigJournal
+import com.salach.journalhub.ui.components.JournalCover
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
 
 @Composable
 fun AddJournalScreenLayout(journal: MutableState<Journal>, updateTrigger: Boolean = false, content: @Composable () -> Unit) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxHeight()
             .padding(
-                start = Dimensions.s,
-                top = Dimensions.s,
-                end = Dimensions.s,
-                bottom = (Dimensions.bottomBarHeight + Dimensions.s)
+                start = Dimensions.S,
+                top = Dimensions.S,
+                end = Dimensions.S,
+                bottom = (Dimensions.BottomBarHeight)
             )
 
     ) {
         Box(
-            modifier = Modifier.padding(vertical = Dimensions.s)
+            modifier = Modifier.padding(vertical = Dimensions.S)
         ){
-            BigJournal(journal.value, updateTrigger)
+            JournalCover(journal.value, updateTrigger)
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.s),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.S),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .height(300.dp)
+                .height(310.dp)
                 .fillMaxWidth()
                 .background(
                     color = ColorPalette.primarySurface1,
-                    shape = RoundedCornerShape(size = Dimensions.half)
+                    shape = RoundedCornerShape(size = Dimensions.Half)
                 )
-                .padding(Dimensions.s)
+                .padding(Dimensions.S)
 
         ) {
             content()

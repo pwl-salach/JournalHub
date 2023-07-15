@@ -121,7 +121,7 @@ object Typography {
         letterSpacing = 0.5.sp
     )
     val L3L = TextStyle(
-        fontSize = 11 .sp,
+        fontSize = 11.sp,
         fontFamily = FontFamily(Font(R.font.roboto)),
         fontWeight = FontWeight(300),
         letterSpacing = 0.5.sp

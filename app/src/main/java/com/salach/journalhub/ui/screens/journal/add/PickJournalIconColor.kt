@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.ColorPicker
 import com.salach.journalhub.ui.theme.Dimensions
@@ -24,7 +23,7 @@ fun PickJournalIconColor(journal: MutableState<Journal>) {
 
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
             modifier = Modifier.fillMaxWidth()
         ) {

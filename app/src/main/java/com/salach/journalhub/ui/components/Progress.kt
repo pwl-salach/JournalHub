@@ -22,7 +22,7 @@ fun Progress(progress: Float) {
         contentAlignment = Alignment.CenterStart,
         modifier = Modifier
             .fillMaxWidth()
-            .height(height = Dimensions.half)
+            .height(height = Dimensions.Half)
     )
     {
         Box(
@@ -30,7 +30,7 @@ fun Progress(progress: Float) {
                 .align(alignment = Alignment.TopStart)
                 .offset(x = 0.dp, y = 0.dp)
                 .fillMaxWidth()
-                .height(height = Dimensions.half)
+                .height(height = Dimensions.Half)
                 .clip(shape = MaterialTheme.shapes.medium)
                 .background(color = Color(0xffb3b3b3)))
         Box(
@@ -38,7 +38,7 @@ fun Progress(progress: Float) {
                 .align(alignment = Alignment.TopStart)
                 .offset(x = 0.dp, y = 0.dp)
                 .fillMaxWidth(progress)
-                .height(height = Dimensions.half)
+                .height(height = Dimensions.Half)
                 .clip(shape = MaterialTheme.shapes.small)
                 .background(color = Color(0xffd8bfd8)))
     }

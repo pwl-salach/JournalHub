@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,7 +25,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,10 +56,10 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                 Image(
                     painter = painterResource(id = icon),
                     contentDescription = "icon",
-                    modifier = Modifier.size(size = Dimensions.l)
+                    modifier = Modifier.size(size = Dimensions.L)
                 )
                 Spacer(
-                    modifier = Modifier.width(width = Dimensions.xs)
+                    modifier = Modifier.width(width = Dimensions.XS)
                 )
                 Column() {
                     Text(
@@ -74,7 +72,7 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         )
                     )
                     Spacer(
-                        modifier = Modifier.height(height = Dimensions.half)
+                        modifier = Modifier.height(height = Dimensions.Half)
                     )
                     Text(
                         text = subtitle,
@@ -98,26 +96,26 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         contentDescription = "Remove",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(Dimensions.l)
-                            .height(Dimensions.l)
+                            .width(Dimensions.L)
+                            .height(Dimensions.L)
                     )
                     Spacer(
-                        modifier = Modifier.width(width = Dimensions.xs)
+                        modifier = Modifier.width(width = Dimensions.XS)
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.add),
                         contentDescription = "Add",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(Dimensions.l)
-                            .height(Dimensions.l)
+                            .width(Dimensions.L)
+                            .height(Dimensions.L)
                     )
                 }
             }
         }
         Spacer(
             modifier = Modifier
-                .height(height = Dimensions.xs)
+                .height(height = Dimensions.XS)
         )
         Progress(progress)
     }
@@ -141,7 +139,7 @@ fun CurrentGoals(goals: LiveData<List<Goal>>) {
     val itemsState by goals.observeAsState(emptyList())
 
     LazyColumn (
-        verticalArrangement = Arrangement.spacedBy(Dimensions.xs, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.XS, Alignment.CenterVertically),
 //        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
     ){

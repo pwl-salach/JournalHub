@@ -5,9 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,23 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.components.BigJournal
+import com.salach.journalhub.ui.components.JournalCover
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
-import java.time.LocalDate
 
 @Composable
 fun NoJournalView(
@@ -46,11 +37,11 @@ fun NoJournalView(
     val navigateToJournals = remember { mutableStateOf(false) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(modifier = Modifier.scale(1f)){
-            BigJournal(Journal("", "", icon = R.drawable.ic_planetscale))
+            JournalCover(Journal("", "", icon = R.drawable.ic_planetscale))
         }
         Text(
             text = """
@@ -62,9 +53,9 @@ fun NoJournalView(
         )
         Box(modifier = Modifier
 //            .offset(x = 100.dp, y = 604.dp)
-            .shadow(elevation = Dimensions.half, spotColor = Color(0x26000000), ambientColor = Color(0x26000000))
-            .background(color = ColorPalette.primary, shape = RoundedCornerShape(size = Dimensions.half))
-            .padding(vertical = Dimensions.s, horizontal = Dimensions.xl)
+            .shadow(elevation = Dimensions.Half, spotColor = Color(0x26000000), ambientColor = Color(0x26000000))
+            .background(color = ColorPalette.primary, shape = RoundedCornerShape(size = Dimensions.Half))
+            .padding(vertical = Dimensions.S, horizontal = Dimensions.XL)
         ){
             Text(
                 text = "Let’s START!",

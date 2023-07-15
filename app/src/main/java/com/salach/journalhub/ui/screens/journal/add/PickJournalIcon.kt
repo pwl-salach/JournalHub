@@ -49,14 +49,14 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
             Text(
                 text = if (selectedGroup.value == "") "Categories" else "Categories / ${selectedGroup.value}",
                 style = Typography.T2R,
-                modifier = Modifier.height(Dimensions.m)
+                modifier = Modifier.height(Dimensions.M)
             )
             if (selectedGroup.value != "") {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = "back",
                     modifier = Modifier
-                        .height(Dimensions.m)
+                        .height(Dimensions.M)
                         .clickable {
                             selectedGroup.value = ""
                         }
@@ -71,7 +71,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
                 ) { rowItems ->
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(
-                            Dimensions.xs,
+                            Dimensions.XS,
                             Alignment.CenterHorizontally
                         ),
                         verticalAlignment = Alignment.Top
@@ -91,7 +91,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
                 IconsGroup.grouped[selectedGroup.value]?.let {
                     items(it.windowed(6,6,true)){ rowItems ->
                         LazyRow(
-                            horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
+                            horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
                             modifier = Modifier.fillMaxWidth()
                         ){
                             items(rowItems){it ->

@@ -10,7 +10,6 @@ import androidx.navigation.NavHostController
 import com.salach.journalhub.JournalHub
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
@@ -39,7 +38,7 @@ fun DashboardScreen(navController: NavHostController){
         Schedule(0, TimeUnit.DAYS, LocalDate.now(), null, LocalTime.now(), null),
     )
     Column(
-        modifier = Modifier.padding(start = Dimensions.s, end = Dimensions.s)
+        modifier = Modifier.padding(start = Dimensions.S, end = Dimensions.S)
     ) {
         CollapsableColumn(title = "Daily Goal") {
             CurrentGoals(goals = viewModel.goals)

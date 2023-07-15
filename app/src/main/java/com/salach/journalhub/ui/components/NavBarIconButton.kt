@@ -25,7 +25,7 @@ fun  NavBarIconButton(
     icon: Int,
     isSelected: Boolean,
     highlightedColor: Color = ColorPalette.tertiary,
-    shape: Shape = RoundedCornerShape(size = Dimensions.half),
+    shape: Shape = RoundedCornerShape(size = Dimensions.Half),
     onClick: () -> Unit
 ){
     Box(
@@ -40,8 +40,8 @@ fun  NavBarIconButton(
             painter = painterResource(id = icon),
             contentDescription = "",
             modifier = Modifier
-                .height(Dimensions.l)
-                .width(Dimensions.l)
+                .height(Dimensions.L)
+                .width(Dimensions.L)
                 .clickable { onClick() }
         )
     }
