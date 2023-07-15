@@ -46,7 +46,7 @@ fun MainScreenBottomBar(navController: NavHostController, rootController: NavHos
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(16.dp)
+            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(Dimensions.s)
         ){
             items.forEachIndexed { index, screen ->
                 val isSelected = selectedItem == index

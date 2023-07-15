@@ -23,6 +23,7 @@ import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.BigJournal
 import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.theme.Dimensions
 import java.time.LocalDate
 
 
@@ -33,12 +34,12 @@ fun CarouselJournalView(journals: LiveData<List<Journal>>){
     Column {
         BigJournal(journals.value!![selectedIndex.value])
         LazyRow(
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            contentPadding = PaddingValues(horizontal = Dimensions.s),
+            horizontalArrangement = Arrangement.spacedBy(Dimensions.s)
         ){
             itemsIndexed(itemsState) { index, journal ->
 //                if (index != 0) {
-//                    Spacer(modifier = Modifier.width(16.dp)) // Adjust the spacing as needed
+//                    Spacer(modifier = Modifier.width(Dimensions.s)) // Adjust the spacing as needed
 //                }
                 Box(modifier = Modifier
                     .width(50.dp)

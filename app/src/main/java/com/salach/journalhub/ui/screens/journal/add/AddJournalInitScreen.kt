@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.db.models.Journal
+import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
 import java.time.LocalDate
 
@@ -39,10 +40,10 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
     val updateTrigger = remember { mutableStateOf(false) }
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
-                .padding(16.dp)
+                .padding(Dimensions.s)
                 .fillMaxWidth()
         ) {
             Text(
@@ -52,7 +53,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                 modifier = Modifier.fillMaxWidth()
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
             ) {
                 TextField(
@@ -80,11 +81,11 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                 )
             }
             Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                    horizontalArrangement = Arrangement.spacedBy(Dimensions.xs, Alignment.CenterHorizontally),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Checkbox(
@@ -94,7 +95,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                             journal.value.showCreatedDate = showCreationDate.value
                             updateTrigger.value = !updateTrigger.value
                         },
-                        modifier = Modifier.height(24.dp)
+                        modifier = Modifier.height(Dimensions.m)
                     )
                     Text(
                         text = "Show creation date.",
@@ -102,7 +103,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                     )
                 }
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                    horizontalArrangement = Arrangement.spacedBy(Dimensions.xs, Alignment.CenterHorizontally),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Checkbox(
@@ -112,7 +113,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                             journal.value.showEditedDate = showLastEditedDate.value
                             updateTrigger.value = !updateTrigger.value
                         },
-                        modifier = Modifier.height(24.dp)
+                        modifier = Modifier.height(Dimensions.m)
                     )
                     Text(
                         text = "Show “last edited” date.",

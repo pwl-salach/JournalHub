@@ -34,6 +34,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Goal
+import com.salach.journalhub.ui.theme.Dimensions
 
 
 @Composable
@@ -41,7 +42,7 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-//            .padding(all = 8.dp)
+//            .padding(all = Dimensions.xs)
             .clip(shape = MaterialTheme.shapes.medium)
             .background(color = Color(0xfffafafa))
     ) {
@@ -57,10 +58,10 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                 Image(
                     painter = painterResource(id = icon),
                     contentDescription = "icon",
-                    modifier = Modifier.size(size = 32.dp)
+                    modifier = Modifier.size(size = Dimensions.l)
                 )
                 Spacer(
-                    modifier = Modifier.width(width = 8.dp)
+                    modifier = Modifier.width(width = Dimensions.xs)
                 )
                 Column() {
                     Text(
@@ -73,7 +74,7 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         )
                     )
                     Spacer(
-                        modifier = Modifier.height(height = 4.dp)
+                        modifier = Modifier.height(height = Dimensions.half)
                     )
                     Text(
                         text = subtitle,
@@ -97,26 +98,26 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         contentDescription = "Remove",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(32.dp)
-                            .height(32.dp)
+                            .width(Dimensions.l)
+                            .height(Dimensions.l)
                     )
                     Spacer(
-                        modifier = Modifier.width(width = 8.dp)
+                        modifier = Modifier.width(width = Dimensions.xs)
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.add),
                         contentDescription = "Add",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(32.dp)
-                            .height(32.dp)
+                            .width(Dimensions.l)
+                            .height(Dimensions.l)
                     )
                 }
             }
         }
         Spacer(
             modifier = Modifier
-                .height(height = 8.dp)
+                .height(height = Dimensions.xs)
         )
         Progress(progress)
     }
@@ -140,13 +141,9 @@ fun CurrentGoals(goals: LiveData<List<Goal>>) {
     val itemsState by goals.observeAsState(emptyList())
 
     LazyColumn (
-        verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.xs, Alignment.CenterVertically),
 //        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-//            .offset(x = 0.dp, y = 88.dp)
-//            .width(412.dp)
-//            .height(152.dp)
-//            .padding(start = 16.dp, end = 16.dp)
     ){
         itemsIndexed(itemsState) { _, goal ->
             GoalCard(goal.icon, goal.title, goal.subtitle, goal.progress)

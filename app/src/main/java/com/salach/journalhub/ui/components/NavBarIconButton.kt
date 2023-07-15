@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.R
 import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.theme.Dimensions
 
 
 @Composable
@@ -24,7 +25,7 @@ fun  NavBarIconButton(
     icon: Int,
     isSelected: Boolean,
     highlightedColor: Color = ColorPalette.tertiary,
-    shape: Shape = RoundedCornerShape(size = 4.dp),
+    shape: Shape = RoundedCornerShape(size = Dimensions.half),
     onClick: () -> Unit
 ){
     Box(
@@ -39,8 +40,8 @@ fun  NavBarIconButton(
             painter = painterResource(id = icon),
             contentDescription = "",
             modifier = Modifier
-                .height(32.dp)
-                .width(32.dp)
+                .height(Dimensions.l)
+                .width(Dimensions.l)
                 .clickable { onClick() }
         )
     }

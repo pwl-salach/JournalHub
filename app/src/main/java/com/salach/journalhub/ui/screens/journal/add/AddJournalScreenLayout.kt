@@ -27,34 +27,34 @@ import com.salach.journalhub.ui.theme.Dimensions
 @Composable
 fun AddJournalScreenLayout(journal: MutableState<Journal>, updateTrigger: Boolean = false, content: @Composable () -> Unit) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxHeight()
             .padding(
-                start = 16.dp,
-                top = 16.dp,
-                end = 16.dp,
-                bottom = (Dimensions.bottomBarHeight + 16.dp)
+                start = Dimensions.s,
+                top = Dimensions.s,
+                end = Dimensions.s,
+                bottom = (Dimensions.bottomBarHeight + Dimensions.s)
             )
 
     ) {
         Box(
-            modifier = Modifier.padding(vertical = 16.dp)
+            modifier = Modifier.padding(vertical = Dimensions.s)
         ){
             BigJournal(journal.value, updateTrigger)
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.s),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .height(300.dp)
                 .fillMaxWidth()
                 .background(
                     color = ColorPalette.primarySurface1,
-                    shape = RoundedCornerShape(size = 4.dp)
+                    shape = RoundedCornerShape(size = Dimensions.half)
                 )
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp)
+                .padding(Dimensions.s)
 
         ) {
             content()

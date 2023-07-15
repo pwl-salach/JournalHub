@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.utils.DateUtils
 import java.time.LocalDate
 
@@ -54,13 +55,13 @@ fun BigJournal(journal: Journal, updateTrigger: Boolean = false){
             Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(bottom = 16.dp)
+                .padding(bottom = Dimensions.s)
                 .background(
                     color = color,
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
-                        topEnd = 16.dp,
-                        bottomEnd = 16.dp,
+                        topEnd = Dimensions.s,
+                        bottomEnd = Dimensions.s,
                         bottomStart = 0.dp
                     )
                 )
@@ -70,7 +71,7 @@ fun BigJournal(journal: Journal, updateTrigger: Boolean = false){
             contentDescription = "bookmark",
 //            contentScale = ContentScale.None,
             modifier = Modifier
-                .offset(x = 16.dp, y = 0.dp)
+                .offset(x = Dimensions.s, y = 0.dp)
                 .fillMaxHeight()
                 .height(360.dp)
         )
@@ -83,7 +84,7 @@ fun BigJournal(journal: Journal, updateTrigger: Boolean = false){
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top = 32.dp),
+                modifier = Modifier.padding(top = Dimensions.l),
             ) {
                 Text(
                     text = journal.title,
@@ -113,8 +114,8 @@ fun BigJournal(journal: Journal, updateTrigger: Boolean = false){
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.padding(bottom = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(Dimensions.half),
+                modifier = Modifier.padding(bottom = Dimensions.m),
             ){
                 if (journal.showCreatedDate && journal.createdDate != null){
                     Text(

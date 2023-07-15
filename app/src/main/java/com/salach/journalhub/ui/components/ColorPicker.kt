@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
 
 
@@ -44,14 +45,14 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
     )
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .background(color = ColorPalette.SurfaceLight, shape = RoundedCornerShape(size = 4.dp))
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp)
+            .background(color = ColorPalette.SurfaceLight, shape = RoundedCornerShape(size = Dimensions.half))
+            .padding(Dimensions.s)
     ){
         Column(
-            verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.l, Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -60,7 +61,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
             )
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
@@ -69,13 +70,13 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
             )
 
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 items(colors) { color ->
                     Box(modifier = Modifier
-                        .size(32.dp)
+                        .size(Dimensions.l)
                         .background(color, shape = CircleShape)
                         .clickable {
                             onColorPicked(color.toArgb())
@@ -85,7 +86,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
             }
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
@@ -93,13 +94,13 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
                 style = Typography.L1R
             )
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 items(gradientBrushes) { brush ->
                     Box(modifier = Modifier
-                        .size(32.dp)
+                        .size(Dimensions.l)
                         .background(brush, shape = CircleShape)
                     )
                 }

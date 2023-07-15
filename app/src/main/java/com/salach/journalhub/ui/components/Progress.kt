@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.salach.journalhub.ui.theme.Dimensions
 
 
 @Composable
@@ -21,7 +22,7 @@ fun Progress(progress: Float) {
         contentAlignment = Alignment.CenterStart,
         modifier = Modifier
             .fillMaxWidth()
-            .height(height = 4.dp)
+            .height(height = Dimensions.half)
     )
     {
         Box(
@@ -29,7 +30,7 @@ fun Progress(progress: Float) {
                 .align(alignment = Alignment.TopStart)
                 .offset(x = 0.dp, y = 0.dp)
                 .fillMaxWidth()
-                .height(height = 4.dp)
+                .height(height = Dimensions.half)
                 .clip(shape = MaterialTheme.shapes.medium)
                 .background(color = Color(0xffb3b3b3)))
         Box(
@@ -37,7 +38,7 @@ fun Progress(progress: Float) {
                 .align(alignment = Alignment.TopStart)
                 .offset(x = 0.dp, y = 0.dp)
                 .fillMaxWidth(progress)
-                .height(height = 4.dp)
+                .height(height = Dimensions.half)
                 .clip(shape = MaterialTheme.shapes.small)
                 .background(color = Color(0xffd8bfd8)))
     }

@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.IconsFrame
+import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.IconsGroup
 import com.salach.journalhub.ui.theme.Typography
 
@@ -48,14 +49,14 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
             Text(
                 text = if (selectedGroup.value == "") "Categories" else "Categories / ${selectedGroup.value}",
                 style = Typography.T2R,
-                modifier = Modifier.height(24.dp)
+                modifier = Modifier.height(Dimensions.m)
             )
             if (selectedGroup.value != "") {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = "back",
                     modifier = Modifier
-                        .height(24.dp)
+                        .height(Dimensions.m)
                         .clickable {
                             selectedGroup.value = ""
                         }
@@ -70,7 +71,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
                 ) { rowItems ->
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(
-                            8.dp,
+                            Dimensions.xs,
                             Alignment.CenterHorizontally
                         ),
                         verticalAlignment = Alignment.Top
@@ -90,7 +91,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
                 IconsGroup.grouped[selectedGroup.value]?.let {
                     items(it.windowed(6,6,true)){ rowItems ->
                         LazyRow(
-                            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+                            horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
                             modifier = Modifier.fillMaxWidth()
                         ){
                             items(rowItems){it ->

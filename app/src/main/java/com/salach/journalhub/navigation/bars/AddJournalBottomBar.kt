@@ -48,7 +48,7 @@ fun AddJournalBottomBar(
             .fillMaxWidth()
             .height(Dimensions.bottomBarHeight)
             .background(color = ColorPalette.primarySurface3)
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = Dimensions.s)
     ) {
         NavBarIconButton(
             icon = R.drawable.ic_x, isSelected = false
@@ -63,7 +63,7 @@ fun AddJournalBottomBar(
             letterSpacing = 0.14.sp
         )
         Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (currentIndex > 0) {

@@ -28,21 +28,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.salach.journalhub.R
 import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.theme.Dimensions
 
 @Composable
 fun IconPicker(onIconPicked: (Int) -> Unit){
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-//            .offset(x = 16.dp, y = 524.dp)
-//            .width(380.dp)
-//            .height(294.dp
-            .background(color = ColorPalette.SurfaceLight, shape = RoundedCornerShape(size = 4.dp))
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp)
+            .background(color = ColorPalette.SurfaceLight, shape = RoundedCornerShape(size = Dimensions.half))
+            .padding(Dimensions.s)
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(Dimensions.l, Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -57,7 +55,7 @@ fun IconPicker(onIconPicked: (Int) -> Unit){
                 )
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
             ) {
                 Text(
@@ -91,7 +89,7 @@ fun PreviewIconPicker(){
 @Composable
 fun IconsRow(icons: List<Int>, onIconClicked: (Int) -> Unit){
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+        horizontalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ){
@@ -100,8 +98,8 @@ fun IconsRow(icons: List<Int>, onIconClicked: (Int) -> Unit){
                 painter = painterResource(id = it),
                 contentDescription = null,
                 modifier = Modifier
-                    .width(32.dp)
-                    .height(32.dp)
+                    .width(Dimensions.l)
+                    .height(Dimensions.l)
                     .clickable { onIconClicked(it) }
             )
         }

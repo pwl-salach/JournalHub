@@ -19,6 +19,7 @@ import com.salach.journalhub.enums.TimeUnit
 import com.salach.journalhub.ui.components.CollapsableColumn
 import com.salach.journalhub.ui.components.CurrentGoals
 import com.salach.journalhub.ui.components.MySchedule
+import com.salach.journalhub.ui.theme.Dimensions
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -38,7 +39,7 @@ fun DashboardScreen(navController: NavHostController){
         Schedule(0, TimeUnit.DAYS, LocalDate.now(), null, LocalTime.now(), null),
     )
     Column(
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+        modifier = Modifier.padding(start = Dimensions.s, end = Dimensions.s)
     ) {
         CollapsableColumn(title = "Daily Goal") {
             CurrentGoals(goals = viewModel.goals)

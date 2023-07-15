@@ -34,6 +34,7 @@ import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.BigJournal
 import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
 import java.time.LocalDate
 
@@ -45,7 +46,7 @@ fun NoJournalView(
     val navigateToJournals = remember { mutableStateOf(false) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(Dimensions.s, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(modifier = Modifier.scale(1f)){
@@ -61,9 +62,9 @@ fun NoJournalView(
         )
         Box(modifier = Modifier
 //            .offset(x = 100.dp, y = 604.dp)
-            .shadow(elevation = 4.dp, spotColor = Color(0x26000000), ambientColor = Color(0x26000000))
-            .background(color = ColorPalette.primary, shape = RoundedCornerShape(size = 4.dp))
-            .padding(start = 40.dp, top = 16.dp, end = 40.dp, bottom = 16.dp)
+            .shadow(elevation = Dimensions.half, spotColor = Color(0x26000000), ambientColor = Color(0x26000000))
+            .background(color = ColorPalette.primary, shape = RoundedCornerShape(size = Dimensions.half))
+            .padding(vertical = Dimensions.s, horizontal = Dimensions.xl)
         ){
             Text(
                 text = "Let’s START!",
