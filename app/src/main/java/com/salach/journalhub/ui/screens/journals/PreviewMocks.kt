@@ -18,6 +18,10 @@ internal fun provideViewModelForPreview(): JournalsViewModel {
 }
 
 class MockedJournalDao: JournalDao {
+    override fun getJournal(id: Int): Journal {
+        TODO("Not yet implemented")
+    }
+
     override fun getAll(): Flow<List<Journal>> {
         val mockedList = listOf<Journal>(
             Journal("Title", "Test",
@@ -35,5 +39,13 @@ class MockedJournalDao: JournalDao {
 
     override suspend fun insert(journal: Journal): Long {
         return 123
+    }
+
+    override suspend fun update(journal: Journal) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun delete(journal: Journal) {
+        TODO("Not yet implemented")
     }
 }

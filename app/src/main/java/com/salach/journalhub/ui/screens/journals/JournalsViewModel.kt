@@ -12,9 +12,24 @@ import kotlinx.coroutines.launch
 class JournalsViewModel(private val repository: JournalsRepository) : ViewModel() {
     val journals: LiveData<List<Journal>> = repository.getJournals().asLiveData()
 
+    fun getJournal(journalId: Int): Journal {
+        return repository.getJournalById(journalId)
+    }
     fun addJournal(journal: Journal) {
         viewModelScope.launch {
             repository.insertJournal(journal)
+        }
+    }
+
+    fun updateJournal(journal: Journal){
+        viewModelScope.launch {
+            repository.updateJournal(journal)
+        }
+    }
+
+    fun removeJournal(journal: Journal){
+        viewModelScope.launch {
+            repository.removeJournal(journal)
         }
     }
 }

@@ -2,8 +2,10 @@ package com.salach.journalhub.navigation.graphs
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.salach.journalhub.ui.screens.MainScreen
 import com.salach.journalhub.ui.screens.journal.add.AddJournalScreen
 import com.salach.journalhub.ui.screens.journals.ProvideJournalViewModel
@@ -18,11 +20,19 @@ fun RootNavigationGraph(navController: NavHostController) {
         composable(route = Graph.HOME){
             MainScreen(navController)
         }
-        composable(route = Graph.NEW_JOURNAL){
+        composable(
+            route = "${Graph.NEW_JOURNAL}?journalId={journalId}",
+            arguments = listOf(navArgument("journalId") {
+                type = NavType.IntType
+                defaultValue = -1
+            })
+        ){ backStackEntry ->
+            val journalId = backStackEntry.arguments?.getInt("journalId", -1)
             ProvideJournalViewModel {
-                AddJournalScreen(navController)
+                AddJournalScreen(navController, journalId)
             }
         }
+
     }
 }
 

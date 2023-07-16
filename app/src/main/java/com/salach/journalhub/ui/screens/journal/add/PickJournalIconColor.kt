@@ -28,6 +28,8 @@ fun PickJournalIconColor(journal: MutableState<Journal>) {
             modifier = Modifier.fillMaxWidth()
         ) {
             ColorPicker(
+                prompt = "Select icon colour.",
+                initialColor = journal.value.iconColor,
                 onColorPicked = {
                     pickedColor.value = it
                     journal.value.iconColor = pickedColor.value

@@ -28,8 +28,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
+import com.salach.journalhub.navigation.graphs.Graph
 import com.salach.journalhub.ui.components.BigJournalCover
 import com.salach.journalhub.ui.components.JournalCover
 import com.salach.journalhub.ui.components.SmallJournalCover
@@ -39,18 +42,39 @@ import java.time.LocalDate
 
 
 @Composable
-fun CarouselJournalView(journals: LiveData<List<Journal>>){
+fun CarouselJournalView(
+    journals: LiveData<List<Journal>>,
+    navController: NavHostController,
+    rootController: NavHostController
+){
     val itemsState by journals.observeAsState(emptyList())
     val selectedIndex = remember {mutableStateOf(0)}
+    val viewModel: JournalsViewModel = LocalViewModel.current
+
     Column(
         verticalArrangement = Arrangement.spacedBy(Dimensions.L),
-        modifier = Modifier.fillMaxHeight().padding(top = Dimensions.L)
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(top = Dimensions.L)
     ){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ){
-            BigJournalCover(journals.value!![selectedIndex.value])
+            BigJournalCover(
+                journals.value!![selectedIndex.value],
+                onShowClicked = {},
+                onAddClicked = {},
+                onEditClicked = {
+                    rootController.navigate(
+                        "${Graph.NEW_JOURNAL}?journalId=${journals.value!![selectedIndex.value].id}"
+                    )
+                },
+                onRemoveClicked = {
+                    viewModel.removeJournal(journals.value!![selectedIndex.value])
+                    selectedIndex.value = 0
+                }
+            )
         }
         LazyRow(
             contentPadding = PaddingValues(horizontal = Dimensions.S),
@@ -61,13 +85,15 @@ fun CarouselJournalView(journals: LiveData<List<Journal>>){
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .width(60.dp)
-                        .height(80.dp).clickable {
-                        selectedIndex.value = index
-                    }.border(
-                        if (selectedIndex.value == index) Dimensions.Quarter else Dp.Unspecified,
-                        MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(size = Dimensions.XS)
-                    )
+                        .height(80.dp)
+                        .clickable {
+                            selectedIndex.value = index
+                        }
+                        .border(
+                            if (selectedIndex.value == index) Dimensions.Quarter else Dp.Unspecified,
+                            MaterialTheme.colorScheme.primary,
+                            shape = RoundedCornerShape(size = Dimensions.XS)
+                        )
                 ){
                     SmallJournalCover(journal)
                 }
@@ -119,5 +145,6 @@ fun PreviewCarouselJournalView(){
             LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
         )
     )
-    CarouselJournalView(previewData)
+    val nav = rememberNavController()
+    CarouselJournalView(previewData, nav, nav)
 }

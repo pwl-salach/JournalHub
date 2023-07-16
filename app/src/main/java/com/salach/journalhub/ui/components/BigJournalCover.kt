@@ -2,6 +2,7 @@ package com.salach.journalhub.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,7 +36,13 @@ import com.salach.journalhub.utils.DateUtils
 import java.time.LocalDate
 
 @Composable
-fun BigJournalCover(journal: Journal) {
+fun BigJournalCover(
+    journal: Journal,
+    onShowClicked: () -> Unit,
+    onAddClicked: () -> Unit,
+    onEditClicked: () -> Unit,
+    onRemoveClicked: () -> Unit,
+) {
     Box(modifier = Modifier
         .width(380.dp)
         .height(600.dp)
@@ -127,25 +134,12 @@ fun BigJournalCover(journal: Journal) {
                 horizontalAlignment = Alignment.Start,
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_trash),
-                    contentDescription = "Remove",
-                    modifier = Modifier
-                        .width(32.dp)
-                        .height(32.dp)
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_pencil),
-                    contentDescription = "Edit",
-                    modifier = Modifier
-                        .width(32.dp)
-                        .height(32.dp)
-                )
-                Icon(
                     painter = painterResource(id = R.drawable.ic_book),
                     contentDescription = "Open",
                     modifier = Modifier
                         .width(32.dp)
                         .height(32.dp)
+                        .clickable { onShowClicked() }
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_file_plus),
@@ -153,6 +147,23 @@ fun BigJournalCover(journal: Journal) {
                     modifier = Modifier
                         .width(32.dp)
                         .height(32.dp)
+                        .clickable { onAddClicked() }
+                )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_pencil),
+                    contentDescription = "Edit",
+                    modifier = Modifier
+                        .width(32.dp)
+                        .height(32.dp)
+                        .clickable { onEditClicked() }
+                )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_trash),
+                    contentDescription = "Remove",
+                    modifier = Modifier
+                        .width(32.dp)
+                        .height(32.dp)
+                        .clickable { onRemoveClicked() }
                 )
             }
         }
@@ -170,6 +181,6 @@ fun PreviewBigJournalCover(){
             editedDate = LocalDate.of(2023, 6, 26),
             icon = R.drawable.ic_planetscale,
             showEditedDate = true
-        )
+        ), {}, {}, {}, {}
     )
 }

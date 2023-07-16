@@ -22,7 +22,7 @@ val LocalViewModel = compositionLocalOf<JournalsViewModel> {
 }
 
 @Composable
-fun JournalsScreen(navController: NavHostController) {
+fun JournalsScreen(navController: NavHostController, rootController: NavHostController) {
     val viewModel: JournalsViewModel = LocalViewModel.current
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -33,7 +33,7 @@ fun JournalsScreen(navController: NavHostController) {
         if (itemsState.isEmpty()){
             NoJournalView(navController)
         } else {
-            CarouselJournalView(viewModel.journals)
+            CarouselJournalView(viewModel.journals, navController, rootController)
         }
     }
 }
@@ -58,6 +58,6 @@ fun ProvideJournalViewModel(content: @Composable () -> Unit) {
 fun PreviewJournalsScreen(){
     val navController = rememberNavController()
     CompositionLocalProvider(LocalViewModel provides provideViewModelForPreview()) {
-        JournalsScreen(navController = navController)
+        JournalsScreen(navController, navController)
     }
 }

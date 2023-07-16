@@ -18,7 +18,7 @@ import java.time.LocalDate
 
 @Composable
 fun PickJournalColor(journal: MutableState<Journal>) {
-    val pickedColor = remember { mutableStateOf(journal.value.backgroundColor) }
+//    val pickedColor = remember { mutableStateOf(journal.value.backgroundColor) }
     val updateTrigger = remember { mutableStateOf(false) }
 
     AddJournalScreenLayout(journal, updateTrigger.value) {
@@ -28,9 +28,11 @@ fun PickJournalColor(journal: MutableState<Journal>) {
             modifier = Modifier.fillMaxWidth()
         ) {
             ColorPicker(
+                prompt = "Select cover colour.",
+                initialColor = journal.value.backgroundColor,
                 onColorPicked = {
-                    pickedColor.value = it
-                    journal.value.backgroundColor = pickedColor.value
+//                    pickedColor.value = it
+                    journal.value.backgroundColor = it
                     updateTrigger.value = !updateTrigger.value
                 }
             )

@@ -31,7 +31,7 @@ import com.salach.journalhub.ui.theme.Typography
 
 
 @Composable
-fun ColorPicker(onColorPicked: (Int) -> Unit) {
+fun ColorPicker(prompt: String, initialColor: Int, onColorPicked: (Int) -> Unit) {
     val selectedItemId = remember { mutableStateOf(-1) }
 
     Column(
@@ -49,7 +49,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "Select cover colour.",
+                text = prompt,
                 style = Typography.L1B
             )
         }
@@ -70,7 +70,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
                 itemsIndexed(ColorPalette.Pastels) { index, color ->
                     SelectableColor(
                         color = color,
-                        isSelected = index == selectedItemId.value,
+                        isSelected = index == selectedItemId.value || isInitiallySelected(color.toArgb(), initialColor, selectedItemId.value),
                         onItemSelected = {
                             onColorPicked(color.toArgb())
                             selectedItemId.value = index
@@ -96,7 +96,7 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
                     val offsetIndex = 1000 + index
                     SelectableColor(
                         color = color,
-                        isSelected = offsetIndex == selectedItemId.value,
+                        isSelected = offsetIndex == selectedItemId.value || isInitiallySelected(color.toArgb(), initialColor, selectedItemId.value),
                         onItemSelected = {
                             onColorPicked(color.toArgb())
                             selectedItemId.value = offsetIndex
@@ -108,10 +108,14 @@ fun ColorPicker(onColorPicked: (Int) -> Unit) {
     }
 }
 
+fun isInitiallySelected(color: Int, initialColor: Int, selectedItemId: Int): Boolean{
+    return selectedItemId == -1 && initialColor == color
+}
+
 @Preview
 @Composable
 fun PreviewColorPicker(){
-    ColorPicker {
+    ColorPicker("Select cover colour.", ColorPalette.Pastels[2].toArgb()) {
         print(it)
     }
 }

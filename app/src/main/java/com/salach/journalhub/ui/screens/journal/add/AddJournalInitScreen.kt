@@ -32,12 +32,8 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddJournalInitScreen(journal: MutableState<Journal>){
-    val title = remember { mutableStateOf(journal.value.title) }
-    val subtitle = remember { mutableStateOf(journal.value.subtitle) }
-    val showCreationDate = remember { mutableStateOf(journal.value.showCreatedDate) }
-    val showLastEditedDate = remember { mutableStateOf(journal.value.showEditedDate) }
-
     val updateTrigger = remember { mutableStateOf(false) }
+
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Column(
             verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
@@ -57,9 +53,9 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                 horizontalAlignment = Alignment.Start,
             ) {
                 TextField(
-                    value = title.value,
+                    value = journal.value.title,
                     onValueChange = {
-                        title.value = it
+//                        title.value = it
                         journal.value.title = it
                         updateTrigger.value = !updateTrigger.value
                     },
@@ -69,9 +65,9 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                     modifier = Modifier.height(52.dp)
                 )
                 TextField(
-                    value = subtitle.value,
+                    value = journal.value.subtitle,
                     onValueChange = {
-                        subtitle.value = it
+//                        subtitle.value = it
                         journal.value.subtitle = it
                         updateTrigger.value = !updateTrigger.value
                     },
@@ -91,10 +87,10 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Checkbox(
-                        checked = showCreationDate.value,
+                        checked = journal.value.showCreatedDate,
                         onCheckedChange = {
-                            showCreationDate.value = !showCreationDate.value
-                            journal.value.showCreatedDate = showCreationDate.value
+//                            showCreationDate.value = !showCreationDate.value
+                            journal.value.showCreatedDate = !journal.value.showCreatedDate
                             updateTrigger.value = !updateTrigger.value
                         },
                         modifier = Modifier.height(Dimensions.M)
@@ -109,10 +105,10 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Checkbox(
-                        checked = showLastEditedDate.value,
+                        checked = journal.value.showEditedDate,
                         onCheckedChange = {
-                            showLastEditedDate.value = !showLastEditedDate.value
-                            journal.value.showEditedDate = showLastEditedDate.value
+//                            showLastEditedDate.value = !showLastEditedDate.value
+                            journal.value.showEditedDate = !journal.value.showEditedDate
                             updateTrigger.value = !updateTrigger.value
                         },
                         modifier = Modifier.height(Dimensions.M)

@@ -31,6 +31,6 @@ fun MainScreen(rootController: NavHostController = rememberNavController()) {
 //            }
 //        }
     ) {
-        TabNavGraph(navController = nestedNavController)
+        TabNavGraph(nestedNavController, rootController)
     }
 }
