@@ -6,7 +6,7 @@ object Dimensions {
     val BottomBarHeight = 80.dp
     val Quarter = 2.dp
     val Half = 4.dp
-    val XS = 4.dp
+    val XS = 8.dp
     val S = 16.dp
     val M = 24.dp
     val L = 32.dp
