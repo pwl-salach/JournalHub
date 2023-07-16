@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
@@ -34,7 +34,6 @@ import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.navigation.graphs.Graph
 import com.salach.journalhub.ui.components.BigJournalCover
-import com.salach.journalhub.ui.components.JournalCover
 import com.salach.journalhub.ui.components.SmallJournalCover
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
@@ -48,7 +47,7 @@ fun CarouselJournalView(
     rootController: NavHostController
 ){
     val itemsState by journals.observeAsState(emptyList())
-    val selectedIndex = remember {mutableStateOf(0)}
+    val selectedIndex = rememberSaveable {mutableStateOf(0)}
     val viewModel: JournalsViewModel = LocalViewModel.current
 
     Column(

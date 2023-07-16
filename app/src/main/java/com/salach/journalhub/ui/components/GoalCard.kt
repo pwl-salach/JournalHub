@@ -61,7 +61,7 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                 Spacer(
                     modifier = Modifier.width(width = Dimensions.XS)
                 )
-                Column() {
+                Column {
                     Text(
                         text = title,
                         color = Color(0xff272830),
@@ -152,7 +152,7 @@ fun CurrentGoals(goals: LiveData<List<Goal>>) {
 @Preview
 @Composable
 fun PreviewCurrentGoals() {
-    val previewData = MutableLiveData<List<Goal>>();
+    val previewData = MutableLiveData<List<Goal>>()
     previewData.value = listOf(
         Goal(R.drawable.tabler_icon_bottle, "Test1", "small test", 0.52f),
         Goal(R.drawable.icon_sunrise, "Test2", "small test", 0.78f)
