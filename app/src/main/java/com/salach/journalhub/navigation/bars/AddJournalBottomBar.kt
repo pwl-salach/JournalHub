@@ -27,7 +27,9 @@ import com.salach.journalhub.ui.theme.Dimensions
 
 @Composable
 fun AddJournalBottomBar(
-    rootController: NavHostController, navController: NavHostController,
+    rootController: NavHostController,
+    navController: NavHostController,
+    cancelFlowCallback: () -> Unit,
     finishedFlowCallback: () -> Unit
 ){
     val flowStages = listOf(
@@ -51,7 +53,8 @@ fun AddJournalBottomBar(
         NavBarIconButton(
             icon = R.drawable.ic_x, isSelected = false
         ) {
-            rootController.popBackStack()
+            cancelFlowCallback()
+//
         }
         Text(
             text = "Step ${currentIndex + 1}/${flowStages.size}",
@@ -82,7 +85,6 @@ fun AddJournalBottomBar(
                     icon = R.drawable.ic_check, isSelected = false
                 ) {
                     finishedFlowCallback()
-                    rootController.popBackStack()
                 }
             }
         }
@@ -100,6 +102,6 @@ sealed class FlowStage(val route: String) {
 @Composable
 fun PreviewAddJournalBottomBar(){
     val navController = rememberNavController()
-    AddJournalBottomBar(navController, navController){}
+    AddJournalBottomBar(navController, navController, {}, {})
 }
 
