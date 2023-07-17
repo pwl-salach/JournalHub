@@ -1,6 +1,7 @@
 package com.salach.journalhub.ui.components.popups
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,11 +37,16 @@ fun QuitEditingPrompt(
 ) {
     if(openPopup){
         ModalBottomSheetLayout(
+            sheetShape = RoundedCornerShape(size = Dimensions.XS),
+            sheetBackgroundColor = ColorPalette.primarySurface5,
             sheetContent = {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
-                    modifier = Modifier.padding(Dimensions.S)
+                    modifier = Modifier
+                        .padding(Dimensions.S)
+
+
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
