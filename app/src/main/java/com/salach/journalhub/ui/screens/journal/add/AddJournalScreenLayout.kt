@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.components.JournalCover
+import com.salach.journalhub.ui.components.journal.JournalCover
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
 

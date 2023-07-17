@@ -1,4 +1,4 @@
-package com.salach.journalhub.ui.components
+package com.salach.journalhub.ui.components.journal
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition

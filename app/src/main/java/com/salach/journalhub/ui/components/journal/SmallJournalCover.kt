@@ -1,10 +1,11 @@
-package com.salach.journalhub.ui.components
+package com.salach.journalhub.ui.components.journal
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -27,7 +28,7 @@ import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
 
 @Composable
-fun SmallJournalCover(journal: Journal) {
+fun SmallJournalCover(journal: Journal, hideTitle: Boolean = false) {
     Box(
         modifier = Modifier
             .width(48.dp)
@@ -54,7 +55,7 @@ fun SmallJournalCover(journal: Journal) {
             modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Half)
         ) {
             Text(
-                text = journal.title,
+                text = if (hideTitle) "" else journal.title ,
                 style = Typography.L3L.copy(fontSize = 8.sp)
             )
             if(journal.icon != null){
@@ -74,5 +75,10 @@ fun SmallJournalCover(journal: Journal) {
 @Preview
 @Composable
 fun PreviewSmallJournalCover(){
-    SmallJournalCover(Journal("Qwe", "", icon = R.drawable.ic_apple))
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(Dimensions.XS)
+    ){
+        SmallJournalCover(Journal("Qwe", "", icon = R.drawable.ic_apple))
+        SmallJournalCover(Journal("Qwe", "", icon = R.drawable.ic_apple), hideTitle = true)
+    }
 }

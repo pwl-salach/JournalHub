@@ -1,6 +1,7 @@
 package com.salach.journalhub.ui.screens.journals
 
 import androidx.compose.ui.graphics.toArgb
+import androidx.lifecycle.MutableLiveData
 import com.salach.journalhub.R
 import com.salach.journalhub.db.daos.JournalDao
 import com.salach.journalhub.db.models.Journal
@@ -11,6 +12,48 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDate
 
+
+fun getJournalsForPreview() : MutableLiveData<List<Journal>> {
+    val previewData = MutableLiveData<List<Journal>>()
+    previewData.value = listOf(
+        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
+            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
+        ),
+        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.FrenchGray03.toArgb(), ColorPalette.FrenchGray30.toArgb(),
+            LocalDate.of(2012, 5, 10), false, LocalDate.of(2012, 5, 10)
+        ),
+        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.Leaf50.toArgb(), ColorPalette.Leaf80.toArgb(),
+            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
+        ),        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
+            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
+        ),
+        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.FrenchGray03.toArgb(), ColorPalette.FrenchGray30.toArgb(),
+            LocalDate.of(2012, 5, 10), false, LocalDate.of(2012, 5, 10)
+        ),
+        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.Leaf50.toArgb(), ColorPalette.Leaf80.toArgb(),
+            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
+        ),
+        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
+            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
+        ),
+        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.FrenchGray03.toArgb(), ColorPalette.FrenchGray30.toArgb(),
+            LocalDate.of(2012, 5, 10), false, LocalDate.of(2012, 5, 10)
+        ),
+        Journal("Title", "Test",
+            R.drawable.ic_planetscale, ColorPalette.Leaf50.toArgb(), ColorPalette.Leaf80.toArgb(),
+            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
+        )
+    )
+    return previewData
+}
 
 internal fun provideViewModelForPreview(): JournalsViewModel {
     val mockedRepository = JournalsRepository(MockedJournalDao())

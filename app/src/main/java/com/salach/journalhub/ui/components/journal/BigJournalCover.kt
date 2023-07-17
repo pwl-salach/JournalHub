@@ -1,4 +1,4 @@
-package com.salach.journalhub.ui.components
+package com.salach.journalhub.ui.components.journal
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
 import com.salach.journalhub.utils.DateUtils
@@ -137,32 +135,32 @@ fun BigJournalCover(
                     painter = painterResource(id = R.drawable.ic_book),
                     contentDescription = "Open",
                     modifier = Modifier
-                        .width(32.dp)
-                        .height(32.dp)
+                        .width(Dimensions.L)
+                        .height(Dimensions.L)
                         .clickable { onShowClicked() }
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_file_plus),
                     contentDescription = "Add page",
                     modifier = Modifier
-                        .width(32.dp)
-                        .height(32.dp)
+                        .width(Dimensions.L)
+                        .height(Dimensions.L)
                         .clickable { onAddClicked() }
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_pencil),
                     contentDescription = "Edit",
                     modifier = Modifier
-                        .width(32.dp)
-                        .height(32.dp)
+                        .width(Dimensions.L)
+                        .height(Dimensions.L)
                         .clickable { onEditClicked() }
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_trash),
                     contentDescription = "Remove",
                     modifier = Modifier
-                        .width(32.dp)
-                        .height(32.dp)
+                        .width(Dimensions.L)
+                        .height(Dimensions.L)
                         .clickable { onRemoveClicked() }
                 )
             }

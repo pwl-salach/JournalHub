@@ -16,28 +16,24 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.navigation.graphs.Graph
-import com.salach.journalhub.ui.components.BigJournalCover
-import com.salach.journalhub.ui.components.SmallJournalCover
-import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.components.journal.BigJournalCover
+import com.salach.journalhub.ui.components.journal.SmallJournalCover
 import com.salach.journalhub.ui.theme.Dimensions
-import java.time.LocalDate
 
 
 @Composable
@@ -103,47 +99,10 @@ fun CarouselJournalView(
 
 
 @Preview(showBackground = true)
-
 @Composable
 fun PreviewCarouselJournalView(){
-    val previewData = MutableLiveData<List<Journal>>()
-    previewData.value = listOf(
-        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
-            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
-        ),
-        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.FrenchGray03.toArgb(), ColorPalette.FrenchGray30.toArgb(),
-            LocalDate.of(2012, 5, 10), false, LocalDate.of(2012, 5, 10)
-        ),
-        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.Leaf50.toArgb(), ColorPalette.Leaf80.toArgb(),
-            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
-        ),        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
-            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
-        ),
-        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.FrenchGray03.toArgb(), ColorPalette.FrenchGray30.toArgb(),
-            LocalDate.of(2012, 5, 10), false, LocalDate.of(2012, 5, 10)
-        ),
-        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.Leaf50.toArgb(), ColorPalette.Leaf80.toArgb(),
-            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
-        ),
-        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
-            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
-        ),
-        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.FrenchGray03.toArgb(), ColorPalette.FrenchGray30.toArgb(),
-            LocalDate.of(2012, 5, 10), false, LocalDate.of(2012, 5, 10)
-        ),
-        Journal("Title", "Test",
-            R.drawable.ic_planetscale, ColorPalette.Leaf50.toArgb(), ColorPalette.Leaf80.toArgb(),
-            LocalDate.of(2012, 5, 10), true, LocalDate.of(2012, 5, 10)
-        )
-    )
     val nav = rememberNavController()
-    CarouselJournalView(previewData, nav, nav)
+    CompositionLocalProvider(LocalViewModel provides provideViewModelForPreview()) {
+        CarouselJournalView(getJournalsForPreview(), nav, nav)
+    }
 }

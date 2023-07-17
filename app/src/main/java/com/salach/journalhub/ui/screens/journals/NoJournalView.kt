@@ -24,7 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.components.JournalCover
+import com.salach.journalhub.ui.components.journal.JournalCover
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.Typography
