@@ -67,3 +67,10 @@ steps:
       env:
         JAVA_HOME: $(JAVA_HOME_17_X64)
       displayName: 'Run Appium tests'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/appiumTests/build/reports/tests/test'
+    artifact: 'AppiumResults'
+    publishLocation: 'pipeline'
+  condition: always()
