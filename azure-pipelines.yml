@@ -66,7 +66,7 @@ steps:
 
     - script: |
         $ANDROID_HOME/platform-tools/adb devices
-        ./gradlew --rerun-tasks appiumTests:test -Ddevice="${{ replace(device, ' ', '_') }}_${{ api }}"
+        ./gradlew --rerun-tasks appiumTests:test -Ddevice=emulator-5554
       env:
         JAVA_HOME: $(JAVA_HOME_17_X64)
       displayName: 'Run Appium tests'
