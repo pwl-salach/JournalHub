@@ -41,12 +41,12 @@ steps:
 #    publishLocation: 'pipeline'
 
 - ${{ each api in parameters.apis }}:
-  - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};x86_64'
+  - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};google_apis;x86_64'
     displayName: Install Android-${{ api }} API
 
   - ${{ each device in parameters.devices }}:
     - script: |
-        $ANDROID_HOME/tools/bin/avdmanager create avd --name ${{ device }}_${{ api }} --device "${{ device }}" --package 'system-images;android-${{ api }};x86_64' --abi x86_64
+        $ANDROID_HOME/tools/bin/avdmanager create avd --name ${{ device }}_${{ api }} --device "${{ device }}" --package 'system-images;android-${{ api }};google_apis;x86_64' --abi x86_64
       displayName: 'Create ${{ device }}_${{ api }} Emulator'
 
     - script: $ANDROID_HOME/emulator/emulator -avd ${{ device }}_${{ api }} -no-snapshot -wipe-data -no-window
