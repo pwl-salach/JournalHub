@@ -16,7 +16,7 @@ dependencies {
 }
 
 tasks.withType(Test) {
-    device = System.getProperty("device", "emulator-5554")
+    var device = System.getProperty("device", "emulator-5554")
     systemProperty "device", device
     systemProperty "deviceName", System.getProperty("device", device)
 }

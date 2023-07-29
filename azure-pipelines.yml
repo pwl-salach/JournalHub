@@ -32,7 +32,7 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleDebug'
     env:
-    JAVA_HOME: $(JAVA_HOME_17_X64)
+      JAVA_HOME: $(JAVA_HOME_17_X64)
 
 - task: PublishPipelineArtifact@1
   inputs:
