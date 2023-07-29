@@ -23,22 +23,22 @@ parameters:
       - 30
 
 steps:
-#- task: Gradle@2
-#  inputs:
-#    workingDirectory: ''
-#    gradleWrapperFile: 'gradlew'
-#    gradleOptions: '-Xmx3072m'
-#    publishJUnitResults: false
-#    testResultsFiles: '**/TEST-*.xml'
-#    tasks: 'assembleDebug'
-#    env:
-#    JAVA_HOME: $(JAVA_HOME_17_X64)
-#
-#- task: PublishPipelineArtifact@1
-#  inputs:
-#    targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
-#    artifact: 'Apk'
-#    publishLocation: 'pipeline'
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: false
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'assembleDebug'
+    env:
+    JAVA_HOME: $(JAVA_HOME_17_X64)
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
+    artifact: 'Apk'
+    publishLocation: 'pipeline'
 
 - script: |
     npm install -g appium@2.0.0
