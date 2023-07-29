@@ -23,6 +23,7 @@ import com.salach.journalhub.ui.theme.Dimensions
 @Composable
 fun  NavBarIconButton(
     icon: Int,
+    description: String,
     isSelected: Boolean,
     highlightedColor: Color = ColorPalette.tertiary,
     shape: Shape = RoundedCornerShape(size = Dimensions.Half),
@@ -38,7 +39,7 @@ fun  NavBarIconButton(
     ) {
         Icon(
             painter = painterResource(id = icon),
-            contentDescription = "",
+            contentDescription = description,
             modifier = Modifier
                 .height(Dimensions.L)
                 .width(Dimensions.L)
@@ -50,5 +51,5 @@ fun  NavBarIconButton(
 @Preview
 @Composable
 fun PreviewNavBarIconButton(){
-    NavBarIconButton(R.drawable.ic_dashboard, true,){}
+    NavBarIconButton(R.drawable.ic_dashboard, "Test", true){}
 }

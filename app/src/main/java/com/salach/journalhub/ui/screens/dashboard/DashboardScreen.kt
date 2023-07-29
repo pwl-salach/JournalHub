@@ -47,7 +47,6 @@ fun DashboardScreen(navController: NavHostController){
             MySchedule(previewData)
         }
     }
-
 }
 
 @Composable

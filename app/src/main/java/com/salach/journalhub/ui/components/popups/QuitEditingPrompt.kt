@@ -43,10 +43,7 @@ fun QuitEditingPrompt(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
-                    modifier = Modifier
-                        .padding(Dimensions.S)
-
-
+                    modifier = Modifier.padding(Dimensions.S)
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),

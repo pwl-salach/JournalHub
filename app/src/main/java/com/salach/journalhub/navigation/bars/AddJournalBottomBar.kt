@@ -51,7 +51,7 @@ fun AddJournalBottomBar(
             .padding(horizontal = Dimensions.S)
     ) {
         NavBarIconButton(
-            icon = R.drawable.ic_x, isSelected = false
+            icon = R.drawable.ic_x, "", isSelected = false
         ) {
             cancelFlowCallback()
 //
@@ -69,20 +69,20 @@ fun AddJournalBottomBar(
         ) {
             if (currentIndex > 0) {
                 NavBarIconButton(
-                    icon = R.drawable.ic_chevron_left, isSelected = false
+                    icon = R.drawable.ic_chevron_left, description = "back", isSelected = false
                 ) {
                     navController.popBackStack()
                 }
             }
             if (currentIndex + 1 < flowStages.size) {
                 NavBarIconButton(
-                    icon = R.drawable.ic_chevron_right, isSelected = false
+                    icon = R.drawable.ic_chevron_right, description = "", isSelected = false
                 ) {
                     navController.navigate(flowStages[currentIndex + 1].route)
                 }
             } else {
                 NavBarIconButton(
-                    icon = R.drawable.ic_check, isSelected = false
+                    icon = R.drawable.ic_check, description = "", isSelected = false
                 ) {
                     finishedFlowCallback()
                 }

@@ -9,20 +9,46 @@ trigger:
 pool:
   vmImage: 'macos-latest'
 
-steps:
-- task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    gradleOptions: '-Xmx3072m'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug'
-  env:
-    JAVA_HOME: $(JAVA_HOME_17_X64)
+parameters:
+  - name: devices
+    type: object
+    value:
+      - pixel_3
+      - pixel_4_xl
+      - nexus_6
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
-    artifact: 'Apk'
-    publishLocation: 'pipeline'
+  - name: apis
+    type: object
+    value:
+      - 30
+
+steps:
+#- task: Gradle@2
+#  inputs:
+#    workingDirectory: ''
+#    gradleWrapperFile: 'gradlew'
+#    gradleOptions: '-Xmx3072m'
+#    publishJUnitResults: false
+#    testResultsFiles: '**/TEST-*.xml'
+#    tasks: 'assembleDebug'
+#    env:
+#    JAVA_HOME: $(JAVA_HOME_17_X64)
+#
+#- task: PublishPipelineArtifact@1
+#  inputs:
+#    targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
+#    artifact: 'Apk'
+#    publishLocation: 'pipeline'
+
+- ${{ each device in parameters.devices }}:
+  - ${{ each api in parameters.apis }}:
+    - script: |
+        avdmanager create avd --name ${{ device }}_${{ api }} --device "${{ device }}" --package 'system-images;android-${{ api }};x86_64' --abi x86_64
+      displayName: 'Create ${{ device }}_${{ api }} Emulator'
+      continueOnError: true
+
+    - script: emulator -avd ${{ device }}_${{ api }} -no-snapshot -wipe-data -no-window
+      displayName: 'Start ${{ device }}_${{ api }} Emulator'
+
+    - script: ./gradlew --rerun-tasks appiumTests:test -Ddevice=${{ device }}_${{ api }}
+      displayName: 'Run Appium tests'

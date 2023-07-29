@@ -68,13 +68,14 @@ fun MainScreenBottomBar(navController: NavHostController, rootController: NavHos
     //                    selectedItem = index
     //                },
     //            )
-                NavBarIconButton(icon = screen.icon, isSelected = isSelected) {
+                NavBarIconButton(icon = screen.icon, screen.title, isSelected = isSelected) {
                     navController.navigate(screen.route)
                     selectedItem = index
                 }
             }
             NavBarIconButton(
                 icon = R.drawable.ic_pencil_plus,
+                "Create",
                 isSelected = true,
                 highlightedColor = ColorPalette.primary,
                 shape = CircleShape
