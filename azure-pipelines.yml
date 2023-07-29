@@ -12,14 +12,14 @@ pool:
 parameters:
   - name: devices
     type: object
-    value:
+    default:
       - pixel_3
       - pixel_4_xl
       - nexus_6
 
   - name: apis
     type: object
-    value:
+    default:
       - 30
 
 steps:
