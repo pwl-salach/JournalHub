@@ -13,6 +13,7 @@ class BottomBarNavigation : BaseTest() {
 
     @Test
     fun goThroughNavigationBar() {
+        saveScreenshot("Navigation_init")
         listOf("Dashboard", "Journals").forEach{
             driver.findElement(AppiumBy.ByAndroidUIAutomator("new UiSelector().description(\"${it}\")")).click()
             saveScreenshot("Navigation_$it")
