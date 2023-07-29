@@ -40,14 +40,16 @@ steps:
 #    artifact: 'Apk'
 #    publishLocation: 'pipeline'
 
-- ${{ each device in parameters.devices }}:
-  - ${{ each api in parameters.apis }}:
-    - script: |
-        avdmanager create avd --name ${{ device }}_${{ api }} --device "${{ device }}" --package 'system-images;android-${{ api }};x86_64' --abi x86_64
-      displayName: 'Create ${{ device }}_${{ api }} Emulator'
-      continueOnError: true
+- ${{ each api in parameters.apis }}:
+  - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};google_apis;x86_64'
+    displayName: Install Android-${{ api }} API
 
-    - script: emulator -avd ${{ device }}_${{ api }} -no-snapshot -wipe-data -no-window
+  - ${{ each device in parameters.devices }}:
+    - script: |
+        $ANDROID_HOME/tools/bin/avdmanager create avd --name ${{ device }}_${{ api }} --device "${{ device }}" --package 'system-images;android-${{ api }};x86_64' --abi x86_64
+      displayName: 'Create ${{ device }}_${{ api }} Emulator'
+
+    - script: $ANDROID_HOME/emulator/emulator -avd ${{ device }}_${{ api }} -no-snapshot -wipe-data -no-window
       displayName: 'Start ${{ device }}_${{ api }} Emulator'
 
     - script: ./gradlew --rerun-tasks appiumTests:test -Ddevice=${{ device }}_${{ api }}
