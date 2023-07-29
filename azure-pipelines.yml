@@ -13,7 +13,7 @@ parameters:
   - name: devices
     type: object
     default:
-      - pixel_3
+      - pixel_3a
       - pixel_4_xl
       - nexus_6
 
@@ -43,6 +43,8 @@ steps:
 - ${{ each api in parameters.apis }}:
   - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};google_apis;x86_64'
     displayName: Install Android-${{ api }} API
+
+  - script: $ANDROID_HOME/tools/bin/avdmanager list device
 
   - ${{ each device in parameters.devices }}:
     - script: |
