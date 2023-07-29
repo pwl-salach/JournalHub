@@ -40,6 +40,12 @@ steps:
 #    artifact: 'Apk'
 #    publishLocation: 'pipeline'
 
+- script: |
+    npm install -g appium@2.0.0
+    appium driver install uiautomator2
+    appium --allow-insecure chromedriver_autodownload
+  displayName: Setup appium
+
 - ${{ each api in parameters.apis }}:
   - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};google_apis;x86_64'
     displayName: Install Android-${{ api }} API
@@ -58,4 +64,6 @@ steps:
       displayName: 'Start ${{ device }}_${{ api }} Emulator'
 
     - script: ./gradlew --rerun-tasks appiumTests:test -Ddevice="${{ replace(device, ' ', '_') }}_${{ api }}"
+      env:
+        JAVA_HOME: $(JAVA_HOME_17_X64)
       displayName: 'Run Appium tests'
