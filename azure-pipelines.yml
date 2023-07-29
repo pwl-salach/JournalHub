@@ -41,7 +41,7 @@ steps:
 #    publishLocation: 'pipeline'
 
 - ${{ each api in parameters.apis }}:
-  - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};google_apis;x86_64'
+  - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};x86_64'
     displayName: Install Android-${{ api }} API
 
   - ${{ each device in parameters.devices }}:
