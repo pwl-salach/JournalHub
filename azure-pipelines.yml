@@ -50,7 +50,9 @@ steps:
   - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};google_apis;x86_64'
     displayName: Install Android-${{ api }} API
 
-  - script: $ANDROID_HOME/tools/bin/avdmanager list device
+  - script: |
+      $ANDROID_HOME/tools/bin/avdmanager list device
+      mkdir -p $(Build.ArtifactStagingDirectory)/AppiumResults
     displayName: Show available devices
 
   - ${{ each device in parameters.devices }}:
@@ -66,15 +68,20 @@ steps:
     - script: |
         $ANDROID_HOME/platform-tools/adb devices
         ./gradlew --rerun-tasks appiumTests:test -Ddevice=emulator-5554 -DdeviceName=${{ replace(device, ' ', '_') }}_${{ api }}
+        ret=$?
+        mv $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test $(Build.ArtifactStagingDirectory)/AppiumResults/${{ replace(device, ' ', '_') }}_${{ api }}
         adb -s emulator-5554 emu kill
+        sleep 5
         $ANDROID_HOME/platform-tools/adb devices
+        exit $ret
       env:
         JAVA_HOME: $(JAVA_HOME_17_X64)
+      continueOnError: true
       displayName: 'Run Appium tests'
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Build.SourcesDirectory)/appiumTests/build/reports/tests/test'
+    targetPath: '$(Build.ArtifactStagingDirectory)/AppiumResults'
     artifact: 'AppiumResults'
     publishLocation: 'pipeline'
   condition: always()
