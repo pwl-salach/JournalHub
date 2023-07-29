@@ -15,11 +15,13 @@ import java.nio.file.Paths
 
 open class BaseTest {
     protected lateinit var driver: AppiumDriver
-    protected lateinit var device: String
+    protected lateinit var deviceName: String
 
     fun setupDriver() {
         // Set desired capabilities for the Android device
-        device = System.getProperty("device")
+        deviceName = System.getProperty("deviceName")
+        val device = System.getProperty("device")
+
         val caps = UiAutomator2Options()
         caps.setCapability(MobileCapabilityType.DEVICE_NAME, device)
         caps.setCapability(MobileCapabilityType.UDID, device)
@@ -41,7 +43,7 @@ open class BaseTest {
 
     fun saveScreenshot(filePrefix: String){
         val screenshotFile = (driver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
-        val destinationPath = "build/test-results/test/${filePrefix}_${device}.png"
+        val destinationPath = "build/test-results/test/${filePrefix}_${deviceName}.png"
         screenshotFile.renameTo(File(destinationPath))
     }
 }
