@@ -13,9 +13,9 @@ parameters:
   - name: devices
     type: object
     default:
-      - pixel_3a
-      - pixel_4_xl
-      - nexus_6
+      - "Nexus 4"
+      - "Nexus 7"
+      - "Nexus 10"
 
   - name: apis
     type: object
@@ -48,11 +48,11 @@ steps:
 
   - ${{ each device in parameters.devices }}:
     - script: |
-        $ANDROID_HOME/tools/bin/avdmanager create avd --name ${{ device }}_${{ api }} --device "${{ device }}" --package 'system-images;android-${{ api }};google_apis;x86_64' --abi x86_64
+        $ANDROID_HOME/tools/bin/avdmanager create avd --name "${{ device }}_${{ api }}" --device "${{ device }}" --package 'system-images;android-${{ api }};google_apis;x86_64' --abi x86_64
       displayName: 'Create ${{ device }}_${{ api }} Emulator'
 
-    - script: $ANDROID_HOME/emulator/emulator -avd ${{ device }}_${{ api }} -no-snapshot -wipe-data -no-window
+    - script: $ANDROID_HOME/emulator/emulator -avd "${{ device }}_${{ api }}" -no-snapshot -wipe-data -no-window
       displayName: 'Start ${{ device }}_${{ api }} Emulator'
 
-    - script: ./gradlew --rerun-tasks appiumTests:test -Ddevice=${{ device }}_${{ api }}
+    - script: ./gradlew --rerun-tasks appiumTests:test -Ddevice="${{ device }}_${{ api }}"
       displayName: 'Run Appium tests'
