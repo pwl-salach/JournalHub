@@ -52,14 +52,15 @@ steps:
 
   - script: |
       $ANDROID_HOME/tools/bin/avdmanager list device
-      deviceName="${{ replace(device, ' ', '_') }}_${{ api }}"
-      echo Device name: $deviceName
-      echo "##vso[task.setvariable variable=deviceName;]$deviceName"
       mkdir -p $(Build.ArtifactStagingDirectory)/AppiumResults
     displayName: Initial setup and prints
 
   - ${{ each device in parameters.devices }}:
-    - script: $ANDROID_HOME/tools/bin/avdmanager create avd --name "$(deviceName)" --device "${{ device }}" --package 'system-images;android-${{ api }};google_apis;x86_64' --abi x86_64
+    - script: |
+        deviceName="${{ replace(device, ' ', '_') }}_${{ api }}"
+        echo Device name: $deviceName
+        echo "##vso[task.setvariable variable=deviceName;]$deviceName"
+        $ANDROID_HOME/tools/bin/avdmanager create avd --name "$deviceName" --device "${{ device }}" --package 'system-images;android-${{ api }};google_apis;x86_64' --abi x86_64
       displayName: 'Create ${{ device }}_${{ api }} Emulator'
 
     - script: |
