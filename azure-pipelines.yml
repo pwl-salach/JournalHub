@@ -23,28 +23,28 @@ parameters:
       - 30
 
 steps:
-- task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    gradleOptions: '-Xmx3072m'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug'
-  env:
-    JAVA_HOME: $(JAVA_HOME_17_X64)
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
-    artifact: 'Apk'
-    publishLocation: 'pipeline'
-
-- script: |
-    npm install -g appium@2.0.0
-    appium driver install uiautomator2
-    appium --allow-insecure chromedriver_autodownload &
-  displayName: Setup appium
+#- task: Gradle@2
+#  inputs:
+#    workingDirectory: ''
+#    gradleWrapperFile: 'gradlew'
+#    gradleOptions: '-Xmx3072m'
+#    publishJUnitResults: false
+#    testResultsFiles: '**/TEST-*.xml'
+#    tasks: 'assembleDebug'
+#  env:
+#    JAVA_HOME: $(JAVA_HOME_17_X64)
+#
+#- task: PublishPipelineArtifact@1
+#  inputs:
+#    targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
+#    artifact: 'Apk'
+#    publishLocation: 'pipeline'
+#
+#- script: |
+#    npm install -g appium@2.0.0
+#    appium driver install uiautomator2
+#    appium --allow-insecure chromedriver_autodownload &
+#  displayName: Setup appium
 
 - ${{ each api in parameters.apis }}:
   - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};google_apis;x86_64'
@@ -62,6 +62,8 @@ steps:
         echo Device name: $deviceName
         echo "##vso[task.setvariable variable=deviceName;]$deviceName"
         $ANDROID_HOME/tools/bin/avdmanager create avd --name "$deviceName" --device "${{ device }}" --package 'system-images;android-${{ api }};google_apis;x86_64' --abi x86_64
+        ls $HOME/.android/avd/
+        cat $HOME/.android/avd/$deviceName.avd/config.ini
       displayName: 'Create ${{ device }}_${{ api }} Emulator'
 
     - script: |
@@ -70,25 +72,25 @@ steps:
         echo "Emulator started"
       displayName: 'Start ${{ device }}_${{ api }} Emulator'
 
-    - script: |
-        $ANDROID_HOME/platform-tools/adb devices
-        adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/InitScreen_$(deviceName).png
-        ./gradlew --rerun-tasks appiumTests:test -Ddevice=emulator-5554 -DdeviceName=$(deviceName)
-        ret=$?
-        adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/EndScreen_$(deviceName).png
-        mv $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test $(Build.ArtifactStagingDirectory)/AppiumResults/$(deviceName)
-        adb -s emulator-5554 emu kill
-        sleep 5
-        $ANDROID_HOME/platform-tools/adb devices
-        exit $ret
-      env:
-        JAVA_HOME: $(JAVA_HOME_17_X64)
-      continueOnError: true
-      displayName: 'Run Appium tests'
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/AppiumResults'
-    artifact: 'AppiumResults'
-    publishLocation: 'pipeline'
-  condition: always()
+#    - script: |
+#        $ANDROID_HOME/platform-tools/adb devices
+#        adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/InitScreen_$(deviceName).png
+#        ./gradlew --rerun-tasks appiumTests:test -Ddevice=emulator-5554 -DdeviceName=$(deviceName)
+#        ret=$?
+#        adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/EndScreen_$(deviceName).png
+#        mv $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test $(Build.ArtifactStagingDirectory)/AppiumResults/$(deviceName)
+#        adb -s emulator-5554 emu kill
+#        sleep 5
+#        $ANDROID_HOME/platform-tools/adb devices
+#        exit $ret
+#      env:
+#        JAVA_HOME: $(JAVA_HOME_17_X64)
+#      continueOnError: true
+#      displayName: 'Run Appium tests'
+#
+#- task: PublishPipelineArtifact@1
+#  inputs:
+#    targetPath: '$(Build.ArtifactStagingDirectory)/AppiumResults'
+#    artifact: 'AppiumResults'
+#    publishLocation: 'pipeline'
+#  condition: always()
