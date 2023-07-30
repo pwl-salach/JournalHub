@@ -43,6 +43,7 @@ steps:
 - script: |
     npm install -g appium@2.0.0
     appium driver install uiautomator2
+    $ANDROID_HOME/emulator/emulator -accel-check
     appium --allow-insecure chromedriver_autodownload &
   displayName: Setup appium
 
