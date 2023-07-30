@@ -43,7 +43,7 @@ open class BaseTest {
 
     fun saveScreenshot(filePrefix: String){
         val screenshotFile = (driver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
-        val destinationPath = "build/test-results/test/${filePrefix}_${deviceName}.png"
+        val destinationPath = "build/reports/tests/test/${filePrefix}_${deviceName}.png"
         screenshotFile.renameTo(File(destinationPath))
     }
 }
