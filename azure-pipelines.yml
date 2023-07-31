@@ -65,23 +65,23 @@ steps:
       displayName: 'Create ${{ device }}_${{ api }} Emulator'
 
     - script: |
-        adb devices
+        $ANDROID_HOME/platform-tools/adb devices
         $ANDROID_HOME/emulator/emulator -avd "$(deviceName)" -gpu host &
-        adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+        $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
         echo "Emulator started"
-        adb devices
+        $ANDROID_HOME/platform-tools/adb devices
       displayName: 'Start ${{ device }}_${{ api }} Emulator'
 
     - script: |
-        adb devices
-        adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/InitScreen_$(deviceName).png
+        $ANDROID_HOME/platform-tools/adb devices
+        $ANDROID_HOME/platform-tools/adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/InitScreen_$(deviceName).png
         ./gradlew --rerun-tasks appiumTests:test -Ddevice=emulator-5554 -DdeviceName=$(deviceName)
         ret=$?
-        adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/EndScreen_$(deviceName).png
+        $ANDROID_HOME/platform-tools/adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/EndScreen_$(deviceName).png
         mv $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test $(Build.ArtifactStagingDirectory)/AppiumResults/$(deviceName)
-        adb -s emulator-5554 emu kill
+        $ANDROID_HOME/platform-tools/adb -s emulator-5554 emu kill
         sleep 5
-        adb devices
+        $ANDROID_HOME/platform-tools/adb devices
         exit $ret
       env:
         JAVA_HOME: $(JAVA_HOME_17_X64)
