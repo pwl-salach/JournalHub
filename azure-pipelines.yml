@@ -62,10 +62,6 @@ steps:
         echo Device name: $deviceName
         echo "##vso[task.setvariable variable=deviceName;]$deviceName"
         $ANDROID_HOME/tools/bin/avdmanager create avd --name "$deviceName" --device "${{ device }}" --package 'system-images;android-${{ api }};google_apis;x86_64' --abi x86_64
-        ls $HOME/.android/avd/
-#        echo hw.gpu.mode=swiftshader_indirect >> $HOME/.android/avd/$deviceName.avd/config.ini
-#        echo hw.cpu.ncore=2 >> $HOME/.android/avd/$deviceName.avd/config.ini
-        cat $HOME/.android/avd/$deviceName.avd/config.ini
       displayName: 'Create ${{ device }}_${{ api }} Emulator'
 
     - script: |
