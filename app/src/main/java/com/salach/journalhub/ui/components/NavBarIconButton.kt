@@ -14,23 +14,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.salach.journalhub.R
 import com.salach.journalhub.ui.theme.ColorPalette
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
 
 
 @Composable
 fun  NavBarIconButton(
     icon: Int,
+    description: String,
     isSelected: Boolean,
     highlightedColor: Color = ColorPalette.tertiary,
-    shape: Shape = RoundedCornerShape(size = Dimensions.Half),
+    shape: Shape = RoundedCornerShape(size = currentDimensions().Half),
     onClick: () -> Unit
 ){
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.width(48.dp).height(48.dp)
+        modifier = Modifier.width(currentDimensions().XL).height(currentDimensions().XL)
             .background(
                 if (isSelected) highlightedColor else ColorPalette.primarySurface3,
                 shape = shape
@@ -38,10 +38,11 @@ fun  NavBarIconButton(
     ) {
         Icon(
             painter = painterResource(id = icon),
-            contentDescription = "",
+            contentDescription = description,
+            tint = if (isSelected) Color.White else Color.Black,
             modifier = Modifier
-                .height(Dimensions.L)
-                .width(Dimensions.L)
+                .height(currentDimensions().L)
+                .width(currentDimensions().L)
                 .clickable { onClick() }
         )
     }
@@ -50,5 +51,5 @@ fun  NavBarIconButton(
 @Preview
 @Composable
 fun PreviewNavBarIconButton(){
-    NavBarIconButton(R.drawable.ic_dashboard, true,){}
+    NavBarIconButton(R.drawable.ic_dashboard, "Test", true){}
 }

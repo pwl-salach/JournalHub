@@ -6,19 +6,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import com.salach.journalhub.JournalHub
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.salach.journalhub.JournalHub
 import com.salach.journalhub.db.models.Schedule
 import com.salach.journalhub.enums.TimeUnit
 import com.salach.journalhub.ui.components.CollapsableColumn
 import com.salach.journalhub.ui.components.CurrentGoals
 import com.salach.journalhub.ui.components.MySchedule
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -38,7 +38,7 @@ fun DashboardScreen(navController: NavHostController){
         Schedule(0, TimeUnit.DAYS, LocalDate.now(), null, LocalTime.now(), null),
     )
     Column(
-        modifier = Modifier.padding(start = Dimensions.S, end = Dimensions.S)
+        modifier = Modifier.padding(start = currentDimensions().S, end = currentDimensions().S)
     ) {
         CollapsableColumn(title = "Daily Goal") {
             CurrentGoals(goals = viewModel.goals)
@@ -47,7 +47,6 @@ fun DashboardScreen(navController: NavHostController){
             MySchedule(previewData)
         }
     }
-
 }
 
 @Composable

@@ -1,7 +1,6 @@
 package com.salach.journalhub.ui.components.popups
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -25,8 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.R
 import com.salach.journalhub.ui.theme.ColorPalette
-import com.salach.journalhub.ui.theme.Dimensions
-import com.salach.journalhub.ui.theme.Typography
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -37,16 +35,13 @@ fun QuitEditingPrompt(
 ) {
     if(openPopup){
         ModalBottomSheetLayout(
-            sheetShape = RoundedCornerShape(size = Dimensions.XS),
+            sheetShape = RoundedCornerShape(size = currentDimensions().XS),
             sheetBackgroundColor = ColorPalette.primarySurface5,
             sheetContent = {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
-                    modifier = Modifier
-                        .padding(Dimensions.S)
-
-
+                    modifier = Modifier.padding(currentDimensions().S)
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
@@ -59,13 +54,13 @@ fun QuitEditingPrompt(
                         )
                         Text(
                             text = "Exit to Journal overview page?",
-                            style = Typography.T2B
+                            style = currentTypography().T2B
                         )
                     }
                     Text(
                         text = "Progress will be lost.",
-                        style = Typography.B3R,
-                        modifier = Modifier.padding(horizontal = Dimensions.L)
+                        style = currentTypography().B3R,
+                        modifier = Modifier.padding(horizontal = currentDimensions().L)
                     )
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
@@ -79,7 +74,7 @@ fun QuitEditingPrompt(
                             ),
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .padding(Dimensions.S)
+                                .padding(currentDimensions().S)
                                 .clickable { onCancel() }
                         ) {
                             Image(
@@ -88,7 +83,7 @@ fun QuitEditingPrompt(
                             )
                             Text(
                                 text = "Cancel",
-                                style = Typography.L2R
+                                style = currentTypography().L2R
                             )
                         }
                         Row(
@@ -103,7 +98,7 @@ fun QuitEditingPrompt(
                                     width = 1.dp, color = ColorPalette.AlertsNegative50,
                                     shape = RoundedCornerShape(size = 4.dp)
                                 )
-                                .padding(horizontal = Dimensions.S, vertical = Dimensions.XS)
+                                .padding(horizontal = currentDimensions().S, vertical = currentDimensions().XS)
 
                         ) {
                             Image(
@@ -113,7 +108,7 @@ fun QuitEditingPrompt(
                             )
                             Text(
                                 text = "Exit",
-                                style = Typography.L2R.copy(color = ColorPalette.AlertsNegative50)
+                                style = currentTypography().L2R.copy(color = ColorPalette.AlertsNegative50)
                             )
                         }
                     }

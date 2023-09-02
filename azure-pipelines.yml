@@ -7,7 +7,24 @@ trigger:
 - main
 
 pool:
-  vmImage: 'macos-latest'
+  vmName: macos-latest
+
+parameters:
+  - name: runAppium
+    type: boolean
+    default: false
+
+  - name: devices
+    type: object
+    default:
+      - "Nexus 4"
+      - "Nexus 7"
+      - "Nexus 10"
+
+  - name: apis
+    type: object
+    default:
+      - 30
 
 steps:
 - task: Gradle@2
@@ -26,3 +43,60 @@ steps:
     targetPath: '$(Build.SourcesDirectory)/app/build/outputs/apk'
     artifact: 'Apk'
     publishLocation: 'pipeline'
+
+${{ if parameters.runAppium }}:
+  - script: |
+      npm install -g appium@2.0.0
+      appium driver install uiautomator2
+      $ANDROID_HOME/emulator/emulator -accel-check
+      appium --allow-insecure chromedriver_autodownload &
+    displayName: Setup appium
+
+  - ${{ each api in parameters.apis }}:
+    - script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-${{ api }};google_apis;x86_64'
+      displayName: Install Android-${{ api }} API
+
+    - script: |
+        $ANDROID_HOME/tools/bin/avdmanager list device
+        sysctl -a | grep machdep.cpu.features
+        mkdir -p $(Build.ArtifactStagingDirectory)/AppiumResults
+      displayName: Initial setup and prints
+
+    - ${{ each device in parameters.devices }}:
+      - script: |
+          deviceName="${{ replace(device, ' ', '_') }}_${{ api }}"
+          echo Device name: $deviceName
+          echo "##vso[task.setvariable variable=deviceName;]$deviceName"
+          $ANDROID_HOME/tools/bin/avdmanager create avd --name "$deviceName" --device "${{ device }}" --package 'system-images;android-${{ api }};google_apis;x86_64' --abi x86_64 || echo Already exists...
+        displayName: 'Create ${{ device }}_${{ api }} Emulator'
+
+      - script: |
+          $ANDROID_HOME/platform-tools/adb devices
+          $ANDROID_HOME/emulator/emulator -avd "$(deviceName)" -gpu host &
+          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          echo "Emulator started"
+          $ANDROID_HOME/platform-tools/adb devices
+        displayName: 'Start ${{ device }}_${{ api }} Emulator'
+
+      - script: |
+          $ANDROID_HOME/platform-tools/adb devices
+          $ANDROID_HOME/platform-tools/adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/InitScreen_$(deviceName).png
+          ./gradlew --rerun-tasks appiumTests:test -Ddevice=emulator-5554 -DdeviceName=$(deviceName)
+          ret=$?
+          $ANDROID_HOME/platform-tools/adb exec-out screencap -p > $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test/EndScreen_$(deviceName).png
+          mv $(Build.SourcesDirectory)/appiumTests/build/reports/tests/test $(Build.ArtifactStagingDirectory)/AppiumResults/$(deviceName)
+          $ANDROID_HOME/platform-tools/adb -s emulator-5554 emu kill
+          sleep 5
+          $ANDROID_HOME/platform-tools/adb devices
+          exit $ret
+        env:
+          JAVA_HOME: $(JAVA_HOME_17_X64)
+        continueOnError: true
+        displayName: 'Run Appium tests'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/AppiumResults'
+      artifact: 'AppiumResults'
+      publishLocation: 'pipeline'
+    condition: always()

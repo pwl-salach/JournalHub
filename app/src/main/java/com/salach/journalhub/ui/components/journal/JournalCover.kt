@@ -1,4 +1,4 @@
-package com.salach.journalhub.ui.components.journal
+ package com.salach.journalhub.ui.components.journal
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
@@ -26,17 +26,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.theme.Dimensions
-import com.salach.journalhub.ui.theme.Typography
+import com.salach.journalhub.ui.theme.ColorPalette
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 import com.salach.journalhub.utils.DateUtils
 import java.time.LocalDate
 
-@Composable
+ @Composable
 fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
     val transition = updateTransition(targetState = journal.backgroundColor, label = "ColorTransition")
     val color by transition.animateColor(label = "CoverColor") { state ->
         Color(state)
     }
+    val bookmarkExtraLength = currentDimensions().S
     Box(
         modifier = Modifier
             .width(240.dp)
@@ -46,13 +48,13 @@ fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
             Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(bottom = Dimensions.S)
+                .padding(bottom = bookmarkExtraLength)
                 .background(
                     color = color,
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
-                        topEnd = Dimensions.S,
-                        bottomEnd = Dimensions.S,
+                        topEnd = currentDimensions().S,
+                        bottomEnd = currentDimensions().S,
                         bottomStart = 0.dp
                     )
                 )
@@ -63,7 +65,7 @@ fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
 //            contentScale = ContentScale.None,
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = Dimensions.S)
+                .offset(x = currentDimensions().S)
         )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -71,47 +73,49 @@ fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
             modifier = Modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
+                .padding(top = currentDimensions().S, bottom = currentDimensions().S + bookmarkExtraLength)
         ) {
             Column(
+                verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top = Dimensions.L),
             ) {
-                Text(
-                    text = journal.title,
-                    style = Typography.T2R
-                )
-                Text(
-                    text = journal.subtitle,
-                    style = Typography.T2R.copy(color = Color(0xFF464646))
-                )
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+                ) {
+                    Text(
+                        text = journal.title,
+                        style = currentTypography().T2R
+                    )
+                    Text(
+                        text = journal.subtitle,
+                        style = currentTypography().T2R.copy(color = ColorPalette.inkLight)
+                    )
+                }
+                if (journal.icon != null){
+                    Image(
+                        painter = painterResource(id = journal.icon!!),
+                        contentDescription = "image description",
+                        colorFilter = ColorFilter.tint(Color(journal.iconColor)),
+                        modifier = Modifier
+                            .width(128.dp)
+                            .height(128.dp)
+                    )
+                }
             }
-            if (journal.icon != null){
-                Image(
-                    painter = painterResource(id = journal.icon!!),
-                    contentDescription = "image description",
-                    colorFilter = ColorFilter.tint(Color(journal.iconColor)),
-                    modifier = Modifier
-                        .width(128.dp)
-                        .height(128.dp)
-                )
-            }
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(Dimensions.Half),
-                modifier = Modifier.padding(bottom = Dimensions.M),
+                verticalArrangement = Arrangement.spacedBy(currentDimensions().Half)
             ){
-                if (journal.showCreatedDate && journal.createdDate != null){
-                    Text(
-                        text = "Created: " + DateUtils.formatDate(journal.createdDate),
-                        style = Typography.L3L.copy(Color(0xFF414249))
-                    )
-                }
-                if (journal.showEditedDate && journal.editedDate != null){
-                    Text(
-                        text = "Last edited: " + DateUtils.formatDate(journal.editedDate),
-                        style = Typography.L3L.copy(Color(0xFF414249))
-                    )
-                }
+                Text(
+                    text = if (journal.showCreatedDate && journal.createdDate != null) "Created: " + DateUtils.formatDate(journal.createdDate) else  "",
+                    style = currentTypography().L3L.copy(color = ColorPalette.inkLight)
+                )
+                Text(
+                    text = if (journal.showEditedDate && journal.editedDate != null) "Last edited: " + DateUtils.formatDate(journal.editedDate) else "",
+                    style = currentTypography().L3L.copy(color = ColorPalette.inkLight)
+                )
             }
         }
     }
@@ -136,6 +140,12 @@ fun PreviewFullJournalCover(){
 
 @Preview
 @Composable
-fun PreviewEmptyBigJournal(){
+fun PreviewEmptyJournal(){
     JournalCover(Journal("", ""))
+}
+
+@Preview
+@Composable
+fun PreviewIconJournal(){
+    JournalCover(Journal("", "", icon = R.drawable.ic_notebook ))
 }

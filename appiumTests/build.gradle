@@ -1,0 +1,22 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation('io.appium:java-client:8.5.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    testImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+tasks.withType(Test) {
+    var device = System.getProperty("device", "emulator-5554")
+    systemProperty "device", device
+    systemProperty "deviceName", System.getProperty("deviceName", device)
+}

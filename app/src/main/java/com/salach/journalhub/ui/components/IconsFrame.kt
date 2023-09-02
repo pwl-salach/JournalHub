@@ -17,9 +17,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.ui.theme.ColorPalette
-import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.IconsGroup
-import com.salach.journalhub.ui.theme.Typography
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
 fun IconsFrame(name: String, iconsGroup: List<Int>) {
@@ -27,8 +27,8 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
         verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .background(color = ColorPalette.primarySurface2, shape = RoundedCornerShape(size = Dimensions.Half))
-            .padding(Dimensions.XS)
+            .background(color = ColorPalette.primarySurface2, shape = RoundedCornerShape(size = currentDimensions().Half))
+            .padding(currentDimensions().XS)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
@@ -37,7 +37,7 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
             for(i in 0..1) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(
-                        Dimensions.XS,
+                        currentDimensions().XS,
                         Alignment.CenterHorizontally
                     ),
                     verticalAlignment = Alignment.CenterVertically,
@@ -46,7 +46,7 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
                         Icon(
                             painter = painterResource(id = iconsGroup[i*2 + j]),
                             contentDescription = "",
-                            modifier = Modifier.width(Dimensions.S).height(Dimensions.S)
+                            modifier = Modifier.width(currentDimensions().S).height(currentDimensions().S)
                         )
                     }
                 }
@@ -54,7 +54,7 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
         }
         Text(
             text = name,
-            style = Typography.L2R
+            style = currentTypography().L2R
         )
     }
 }

@@ -24,15 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Goal
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 
 
 @Composable
@@ -40,7 +38,7 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-//            .padding(all = Dimensions.xs)
+//            .padding(all = currentDimensions().xs)
             .clip(shape = MaterialTheme.shapes.medium)
             .background(color = Color(0xfffafafa))
     ) {
@@ -56,32 +54,22 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                 Image(
                     painter = painterResource(id = icon),
                     contentDescription = "icon",
-                    modifier = Modifier.size(size = Dimensions.L)
+                    modifier = Modifier.size(size = currentDimensions().L)
                 )
                 Spacer(
-                    modifier = Modifier.width(width = Dimensions.XS)
+                    modifier = Modifier.width(width = currentDimensions().XS)
                 )
                 Column {
                     Text(
                         text = title,
-                        color = Color(0xff272830),
-                        lineHeight = 1.14.em,
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            letterSpacing = 0.1.sp
-                        )
+                        style = currentTypography().T3R,
                     )
                     Spacer(
-                        modifier = Modifier.height(height = Dimensions.Half)
+                        modifier = Modifier.height(height = currentDimensions().Half)
                     )
                     Text(
                         text = subtitle,
-                        color = Color(0xff464646),
-                        lineHeight = 1.2.em,
-                        style = TextStyle(
-                            fontSize = 10.sp,
-                            letterSpacing = 0.1.sp
-                        )
+                        style = currentTypography().L3L,
                     )
                 }
             }
@@ -96,26 +84,26 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         contentDescription = "Remove",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(Dimensions.L)
-                            .height(Dimensions.L)
+                            .width(currentDimensions().L)
+                            .height(currentDimensions().L)
                     )
                     Spacer(
-                        modifier = Modifier.width(width = Dimensions.XS)
+                        modifier = Modifier.width(width = currentDimensions().XS)
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.add),
                         contentDescription = "Add",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(Dimensions.L)
-                            .height(Dimensions.L)
+                            .width(currentDimensions().L)
+                            .height(currentDimensions().L)
                     )
                 }
             }
         }
         Spacer(
             modifier = Modifier
-                .height(height = Dimensions.XS)
+                .height(height = currentDimensions().XS)
         )
         Progress(progress)
     }
@@ -139,7 +127,7 @@ fun CurrentGoals(goals: LiveData<List<Goal>>) {
     val itemsState by goals.observeAsState(emptyList())
 
     LazyColumn (
-        verticalArrangement = Arrangement.spacedBy(Dimensions.XS, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(currentDimensions().XS, Alignment.CenterVertically),
 //        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
     ){

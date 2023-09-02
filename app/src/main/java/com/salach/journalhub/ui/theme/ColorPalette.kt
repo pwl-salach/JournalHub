@@ -65,6 +65,13 @@ object ColorPalette {
     val primarySurface2 = Color(0xFFF5F3F8)
     val primarySurface1 = Color(0xFFF8F7FA)
 
+    val outline = FrenchGray60
+
+    val inkDark = FrenchGray90
+    val inkLight = FrenchGray80
+    val inkDisabled = FrenchGray50
+    val inkContrast = FrenchGray10
+
     val Pastels = listOf(
         Color(0xFF9747FF),
         Color(0xFF94E4F7),
@@ -77,6 +84,7 @@ object ColorPalette {
         Color(0xFFF7BA94),
         Color(0xFFF7CD94),
     )
+
     val Neutrals = listOf(
         Color(0xFF000000),
         Color(0xFFFFFFFF)
