@@ -14,8 +14,8 @@ class BottomBarNavigation : BaseTest() {
     @Test
     fun goThroughNavigationBar() {
         listOf("Dashboard", "Journals").forEach{
-            driver.findElement(AppiumBy.ByAndroidUIAutomator("new UiSelector().description(\"${it}\")")).click()
-            saveScreenshot("Navigation_$it")
+            clickOnElement(it)
+            saveScreenshot("Navigation", it)
         }
     }
 }

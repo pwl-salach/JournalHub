@@ -33,7 +33,7 @@ import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.navigation.graphs.Graph
 import com.salach.journalhub.ui.components.journal.BigJournalCover
 import com.salach.journalhub.ui.components.journal.SmallJournalCover
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
 
 
 @Composable
@@ -47,10 +47,10 @@ fun CarouselJournalView(
     val viewModel: JournalsViewModel = LocalViewModel.current
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Dimensions.L),
+        verticalArrangement = Arrangement.spacedBy(currentDimensions().L),
         modifier = Modifier
             .fillMaxHeight()
-            .padding(top = Dimensions.L)
+            .padding(top = currentDimensions().L)
     ){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,8 +72,8 @@ fun CarouselJournalView(
             )
         }
         LazyRow(
-            contentPadding = PaddingValues(horizontal = Dimensions.S),
-            horizontalArrangement = Arrangement.spacedBy(Dimensions.S)
+            contentPadding = PaddingValues(horizontal = currentDimensions().S),
+            horizontalArrangement = Arrangement.spacedBy(currentDimensions().S)
         ){
             itemsIndexed(itemsState) { index, journal ->
                 Box(
@@ -85,9 +85,9 @@ fun CarouselJournalView(
                             selectedIndex.value = index
                         }
                         .border(
-                            if (selectedIndex.value == index) Dimensions.Quarter else Dp.Unspecified,
+                            if (selectedIndex.value == index) currentDimensions().Quarter else Dp.Unspecified,
                             MaterialTheme.colorScheme.primary,
-                            shape = RoundedCornerShape(size = Dimensions.XS)
+                            shape = RoundedCornerShape(size = currentDimensions().XS)
                         )
                 ){
                     SmallJournalCover(journal)

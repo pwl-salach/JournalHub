@@ -2,7 +2,6 @@ package com.salach.journalhub.ui.theme
 
 import android.app.Activity
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -36,11 +35,7 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
-private val ThemeTypography = androidx.compose.material3.Typography(
-    bodyLarge = Typography.B2L,
-    titleLarge = Typography.T1B,
-    labelSmall = Typography.L3R
-)
+
 
 @Composable
 fun JournalHubTheme(
@@ -50,6 +45,12 @@ fun JournalHubTheme(
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+    val themeTypography = androidx.compose.material3.Typography(
+        bodyLarge = currentTypography().B2L,
+        titleLarge = currentTypography().T1B,
+        labelSmall = currentTypography().L3R
+    )
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -70,7 +71,9 @@ fun JournalHubTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = ThemeTypography,
+        typography = themeTypography,
         content = content
     )
 }
+
+

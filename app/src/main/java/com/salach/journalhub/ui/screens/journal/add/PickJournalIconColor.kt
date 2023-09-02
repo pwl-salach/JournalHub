@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.ColorPicker
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
 import java.time.LocalDate
 
 @Composable
@@ -23,7 +23,7 @@ fun PickJournalIconColor(journal: MutableState<Journal>) {
 
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
             modifier = Modifier.fillMaxWidth()
         ) {

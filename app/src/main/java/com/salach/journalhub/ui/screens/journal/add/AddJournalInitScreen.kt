@@ -3,121 +3,104 @@ package com.salach.journalhub.ui.screens.journal.add
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.theme.Dimensions
-import com.salach.journalhub.ui.theme.Typography
+import com.salach.journalhub.ui.components.InputLine
+import com.salach.journalhub.ui.components.NamedCheckbox
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 import java.time.LocalDate
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddJournalInitScreen(journal: MutableState<Journal>){
     val updateTrigger = remember { mutableStateOf(false) }
-
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+            verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
-                .padding(Dimensions.S)
+                .padding(currentDimensions().S)
+                .fillMaxHeight()
                 .fillMaxWidth()
         ) {
-            Text(
-                text = "Add text on the cover.",
-                style = Typography.T2B,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
             Column(
-                verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
-            ) {
-                TextField(
-                    value = journal.value.title,
-                    onValueChange = {
-//                        title.value = it
-                        journal.value.title = it
-                        updateTrigger.value = !updateTrigger.value
-                    },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    placeholder = { Text("Title...", color = Color.Gray) },
-                    textStyle = Typography.T2R,
-                    modifier = Modifier.height(52.dp)
+            ){
+                Text(
+                    text = "Add text on the cover.",
+                    style = currentTypography().T2B,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
                 )
-                TextField(
-                    value = journal.value.subtitle,
-                    onValueChange = {
-//                        subtitle.value = it
-                        journal.value.subtitle = it
-                        updateTrigger.value = !updateTrigger.value
-                    },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                    placeholder = { Text("Subtitle...", color = Color.Gray) },
-                    textStyle = Typography.T2R,
-                    modifier = Modifier.height(52.dp)
-    //                        color = Color(0xFF929292),
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+                    horizontalAlignment = Alignment.Start,
+                ) {
+                    InputLine(
+                        value = journal.value.title,
+                        textStyle = currentTypography().T2R,
+                        placeholder = "Title...",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .semantics { contentDescription = "TitleInput" },
+                        onValueChange = {
+                            journal.value.title = it
+                            updateTrigger.value = !updateTrigger.value
+                        },
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    )
+                    InputLine(
+                        value = journal.value.subtitle,
+                        textStyle = currentTypography().T2R,
+                        placeholder = "Subtitle...",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .semantics { contentDescription = "SubtitleInput" },
+                        onValueChange = {
+                            journal.value.subtitle = it
+                            updateTrigger.value = !updateTrigger.value
+                        },
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+                    )
+                }
             }
             Column(
-                verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Dimensions.XS, Alignment.CenterHorizontally),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Checkbox(
-                        checked = journal.value.showCreatedDate,
-                        onCheckedChange = {
-//                            showCreationDate.value = !showCreationDate.value
-                            journal.value.showCreatedDate = !journal.value.showCreatedDate
-                            updateTrigger.value = !updateTrigger.value
-                        },
-                        modifier = Modifier.height(Dimensions.M)
-                    )
-                    Text(
-                        text = "Show creation date.",
-                        style = Typography.T2R
-                    )
-                }
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Dimensions.XS, Alignment.CenterHorizontally),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Checkbox(
-                        checked = journal.value.showEditedDate,
-                        onCheckedChange = {
-//                            showLastEditedDate.value = !showLastEditedDate.value
-                            journal.value.showEditedDate = !journal.value.showEditedDate
-                            updateTrigger.value = !updateTrigger.value
-                        },
-                        modifier = Modifier.height(Dimensions.M)
-                    )
-                    Text(
-                        text = "Show “last edited” date.",
-                        style = Typography.T2R
-                    )
-                }
+                NamedCheckbox(
+                    label = "Show creation date.",
+                    checked = journal.value.showCreatedDate,
+                    onCheckedChange = {
+                        journal.value.showCreatedDate = !journal.value.showCreatedDate
+                        updateTrigger.value = !updateTrigger.value
+                    }
+                )
+                NamedCheckbox(
+                    label = "Show “last edited” date.",
+                    checked = journal.value.showEditedDate,
+                    onCheckedChange = {
+                        journal.value.showEditedDate = !journal.value.showEditedDate
+                        updateTrigger.value = !updateTrigger.value
+                    }
+                )
             }
         }
     }

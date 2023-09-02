@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import com.salach.journalhub.ui.theme.ColorPalette
-import com.salach.journalhub.ui.theme.Dimensions
-import com.salach.journalhub.ui.theme.Typography
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 
 
 @Composable
@@ -35,35 +35,35 @@ fun ColorPicker(prompt: String, initialColor: Int, onColorPicked: (Int) -> Unit)
     val selectedItemId = remember { mutableStateOf(-1) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .background(
                 color = ColorPalette.SurfaceLight,
-                shape = RoundedCornerShape(size = Dimensions.Half)
+                shape = RoundedCornerShape(size = currentDimensions().Half)
             )
-            .padding(Dimensions.S)
+            .padding(currentDimensions().S)
     ){
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.L, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(currentDimensions().L, Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = prompt,
-                style = Typography.L1B
+                style = currentTypography().L1B
             )
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
                 text = "Pastel",
-                style = Typography.L1R
+                style = currentTypography().L1R
             )
 
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -80,15 +80,15 @@ fun ColorPicker(prompt: String, initialColor: Int, onColorPicked: (Int) -> Unit)
             }
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
                 text = "Neutral",
-                style = Typography.L1R
+                style = currentTypography().L1R
             )
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -122,18 +122,19 @@ fun PreviewColorPicker(){
 
 @Composable
 fun SelectableColor(color: Color, isSelected: Boolean, onItemSelected: (Int) -> Unit){
+    val dimensions = currentDimensions()
     Box(
         modifier = Modifier
-            .size(Dimensions.L)
+            .size(currentDimensions().L)
             .clip(shape = CircleShape)
             .clickable {
                 onItemSelected(color.toArgb())
             }
             .drawBehind {
-                val outerRadius = Dimensions.L.toPx() / 2
-                val innerRadius = Dimensions.S.toPx() / 2
+                val outerRadius = dimensions.L.toPx() / 2
+                val innerRadius = dimensions.S.toPx() / 2
                 val filledRadius = if (isSelected) innerRadius else outerRadius
-                val outerRingWidth = Dimensions.XS.toPx() + Dimensions.Half.toPx()
+                val outerRingWidth = dimensions.XS.toPx() + dimensions.Half.toPx()
                 drawCircle(
                     color = color,
                     radius = filledRadius,
@@ -152,7 +153,7 @@ fun SelectableColor(color: Color, isSelected: Boolean, onItemSelected: (Int) -> 
 @Preview
 @Composable
 fun PreviewSelectableColor(){
-    Row(horizontalArrangement = Arrangement.spacedBy(Dimensions.S)) {
+    Row(horizontalArrangement = Arrangement.spacedBy(currentDimensions().S)) {
         SelectableColor(ColorPalette.Lavender50, false) {}
         SelectableColor(ColorPalette.Lavender50, true) {}
     }

@@ -27,7 +27,8 @@ import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.IconsFrame
 import com.salach.journalhub.ui.theme.Dimensions
 import com.salach.journalhub.ui.theme.IconsGroup
-import com.salach.journalhub.ui.theme.Typography
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
 fun PickJournalIcon(journal: MutableState<Journal>) {
@@ -38,7 +39,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Text(
             text = "Select cover image.",
-            style = Typography.T2R
+            style = currentTypography().T2R
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -48,15 +49,15 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
         ){
             Text(
                 text = if (selectedGroup.value == "") "Categories" else "Categories / ${selectedGroup.value}",
-                style = Typography.T2R,
-                modifier = Modifier.height(Dimensions.M)
+                style = currentTypography().T2R,
+                modifier = Modifier.height(currentDimensions().M)
             )
             if (selectedGroup.value != "") {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = "back",
                     modifier = Modifier
-                        .height(Dimensions.M)
+                        .height(currentDimensions().M)
                         .clickable {
                             selectedGroup.value = ""
                         }
@@ -71,7 +72,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
                 ) { rowItems ->
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(
-                            Dimensions.XS,
+                            currentDimensions().XS,
                             Alignment.CenterHorizontally
                         ),
                         verticalAlignment = Alignment.Top
@@ -91,7 +92,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
                 IconsGroup.grouped[selectedGroup.value]?.let {
                     items(it.windowed(6,6,true)){ rowItems ->
                         LazyRow(
-                            horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
+                            horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
                             modifier = Modifier.fillMaxWidth()
                         ){
                             items(rowItems){it ->

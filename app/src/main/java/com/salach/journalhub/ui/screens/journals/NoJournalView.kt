@@ -26,8 +26,8 @@ import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
 import com.salach.journalhub.ui.components.journal.JournalCover
 import com.salach.journalhub.ui.theme.ColorPalette
-import com.salach.journalhub.ui.theme.Dimensions
-import com.salach.journalhub.ui.theme.Typography
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
 fun NoJournalView(
@@ -37,7 +37,7 @@ fun NoJournalView(
     val navigateToJournals = remember { mutableStateOf(false) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(modifier = Modifier.scale(1f)){
@@ -48,18 +48,18 @@ fun NoJournalView(
                 |You haven’t created any journals yet.
                 |Would you like to do it now?
             """.trimMargin(),
-            style = Typography.T2R,
+            style = currentTypography().T2R,
             textAlign = TextAlign.Center,
         )
         Box(modifier = Modifier
 //            .offset(x = 100.dp, y = 604.dp)
-            .shadow(elevation = Dimensions.Half, spotColor = Color(0x26000000), ambientColor = Color(0x26000000))
-            .background(color = ColorPalette.primary, shape = RoundedCornerShape(size = Dimensions.Half))
-            .padding(vertical = Dimensions.S, horizontal = Dimensions.XL)
+            .shadow(elevation = currentDimensions().Half, spotColor = Color(0x26000000), ambientColor = Color(0x26000000))
+            .background(color = ColorPalette.primary, shape = RoundedCornerShape(size = currentDimensions().Half))
+            .padding(vertical = currentDimensions().S, horizontal = currentDimensions().XL)
         ){
             Text(
                 text = "Let’s START!",
-                style = Typography.L2R,
+                style = currentTypography().L2R,
 //                color = Color(0xFFFFFFFF),
 //                textAlign = TextAlign.Center,
 

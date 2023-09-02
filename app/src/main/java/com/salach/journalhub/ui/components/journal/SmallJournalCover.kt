@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.theme.Dimensions
-import com.salach.journalhub.ui.theme.Typography
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
 fun SmallJournalCover(journal: Journal, hideTitle: Boolean = false) {
@@ -36,8 +36,8 @@ fun SmallJournalCover(journal: Journal, hideTitle: Boolean = false) {
             .background(
                 color = Color(journal.backgroundColor),
                 shape = RoundedCornerShape(
-                    topStart = 0.dp, topEnd = Dimensions.Half,
-                    bottomStart = 0.dp, bottomEnd = Dimensions.Half
+                    topStart = 0.dp, topEnd = currentDimensions().Half,
+                    bottomStart = 0.dp, bottomEnd = currentDimensions().Half
                 ),
             )
     ){
@@ -47,16 +47,16 @@ fun SmallJournalCover(journal: Journal, hideTitle: Boolean = false) {
             modifier = Modifier
                 .width(4.dp)
                 .height(64.dp)
-                .offset(x = Dimensions.Quarter)
+                .offset(x = currentDimensions().Quarter)
         )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(Dimensions.Half, Alignment.Top),
-            modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Half)
+            verticalArrangement = Arrangement.spacedBy(currentDimensions().Half, Alignment.Top),
+            modifier = Modifier.fillMaxWidth().padding(top = currentDimensions().Half)
         ) {
             Text(
                 text = if (hideTitle) "" else journal.title ,
-                style = Typography.L3L.copy(fontSize = 8.sp)
+                style = currentTypography().L3L.copy(fontSize = 8.sp)
             )
             if(journal.icon != null){
                 Image(
@@ -76,7 +76,7 @@ fun SmallJournalCover(journal: Journal, hideTitle: Boolean = false) {
 @Composable
 fun PreviewSmallJournalCover(){
     Row(
-        horizontalArrangement = Arrangement.spacedBy(Dimensions.XS)
+        horizontalArrangement = Arrangement.spacedBy(currentDimensions().XS)
     ){
         SmallJournalCover(Journal("Qwe", "", icon = R.drawable.ic_apple))
         SmallJournalCover(Journal("Qwe", "", icon = R.drawable.ic_apple), hideTitle = true)

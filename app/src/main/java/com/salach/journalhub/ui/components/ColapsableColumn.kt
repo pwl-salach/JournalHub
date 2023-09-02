@@ -16,16 +16,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.salach.journalhub.R
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
+import com.salach.journalhub.ui.theme.currentTypography
 
 
 @Composable
@@ -33,48 +29,43 @@ fun CollapsableColumn(title: String, content: @Composable () -> Unit){
     val isCollapsed = remember { mutableStateOf(false) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .height(Dimensions.L)
+                .height(currentDimensions().L)
                 .fillMaxWidth()
         ) {
             Text(
                 text = title,
-                fontSize = 24.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                color = Color(0xFF272830),
-                textAlign = TextAlign.Center,
-                letterSpacing = 0.24.sp,
+                style = currentTypography().T3B,
                 modifier = Modifier
                     .offset(x = 0.dp, y = 0.dp)
-//                    .width(119.dp)
-                    .height(Dimensions.L)
+                    .height(currentDimensions().L)
             )
             Row(
-                horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
                 verticalAlignment = Alignment.Top,
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.plus),
                     contentDescription = "Show/hide",
                     modifier = Modifier
-                        .width(Dimensions.L)
-                        .height(Dimensions.L)
-                        .padding(Dimensions.Half)
+                        .width(currentDimensions().L)
+                        .height(currentDimensions().L)
+                        .padding(currentDimensions().Half)
                 )
                 Image(
                     painter = painterResource(id = R.drawable.tabler_icon_eye_off),
                     contentDescription = "Show/hide",
                     modifier = Modifier
 //                        .offset(x = 0.dp, y = 0.dp)
-                        .width(Dimensions.L)
-                        .height(Dimensions.L)
-                        .padding(Dimensions.Half)
+                        .width(currentDimensions().L)
+                        .height(currentDimensions().L)
+                        .padding(currentDimensions().Half)
                         .clickable {
                             isCollapsed.value = !isCollapsed.value
                         }

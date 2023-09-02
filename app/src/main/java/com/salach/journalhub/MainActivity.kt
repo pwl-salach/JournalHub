@@ -9,14 +9,23 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.navigation.graphs.RootNavigationGraph
 import com.salach.journalhub.ui.theme.JournalHubTheme
+import com.salach.journalhub.ui.theme.ProvideAppDimensions
+import com.salach.journalhub.ui.theme.ProvideAppTypography
+import com.salach.journalhub.ui.theme.getScreenScalingFactor
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            JournalHubTheme{
-                RootNavigationGraph(navController = rememberNavController())
+            val scale = getScreenScalingFactor()
+
+            ProvideAppTypography(scale) {
+                ProvideAppDimensions(scale){
+                    JournalHubTheme {
+                        RootNavigationGraph(navController = rememberNavController())
+                    }
+                }
             }
         }
     }

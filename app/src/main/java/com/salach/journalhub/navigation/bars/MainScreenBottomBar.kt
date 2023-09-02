@@ -1,6 +1,5 @@
 package com.salach.journalhub.navigation.bars
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -24,63 +23,60 @@ import com.salach.journalhub.Screen
 import com.salach.journalhub.navigation.graphs.Graph
 import com.salach.journalhub.ui.components.NavBarIconButton
 import com.salach.journalhub.ui.theme.ColorPalette
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
 
 @Composable
-fun MainScreenBottomBar(navController: NavHostController, rootController: NavHostController){
+fun MainScreenBottomBar(
+    navController: NavHostController,
+    rootController: NavHostController,
+    popupOpener: () -> Unit
+){
     val items = listOf(
         Screen("dashboard", R.drawable.ic_dashboard, "Dashboard"),
         Screen("journals", R.drawable.ic_notebook, "Journals"),
         Screen("settings", R.drawable.ic_notes, "Settings"),
         Screen("settings", R.drawable.ic_calendar, "Settings")
     )
-    val interactionSource = remember { MutableInteractionSource() }
     var selectedItem by remember { mutableStateOf(0) }
 
     BottomNavigation(
         backgroundColor = ColorPalette.primarySurface3,
-        modifier = Modifier.height(Dimensions.BottomBarHeight)
+        modifier = Modifier
+            .height(currentDimensions().BottomBarHeight)
+            .fillMaxWidth()
+//            .fillMaxHeight()
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(Dimensions.S)
+            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(currentDimensions().S)
         ){
             items.forEachIndexed { index, screen ->
                 val isSelected = selectedItem == index
-    //            BottomNavigationItem(
-    //                icon = {
-    //                    Icon(
-    //                        screen.icon,
-    //                        contentDescription = screen.title,
-    //                        modifier = Modifier
-    //                            .height(48.dp)
-    //                            .width(48.dp)
-    //                            .background(
-    //                                if (isSelected) ColorPalette.Lavender30 else ColorPalette.PrimarySurface3,
-    //                                shape = RoundedCornerShape(size = 4.dp)
-    //                            )
-    //                    )
-    //                },
-    //                selected = isSelected,
-    //                onClick = {
-    //                    navController.navigate(screen.route)
-    //                    selectedItem = index
-    //                },
-    //            )
-                NavBarIconButton(icon = screen.icon, screen.title, isSelected = isSelected) {
+                NavBarIconButton(icon = screen.icon, description = screen.title, isSelected = isSelected) {
                     navController.navigate(screen.route)
                     selectedItem = index
                 }
             }
-            NavBarIconButton(
-                icon = R.drawable.ic_pencil_plus,
-                "Create",
-                isSelected = true,
-                highlightedColor = ColorPalette.primary,
-                shape = CircleShape
-            ) {
-                rootController.navigate(Graph.NEW_JOURNAL)
+            if (selectedItem == 1){
+                NavBarIconButton(
+                    icon = R.drawable.ic_notebook,
+                    description = "CreateJournal",
+                    isSelected = true,
+                    highlightedColor = ColorPalette.primary,
+                    shape = CircleShape
+                ) {
+                    rootController.navigate(Graph.NEW_JOURNAL)
+                }
+            } else {
+                NavBarIconButton(
+                    icon = R.drawable.ic_pencil_plus,
+                    description = "CreatePage",
+                    isSelected = true,
+                    highlightedColor = ColorPalette.primary,
+                    shape = CircleShape,
+                    onClick = popupOpener
+                )
             }
         }
     }
@@ -90,5 +86,5 @@ fun MainScreenBottomBar(navController: NavHostController, rootController: NavHos
 @Composable
 fun PreviewMainScreenBottomBar(){
     val navController = rememberNavController()
-    MainScreenBottomBar(navController, navController)
+    MainScreenBottomBar(navController, navController){}
 }

@@ -23,7 +23,7 @@ import com.salach.journalhub.R
 import com.salach.journalhub.navigation.graphs.Route
 import com.salach.journalhub.ui.components.NavBarIconButton
 import com.salach.journalhub.ui.theme.ColorPalette
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
 
 @Composable
 fun AddJournalBottomBar(
@@ -46,9 +46,9 @@ fun AddJournalBottomBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .height(Dimensions.BottomBarHeight)
+            .height(currentDimensions().BottomBarHeight)
             .background(color = ColorPalette.primarySurface3)
-            .padding(horizontal = Dimensions.S)
+            .padding(horizontal = currentDimensions().S)
     ) {
         NavBarIconButton(
             icon = R.drawable.ic_x, "", isSelected = false
@@ -64,25 +64,25 @@ fun AddJournalBottomBar(
             letterSpacing = 0.14.sp
         )
         Row(
-            horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (currentIndex > 0) {
                 NavBarIconButton(
-                    icon = R.drawable.ic_chevron_left, description = "back", isSelected = false
+                    icon = R.drawable.ic_chevron_left, description = "PreviousStep", isSelected = false
                 ) {
                     navController.popBackStack()
                 }
             }
             if (currentIndex + 1 < flowStages.size) {
                 NavBarIconButton(
-                    icon = R.drawable.ic_chevron_right, description = "", isSelected = false
+                    icon = R.drawable.ic_chevron_right, description = "NextStep", isSelected = false
                 ) {
                     navController.navigate(flowStages[currentIndex + 1].route)
                 }
             } else {
                 NavBarIconButton(
-                    icon = R.drawable.ic_check, description = "", isSelected = false
+                    icon = R.drawable.ic_check, description = "FinishFlow", isSelected = false
                 ) {
                     finishedFlowCallback()
                 }

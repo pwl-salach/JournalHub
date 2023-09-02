@@ -34,7 +34,7 @@ import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Schedule
 import com.salach.journalhub.enums.TimeUnit
 import com.salach.journalhub.ui.theme.ColorPalette
-import com.salach.journalhub.ui.theme.Dimensions
+import com.salach.journalhub.ui.theme.currentDimensions
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -47,7 +47,7 @@ fun UpcomingSchedule(){
 fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                    title: String, subtitle: String, isDone: Boolean){
     Row(
-        horizontalArrangement = Arrangement.spacedBy(Dimensions.S, Alignment.Start),
+        horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .width(380.dp)
@@ -62,9 +62,9 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 .height(40.dp)
                 .background(
                     color = ColorPalette.ThistleThistle100,
-                    shape = RoundedCornerShape(size = Dimensions.Half)
+                    shape = RoundedCornerShape(size = currentDimensions().Half)
                 )
-                .padding(Dimensions.XS)
+                .padding(currentDimensions().XS)
         ) {
             Text(
                 text = "07:30",
@@ -76,15 +76,15 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 modifier = Modifier
 //                    .offset(x = 8.dp, y = 12.dp)
                     .width(40.dp)
-                    .height(Dimensions.S)
+                    .height(currentDimensions().S)
             )
         }
         Icon(
             painter = painterResource(id = icon),
             contentDescription = "icon",
             modifier = Modifier
-                .width(Dimensions.L)
-                .height(Dimensions.L)
+                .width(currentDimensions().L)
+                .height(currentDimensions().L)
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -93,19 +93,19 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 .border(
                     width = 1.dp,
                     color = ColorPalette.ThistleThistle100,
-                    shape = RoundedCornerShape(size = Dimensions.Half)
+                    shape = RoundedCornerShape(size = currentDimensions().Half)
                 )
                 .width(260.dp)
                 .height(40.dp)
-                .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = Dimensions.Half))
-                .padding(vertical = Dimensions.Half, horizontal = Dimensions.XS)
+                .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = currentDimensions().Half))
+                .padding(vertical = currentDimensions().Half, horizontal = currentDimensions().XS)
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(Dimensions.Half, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(currentDimensions().Half, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                     .width(54.dp)
-                    .height(Dimensions.L)
+                    .height(currentDimensions().L)
             ) {
                 Text(
                     text = title,
@@ -117,7 +117,7 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                     textDecoration = TextDecoration.LineThrough,
                     modifier = Modifier
 //                        .width(54.dp)
-                        .height(Dimensions.S)
+                        .height(currentDimensions().S)
                 )
                 Text(
                     text = subtitle,
@@ -138,8 +138,8 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 contentDescription = "icon",
                 modifier = Modifier
 //                    .offset(x = 228.dp, y = 8.dp)
-                    .width(Dimensions.M)
-                    .height(Dimensions.M)
+                    .width(currentDimensions().M)
+                    .height(currentDimensions().M)
             )
         }
     }
@@ -163,13 +163,13 @@ fun MySchedule(schedules: LiveData<List<Schedule>>){
     val itemsState by schedules.observeAsState(emptyList())
     val now = LocalTime.now()
     LazyColumn (
-        verticalArrangement = Arrangement.spacedBy(Dimensions.XS, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(currentDimensions().XS, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
 //        modifier = Modifier
 //            .offset(x = 0.dp, y = 344.dp)
 //            .width(412.dp)
 //            .height(544.dp)
-//            .padding(start = Dimensions.s, end = Dimensions.s)
+//            .padding(start = currentDimensions().s, end = currentDimensions().s)
     ){
         itemsIndexed(itemsState) { _, schedule ->
             MyScheduleCard(
