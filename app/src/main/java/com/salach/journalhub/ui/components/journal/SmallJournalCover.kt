@@ -29,6 +29,7 @@ import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
 fun SmallJournalCover(journal: Journal, hideTitle: Boolean = false) {
+    val dimensions = currentDimensions()
     Box(
         modifier = Modifier
             .width(48.dp)
@@ -36,8 +37,8 @@ fun SmallJournalCover(journal: Journal, hideTitle: Boolean = false) {
             .background(
                 color = Color(journal.backgroundColor),
                 shape = RoundedCornerShape(
-                    topStart = 0.dp, topEnd = currentDimensions().Half,
-                    bottomStart = 0.dp, bottomEnd = currentDimensions().Half
+                    topStart = 0.dp, topEnd = dimensions.Half,
+                    bottomStart = 0.dp, bottomEnd = dimensions.Half
                 ),
             )
     ){
@@ -47,12 +48,14 @@ fun SmallJournalCover(journal: Journal, hideTitle: Boolean = false) {
             modifier = Modifier
                 .width(4.dp)
                 .height(64.dp)
-                .offset(x = currentDimensions().Quarter)
+                .offset(x = dimensions.Quarter)
         )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(currentDimensions().Half, Alignment.Top),
-            modifier = Modifier.fillMaxWidth().padding(top = currentDimensions().Half)
+            verticalArrangement = Arrangement.spacedBy(dimensions.Half, Alignment.Top),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = dimensions.Half)
         ) {
             Text(
                 text = if (hideTitle) "" else journal.title ,

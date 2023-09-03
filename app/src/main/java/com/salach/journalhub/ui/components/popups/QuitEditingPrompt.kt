@@ -33,15 +33,16 @@ fun QuitEditingPrompt(
     onCancel: () -> Unit,
     onConfirm: () -> Unit
 ) {
+    val dimensions = currentDimensions()
     if(openPopup){
         ModalBottomSheetLayout(
-            sheetShape = RoundedCornerShape(size = currentDimensions().XS),
+            sheetShape = RoundedCornerShape(size = dimensions.XS),
             sheetBackgroundColor = ColorPalette.primarySurface5,
             sheetContent = {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
-                    modifier = Modifier.padding(currentDimensions().S)
+                    modifier = Modifier.padding(dimensions.S)
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
@@ -60,7 +61,7 @@ fun QuitEditingPrompt(
                     Text(
                         text = "Progress will be lost.",
                         style = currentTypography().B3R,
-                        modifier = Modifier.padding(horizontal = currentDimensions().L)
+                        modifier = Modifier.padding(horizontal = dimensions.L)
                     )
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
@@ -74,7 +75,7 @@ fun QuitEditingPrompt(
                             ),
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .padding(currentDimensions().S)
+                                .padding(dimensions.S)
                                 .clickable { onCancel() }
                         ) {
                             Image(
@@ -98,7 +99,7 @@ fun QuitEditingPrompt(
                                     width = 1.dp, color = ColorPalette.AlertsNegative50,
                                     shape = RoundedCornerShape(size = 4.dp)
                                 )
-                                .padding(horizontal = currentDimensions().S, vertical = currentDimensions().XS)
+                                .padding(horizontal = dimensions.S, vertical = dimensions.XS)
 
                         ) {
                             Image(

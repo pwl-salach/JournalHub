@@ -13,16 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.salach.journalhub.R
-import com.salach.journalhub.db.models.NotePart
+import com.salach.journalhub.db.models.Page
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
 
 
 @Composable
 fun JournalPageHeader(
-    notePart: NotePart,
+    page: Page,
     paddingValues: PaddingValues
 ) {
+    val dimensions = currentDimensions()
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -31,7 +32,7 @@ fun JournalPageHeader(
             .padding(paddingValues)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(currentDimensions().XS, Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(dimensions.XS, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             // TODO make it dependant on type of page
@@ -40,11 +41,11 @@ fun JournalPageHeader(
                 contentDescription = "image description",
                 contentScale = ContentScale.None,
                 modifier = Modifier
-//                        .width(currentDimensions().XS)
-//                        .height(currentDimensions().XS)
+//                        .width(dimensions.XS)
+//                        .height(dimensions.XS)
             )
             Text(
-                text = notePart.type.name,
+                text = page.type.name,
                 style = currentTypography().B3R
             )
         }

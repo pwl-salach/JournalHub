@@ -24,4 +24,7 @@ interface JournalDao {
 
     @Delete
     suspend fun delete(journal: Journal)
+
+    @Query("DELETE FROM Note")
+    suspend fun deleteAll()
 }

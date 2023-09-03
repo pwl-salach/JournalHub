@@ -44,10 +44,13 @@ fun UpcomingSchedule(){
 }
 
 @Composable
-fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
-                   title: String, subtitle: String, isDone: Boolean){
+fun MyScheduleCard(
+    scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
+   title: String, subtitle: String, isDone: Boolean
+){
+    val dimensions = currentDimensions()
     Row(
-        horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
+        horizontalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .width(380.dp)
@@ -62,9 +65,9 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 .height(40.dp)
                 .background(
                     color = ColorPalette.ThistleThistle100,
-                    shape = RoundedCornerShape(size = currentDimensions().Half)
+                    shape = RoundedCornerShape(size = dimensions.Half)
                 )
-                .padding(currentDimensions().XS)
+                .padding(dimensions.XS)
         ) {
             Text(
                 text = "07:30",
@@ -76,15 +79,15 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 modifier = Modifier
 //                    .offset(x = 8.dp, y = 12.dp)
                     .width(40.dp)
-                    .height(currentDimensions().S)
+                    .height(dimensions.S)
             )
         }
         Icon(
             painter = painterResource(id = icon),
             contentDescription = "icon",
             modifier = Modifier
-                .width(currentDimensions().L)
-                .height(currentDimensions().L)
+                .width(dimensions.L)
+                .height(dimensions.L)
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -93,19 +96,19 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 .border(
                     width = 1.dp,
                     color = ColorPalette.ThistleThistle100,
-                    shape = RoundedCornerShape(size = currentDimensions().Half)
+                    shape = RoundedCornerShape(size = dimensions.Half)
                 )
                 .width(260.dp)
                 .height(40.dp)
-                .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = currentDimensions().Half))
-                .padding(vertical = currentDimensions().Half, horizontal = currentDimensions().XS)
+                .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = dimensions.Half))
+                .padding(vertical = dimensions.Half, horizontal = dimensions.XS)
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(currentDimensions().Half, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(dimensions.Half, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                     .width(54.dp)
-                    .height(currentDimensions().L)
+                    .height(dimensions.L)
             ) {
                 Text(
                     text = title,
@@ -117,7 +120,7 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                     textDecoration = TextDecoration.LineThrough,
                     modifier = Modifier
 //                        .width(54.dp)
-                        .height(currentDimensions().S)
+                        .height(dimensions.S)
                 )
                 Text(
                     text = subtitle,
@@ -138,8 +141,8 @@ fun MyScheduleCard(scheduledTime: LocalTime, currentTime: LocalTime, icon: Int,
                 contentDescription = "icon",
                 modifier = Modifier
 //                    .offset(x = 228.dp, y = 8.dp)
-                    .width(currentDimensions().M)
-                    .height(currentDimensions().M)
+                    .width(dimensions.M)
+                    .height(dimensions.M)
             )
         }
     }
@@ -169,7 +172,7 @@ fun MySchedule(schedules: LiveData<List<Schedule>>){
 //            .offset(x = 0.dp, y = 344.dp)
 //            .width(412.dp)
 //            .height(544.dp)
-//            .padding(start = currentDimensions().s, end = currentDimensions().s)
+//            .padding(start = dimensions.s, end = dimensions.s)
     ){
         itemsIndexed(itemsState) { _, schedule ->
             MyScheduleCard(

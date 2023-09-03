@@ -1,31 +1,29 @@
 package com.salach.journalhub.ui.screens.pages
 
-import com.salach.journalhub.R
 import com.salach.journalhub.db.daos.ChoreDao
-import com.salach.journalhub.db.daos.MemoDao
-import com.salach.journalhub.db.daos.NotePartDao
+import com.salach.journalhub.db.daos.NoteDao
+import com.salach.journalhub.db.daos.PageDao
 import com.salach.journalhub.db.models.Chore
-import com.salach.journalhub.db.models.Goal
-import com.salach.journalhub.db.models.Memo
-import com.salach.journalhub.db.models.NotePart
+import com.salach.journalhub.db.models.Note
+import com.salach.journalhub.db.models.Page
 import com.salach.journalhub.repositories.PagesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 
-class MockedNotePartDao: NotePartDao {
-    override fun getNoteParts(noteId: Int): Flow<List<NotePart>> {
-        val mockedList = listOf<NotePart>()
+class MockedPageDao: PageDao {
+    override fun getNoteParts(noteId: Int): Flow<List<Page>> {
+        val mockedList = listOf<Page>()
         val mutableStateFlow = MutableStateFlow(mockedList)
         return mutableStateFlow.asStateFlow()
     }
 
-    override suspend fun insert(note: NotePart): Long {
+    override suspend fun insert(note: Page): Long {
         TODO("Not yet implemented")
     }
 
-    override suspend fun insertAll(vararg note: NotePart): List<Long> {
+    override suspend fun insertAll(vararg note: Page): List<Long> {
         TODO("Not yet implemented")
     }
 
@@ -35,16 +33,16 @@ class MockedNotePartDao: NotePartDao {
 
 }
 
-class MockedMemoDao: MemoDao{
-    override fun getAll(): Flow<List<Memo>> {
+class MockedMemoDao: NoteDao{
+    override fun getAll(): Flow<List<Note>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getById(id: Long): Memo {
+    override suspend fun getById(id: Long): Note {
         TODO("Not yet implemented")
     }
 
-    override suspend fun insertAll(vararg notes: Memo) {
+    override suspend fun insertAll(vararg notes: Note) {
         TODO("Not yet implemented")
     }
 
@@ -74,6 +72,6 @@ class MockedChoreDao: ChoreDao{
 }
 
 internal fun provideViewModelForPreview(): PagesViewModel {
-    val mockedRepository = PagesRepository(MockedNotePartDao(), MockedMemoDao(), MockedChoreDao())
+    val mockedRepository = PagesRepository(MockedPageDao(), MockedMemoDao(), MockedChoreDao())
     return PagesViewModel(mockedRepository)
 }

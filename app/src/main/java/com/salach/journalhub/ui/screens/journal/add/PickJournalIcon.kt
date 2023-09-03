@@ -35,7 +35,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
     val groupsPerRow = 4
     val updateTrigger = remember { mutableStateOf(false) }
     val selectedGroup = remember { mutableStateOf("") }
-
+    val dimensions = currentDimensions()
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Text(
             text = "Select cover image.",
@@ -50,14 +50,14 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
             Text(
                 text = if (selectedGroup.value == "") "Categories" else "Categories / ${selectedGroup.value}",
                 style = currentTypography().T2R,
-                modifier = Modifier.height(currentDimensions().M)
+                modifier = Modifier.height(dimensions.M)
             )
             if (selectedGroup.value != "") {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = "back",
                     modifier = Modifier
-                        .height(currentDimensions().M)
+                        .height(dimensions.M)
                         .clickable {
                             selectedGroup.value = ""
                         }
@@ -72,7 +72,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
                 ) { rowItems ->
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(
-                            currentDimensions().XS,
+                            dimensions.XS,
                             Alignment.CenterHorizontally
                         ),
                         verticalAlignment = Alignment.Top
@@ -92,7 +92,7 @@ fun PickJournalIcon(journal: MutableState<Journal>) {
                 IconsGroup.grouped[selectedGroup.value]?.let {
                     items(it.windowed(6,6,true)){ rowItems ->
                         LazyRow(
-                            horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
+                            horizontalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Start),
                             modifier = Modifier.fillMaxWidth()
                         ){
                             items(rowItems){it ->

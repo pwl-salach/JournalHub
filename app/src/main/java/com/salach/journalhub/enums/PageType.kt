@@ -1,6 +1,6 @@
 package com.salach.journalhub.enums
 
-enum class NotePartType{
-    MEMO,
+enum class PageType{
+    NOTE,
     CHORE
 }

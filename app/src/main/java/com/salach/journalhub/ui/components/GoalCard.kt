@@ -35,10 +35,12 @@ import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
 fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
+    val dimensions = currentDimensions()
+    val typography = currentTypography()
     Column(
         modifier = Modifier
             .fillMaxWidth()
-//            .padding(all = currentDimensions().xs)
+//            .padding(all = dimensions.xs)
             .clip(shape = MaterialTheme.shapes.medium)
             .background(color = Color(0xfffafafa))
     ) {
@@ -54,22 +56,22 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                 Image(
                     painter = painterResource(id = icon),
                     contentDescription = "icon",
-                    modifier = Modifier.size(size = currentDimensions().L)
+                    modifier = Modifier.size(size = dimensions.L)
                 )
                 Spacer(
-                    modifier = Modifier.width(width = currentDimensions().XS)
+                    modifier = Modifier.width(width = dimensions.XS)
                 )
                 Column {
                     Text(
                         text = title,
-                        style = currentTypography().T3R,
+                        style = typography.T3R,
                     )
                     Spacer(
-                        modifier = Modifier.height(height = currentDimensions().Half)
+                        modifier = Modifier.height(height = dimensions.Half)
                     )
                     Text(
                         text = subtitle,
-                        style = currentTypography().L3L,
+                        style = typography.L3L,
                     )
                 }
             }
@@ -84,26 +86,26 @@ fun GoalCard(icon: Int, title: String, subtitle: String, progress: Float) {
                         contentDescription = "Remove",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(currentDimensions().L)
-                            .height(currentDimensions().L)
+                            .width(dimensions.L)
+                            .height(dimensions.L)
                     )
                     Spacer(
-                        modifier = Modifier.width(width = currentDimensions().XS)
+                        modifier = Modifier.width(width = dimensions.XS)
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.add),
                         contentDescription = "Add",
                         modifier = Modifier
 //                            .offset(x = 0.dp, y = 0.dp)
-                            .width(currentDimensions().L)
-                            .height(currentDimensions().L)
+                            .width(dimensions.L)
+                            .height(dimensions.L)
                     )
                 }
             }
         }
         Spacer(
             modifier = Modifier
-                .height(height = currentDimensions().XS)
+                .height(height = dimensions.XS)
         )
         Progress(progress)
     }

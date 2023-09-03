@@ -41,6 +41,7 @@ fun BigJournalCover(
     onEditClicked: () -> Unit,
     onRemoveClicked: () -> Unit,
 ) {
+    val dimensions = currentDimensions()
     Box(modifier = Modifier
 //        .fillMaxWidth()
 //        .fillMaxHeight()
@@ -51,13 +52,13 @@ fun BigJournalCover(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(bottom = currentDimensions().M)
+                .padding(bottom = dimensions.M)
                 .background(
                     color = Color(journal.backgroundColor),
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
-                        topEnd = currentDimensions().S,
-                        bottomEnd = currentDimensions().S,
+                        topEnd = dimensions.S,
+                        bottomEnd = dimensions.S,
                         bottomStart = 0.dp
                     )
                 )
@@ -73,7 +74,7 @@ fun BigJournalCover(
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(currentDimensions().M)
+                .offset(dimensions.M)
         )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -84,7 +85,7 @@ fun BigJournalCover(
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top = currentDimensions().L),
+                modifier = Modifier.padding(top = dimensions.L),
             ) {
                 Text(
                     text = journal.title,
@@ -107,8 +108,8 @@ fun BigJournalCover(
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(currentDimensions().Half),
-                modifier = Modifier.padding(bottom = currentDimensions().L),
+                verticalArrangement = Arrangement.spacedBy(dimensions.Half),
+                modifier = Modifier.padding(bottom = dimensions.L),
             ){
 
                 Text(
@@ -125,7 +126,7 @@ fun BigJournalCover(
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(bottom = currentDimensions().XL, end = currentDimensions().S)
+                .padding(bottom = dimensions.XL, end = dimensions.S)
         ){
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
@@ -135,32 +136,32 @@ fun BigJournalCover(
                     painter = painterResource(id = R.drawable.ic_book),
                     contentDescription = "Open",
                     modifier = Modifier
-                        .width(currentDimensions().L)
-                        .height(currentDimensions().L)
+                        .width(dimensions.L)
+                        .height(dimensions.L)
                         .clickable { onShowClicked() }
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_file_plus),
                     contentDescription = "Add page",
                     modifier = Modifier
-                        .width(currentDimensions().L)
-                        .height(currentDimensions().L)
+                        .width(dimensions.L)
+                        .height(dimensions.L)
                         .clickable { onAddClicked() }
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_pencil),
                     contentDescription = "Edit",
                     modifier = Modifier
-                        .width(currentDimensions().L)
-                        .height(currentDimensions().L)
+                        .width(dimensions.L)
+                        .height(dimensions.L)
                         .clickable { onEditClicked() }
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_trash),
                     contentDescription = "Remove",
                     modifier = Modifier
-                        .width(currentDimensions().L)
-                        .height(currentDimensions().L)
+                        .width(dimensions.L)
+                        .height(dimensions.L)
                         .clickable { onRemoveClicked() }
                 )
             }

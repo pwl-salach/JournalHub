@@ -30,17 +30,18 @@ import java.time.LocalDate
 @Composable
 fun AddJournalInitScreen(journal: MutableState<Journal>){
     val updateTrigger = remember { mutableStateOf(false) }
+    val dimensions = currentDimensions()
     AddJournalScreenLayout(journal, updateTrigger.value) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
-                .padding(currentDimensions().S)
+                .padding(dimensions.S)
                 .fillMaxHeight()
                 .fillMaxWidth()
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
             ){
                 Text(
@@ -50,7 +51,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                     modifier = Modifier.fillMaxWidth()
                 )
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
                 ) {
                     InputLine(
@@ -82,7 +83,7 @@ fun AddJournalInitScreen(journal: MutableState<Journal>){
                 }
             }
             Column(
-                verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
                 horizontalAlignment = Alignment.Start,
             ) {
                 NamedCheckbox(

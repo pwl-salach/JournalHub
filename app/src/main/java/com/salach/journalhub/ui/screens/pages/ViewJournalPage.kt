@@ -14,8 +14,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.JournalHub
-import com.salach.journalhub.db.models.NotePart
-import com.salach.journalhub.enums.NotePartType
+import com.salach.journalhub.db.models.Page
+import com.salach.journalhub.enums.PageType
 import com.salach.journalhub.ui.screens.pages.components.JournalPageBottomBar
 import com.salach.journalhub.ui.screens.pages.components.JournalPageHeader
 import com.salach.journalhub.ui.screens.pages.components.JournalPageTopBar
@@ -29,7 +29,7 @@ val LocalViewModel = compositionLocalOf<PagesViewModel> {
 fun ViewJournalPage(
     journalId: Int,
     pageId: Long?,
-    newPageType: NotePartType,
+    newPageType: PageType,
     navController: NavHostController
 ) {
     val editMode = remember { mutableStateOf(false) }
@@ -41,7 +41,7 @@ fun ViewJournalPage(
             viewModel.pages.value?.find{ it.id == pageId }
         } else {
             editMode.value = true
-            NotePart(noteId =  journalId, type = newPageType)
+            Page(journalId =  journalId, type = newPageType)
         }
     }
     Scaffold(
@@ -60,7 +60,7 @@ fun ViewJournalPage(
             }
         }
     ) {
-        currentPage?.let { page -> JournalPageHeader(notePart = page, paddingValues = it) }
+        currentPage?.let { page -> JournalPageHeader(page = page, paddingValues = it) }
     }
 }
 
@@ -82,6 +82,6 @@ fun ProvidePagesViewModel(content: @Composable () -> Unit){
 fun PreviewViewJournalPage(){
     val nav = rememberNavController()
     CompositionLocalProvider(LocalViewModel provides provideViewModelForPreview()) {
-        ViewJournalPage(0,0, NotePartType.MEMO, nav)
+        ViewJournalPage(0,0, PageType.NOTE, nav)
     }
 }

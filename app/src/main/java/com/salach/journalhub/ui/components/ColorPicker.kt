@@ -33,37 +33,38 @@ import com.salach.journalhub.ui.theme.currentTypography
 @Composable
 fun ColorPicker(prompt: String, initialColor: Int, onColorPicked: (Int) -> Unit) {
     val selectedItemId = remember { mutableStateOf(-1) }
-
+    val dimensions = currentDimensions()
+    val typography = currentTypography()
     Column(
-        verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .background(
                 color = ColorPalette.SurfaceLight,
-                shape = RoundedCornerShape(size = currentDimensions().Half)
+                shape = RoundedCornerShape(size = dimensions.Half)
             )
-            .padding(currentDimensions().S)
+            .padding(dimensions.S)
     ){
         Column(
-            verticalArrangement = Arrangement.spacedBy(currentDimensions().L, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(dimensions.L, Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = prompt,
-                style = currentTypography().L1B
+                style = typography.L1B
             )
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
                 text = "Pastel",
-                style = currentTypography().L1R
+                style = typography.L1R
             )
 
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -80,15 +81,15 @@ fun ColorPicker(prompt: String, initialColor: Int, onColorPicked: (Int) -> Unit)
             }
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
                 text = "Neutral",
-                style = currentTypography().L1R
+                style = typography.L1R
             )
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -125,7 +126,7 @@ fun SelectableColor(color: Color, isSelected: Boolean, onItemSelected: (Int) -> 
     val dimensions = currentDimensions()
     Box(
         modifier = Modifier
-            .size(currentDimensions().L)
+            .size(dimensions.L)
             .clip(shape = CircleShape)
             .clickable {
                 onItemSelected(color.toArgb())

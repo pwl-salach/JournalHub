@@ -40,15 +40,15 @@ fun AddJournalBottomBar(
     )
     val currentStage by navController.currentBackStackEntryAsState()
     val currentIndex = flowStages.indexOfFirst { it.route == currentStage?.destination?.route }
-
+    val dimensions = currentDimensions()
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .height(currentDimensions().BottomBarHeight)
+            .height(dimensions.BottomBarHeight)
             .background(color = ColorPalette.primarySurface3)
-            .padding(horizontal = currentDimensions().S)
+            .padding(horizontal = dimensions.S)
     ) {
         NavBarIconButton(
             icon = R.drawable.ic_x, "", isSelected = false
@@ -64,7 +64,7 @@ fun AddJournalBottomBar(
             letterSpacing = 0.14.sp
         )
         Row(
-            horizontalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (currentIndex > 0) {

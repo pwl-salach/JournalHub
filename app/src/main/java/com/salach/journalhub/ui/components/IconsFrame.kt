@@ -23,12 +23,13 @@ import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
 fun IconsFrame(name: String, iconsGroup: List<Int>) {
+    val dimensions = currentDimensions()
     Column(
         verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .background(color = ColorPalette.primarySurface2, shape = RoundedCornerShape(size = currentDimensions().Half))
-            .padding(currentDimensions().XS)
+            .background(color = ColorPalette.primarySurface2, shape = RoundedCornerShape(size = dimensions.Half))
+            .padding(dimensions.XS)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
@@ -37,7 +38,7 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
             for(i in 0..1) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(
-                        currentDimensions().XS,
+                        dimensions.XS,
                         Alignment.CenterHorizontally
                     ),
                     verticalAlignment = Alignment.CenterVertically,
@@ -46,7 +47,7 @@ fun IconsFrame(name: String, iconsGroup: List<Int>) {
                         Icon(
                             painter = painterResource(id = iconsGroup[i*2 + j]),
                             contentDescription = "",
-                            modifier = Modifier.width(currentDimensions().S).height(currentDimensions().S)
+                            modifier = Modifier.width(dimensions.S).height(dimensions.S)
                         )
                     }
                 }

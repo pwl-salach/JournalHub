@@ -28,9 +28,10 @@ fun  NavBarIconButton(
     shape: Shape = RoundedCornerShape(size = currentDimensions().Half),
     onClick: () -> Unit
 ){
+    val dimensions = currentDimensions()
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.width(currentDimensions().XL).height(currentDimensions().XL)
+        modifier = Modifier.width(dimensions.XL).height(dimensions.XL)
             .background(
                 if (isSelected) highlightedColor else ColorPalette.primarySurface3,
                 shape = shape
@@ -41,8 +42,8 @@ fun  NavBarIconButton(
             contentDescription = description,
             tint = if (isSelected) Color.White else Color.Black,
             modifier = Modifier
-                .height(currentDimensions().L)
-                .width(currentDimensions().L)
+                .height(dimensions.L)
+                .width(dimensions.L)
                 .clickable { onClick() }
         )
     }

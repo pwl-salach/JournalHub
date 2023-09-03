@@ -46,11 +46,12 @@ fun CarouselJournalView(
     val selectedIndex = rememberSaveable {mutableStateOf(0)}
     val viewModel: JournalsViewModel = LocalViewModel.current
 
+    val dimensions = currentDimensions()
     Column(
-        verticalArrangement = Arrangement.spacedBy(currentDimensions().L),
+        verticalArrangement = Arrangement.spacedBy(dimensions.L),
         modifier = Modifier
             .fillMaxHeight()
-            .padding(top = currentDimensions().L)
+            .padding(top = dimensions.L)
     ){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,8 +73,8 @@ fun CarouselJournalView(
             )
         }
         LazyRow(
-            contentPadding = PaddingValues(horizontal = currentDimensions().S),
-            horizontalArrangement = Arrangement.spacedBy(currentDimensions().S)
+            contentPadding = PaddingValues(horizontal = dimensions.S),
+            horizontalArrangement = Arrangement.spacedBy(dimensions.S)
         ){
             itemsIndexed(itemsState) { index, journal ->
                 Box(
@@ -85,9 +86,9 @@ fun CarouselJournalView(
                             selectedIndex.value = index
                         }
                         .border(
-                            if (selectedIndex.value == index) currentDimensions().Quarter else Dp.Unspecified,
+                            if (selectedIndex.value == index) dimensions.Quarter else Dp.Unspecified,
                             MaterialTheme.colorScheme.primary,
-                            shape = RoundedCornerShape(size = currentDimensions().XS)
+                            shape = RoundedCornerShape(size = dimensions.XS)
                         )
                 ){
                     SmallJournalCover(journal)

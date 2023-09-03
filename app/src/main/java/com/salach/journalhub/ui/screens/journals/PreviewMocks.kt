@@ -91,4 +91,8 @@ class MockedJournalDao: JournalDao {
     override suspend fun delete(journal: Journal) {
         TODO("Not yet implemented")
     }
+
+    override suspend fun deleteAll() {
+        TODO("Not yet implemented")
+    }
 }

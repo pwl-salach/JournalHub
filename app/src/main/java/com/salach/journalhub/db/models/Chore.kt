@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     foreignKeys = [ForeignKey(
-        entity = NotePart::class,
+        entity = Page::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("id"),
         onDelete = ForeignKey.CASCADE

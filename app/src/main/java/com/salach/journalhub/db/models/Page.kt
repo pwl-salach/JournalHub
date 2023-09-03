@@ -4,20 +4,20 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.salach.journalhub.enums.NotePartType
+import com.salach.journalhub.enums.PageType
 
 
 @Entity(
     foreignKeys = [ForeignKey(
-        entity = Note::class,
+        entity = Journal::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("noteId"),
+        childColumns = arrayOf("journalId"),
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class NotePart(
-    @ColumnInfo(index = true) val noteId: Int,
-    @ColumnInfo val type: NotePartType,
+data class Page(
+    @ColumnInfo(index = true) val journalId: Int,
+    @ColumnInfo val type: PageType,
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
     @ColumnInfo val position: Int? = null,
 )

@@ -16,8 +16,8 @@ class JournalHub : Application() {
     val journalsRepository by lazy { JournalsRepository(database.journalDao) }
     val pagesRepository by lazy {
         PagesRepository(
-            database.notePartDao,
-            database.memoDao,
+            database.pageDao,
+            database.noteDao,
             database.choreDao
         ) }
 }

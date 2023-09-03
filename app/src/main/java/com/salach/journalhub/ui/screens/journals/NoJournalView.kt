@@ -35,9 +35,9 @@ fun NoJournalView(
 //    viewModel: JournalsViewModel
 ) {
     val navigateToJournals = remember { mutableStateOf(false) }
-
+    val dimensions = currentDimensions()
     Column(
-        verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(modifier = Modifier.scale(1f)){
@@ -53,9 +53,16 @@ fun NoJournalView(
         )
         Box(modifier = Modifier
 //            .offset(x = 100.dp, y = 604.dp)
-            .shadow(elevation = currentDimensions().Half, spotColor = Color(0x26000000), ambientColor = Color(0x26000000))
-            .background(color = ColorPalette.primary, shape = RoundedCornerShape(size = currentDimensions().Half))
-            .padding(vertical = currentDimensions().S, horizontal = currentDimensions().XL)
+            .shadow(
+                elevation = dimensions.Half,
+                spotColor = Color(0x26000000),
+                ambientColor = Color(0x26000000)
+            )
+            .background(
+                color = ColorPalette.primary,
+                shape = RoundedCornerShape(size = dimensions.Half)
+            )
+            .padding(vertical = dimensions.S, horizontal = dimensions.XL)
         ){
             Text(
                 text = "Let’s START!",

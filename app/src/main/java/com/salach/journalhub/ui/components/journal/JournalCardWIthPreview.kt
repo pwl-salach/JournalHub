@@ -42,6 +42,8 @@ fun JournalCardWIthPreview(
     onRemoveClicked: () -> Unit,
 ) {
     var showOptions by remember { mutableStateOf(false) }
+    val dimensions = currentDimensions()
+    val typography = currentTypography()
     Row(
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
@@ -56,7 +58,7 @@ fun JournalCardWIthPreview(
                     color = ColorPalette.primarySurface1,
                     shape = RoundedCornerShape(size = 4.dp)
                 )
-                .padding(currentDimensions().XS)
+                .padding(dimensions.XS)
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
@@ -68,30 +70,30 @@ fun JournalCardWIthPreview(
                 ) {
                     Text(
                         text = journal.title,
-                        style = currentTypography().L1R
+                        style = typography.L1R
                     )
                     Text(
                         text = journal.subtitle,
-                        style = currentTypography().L1R.copy(color = Color(0xFF464646))
+                        style = typography.L1R.copy(color = Color(0xFF464646))
                     )
                 }
                 Column() {
                     if (journal.showCreatedDate && journal.createdDate != null) {
                         Text(
                             text = "Created: " + DateUtils.formatDate(journal.createdDate),
-                            style = currentTypography().L3L.copy(fontSize = 8.sp)
+                            style = typography.L3L.copy(fontSize = 8.sp)
                         )
                     }
                     if (journal.showEditedDate && journal.editedDate != null) {
                         Text(
                             text = "Updated: " + DateUtils.formatDate(journal.editedDate),
-                            style = currentTypography().L3L.copy(fontSize = 8.sp)
+                            style = typography.L3L.copy(fontSize = 8.sp)
                         )
                     }
                 }
             }
             Row(
-                horizontalArrangement = Arrangement.spacedBy(currentDimensions().XS, Alignment.Start),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.XS, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.animateContentSize()
             ) {
@@ -107,32 +109,32 @@ fun JournalCardWIthPreview(
                         painter = painterResource(id = R.drawable.ic_trash),
                         contentDescription = "Remove",
                         modifier = Modifier
-                            .width(currentDimensions().M)
-                            .height(currentDimensions().M)
+                            .width(dimensions.M)
+                            .height(dimensions.M)
                             .clickable { onRemoveClicked() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.ic_pencil),
                         contentDescription = "Edit",
                         modifier = Modifier
-                            .width(currentDimensions().M)
-                            .height(currentDimensions().M)
+                            .width(dimensions.M)
+                            .height(dimensions.M)
                             .clickable { onEditClicked() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.ic_book),
                         contentDescription = "Open",
                         modifier = Modifier
-                            .width(currentDimensions().M)
-                            .height(currentDimensions().M)
+                            .width(dimensions.M)
+                            .height(dimensions.M)
                             .clickable { onShowClicked() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.ic_file_plus),
                         contentDescription = "Add page",
                         modifier = Modifier
-                            .width(currentDimensions().M)
-                            .height(currentDimensions().M)
+                            .width(dimensions.M)
+                            .height(dimensions.M)
                             .clickable { onAddClicked() }
                     )
 

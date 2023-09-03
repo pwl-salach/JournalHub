@@ -23,27 +23,28 @@ import com.salach.journalhub.ui.theme.currentDimensions
 
 @Composable
 fun AddJournalScreenLayout(journal: MutableState<Journal>, updateTrigger: Boolean = false, content: @Composable () -> Unit) {
+    val dimensions = currentDimensions()
     Column(
-        verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxHeight()
             .padding(
-                start = currentDimensions().S,
-                top = currentDimensions().S,
-                end = currentDimensions().S,
-                bottom = (currentDimensions().BottomBarHeight)
+                start = dimensions.S,
+                top = dimensions.S,
+                end = dimensions.S,
+                bottom = (dimensions.BottomBarHeight)
             )
 
     ) {
         Box(
-            modifier = Modifier.padding(vertical = currentDimensions().S).fillMaxHeight(0.5f)
-//            modifier = Modifier.padding(vertical = currentDimensions().S)
+            modifier = Modifier.padding(vertical = dimensions.S).fillMaxHeight(0.5f)
+//            modifier = Modifier.padding(vertical = dimensions.S)
         ){
             JournalCover(journal.value, updateTrigger)
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(currentDimensions().S),
+            verticalArrangement = Arrangement.spacedBy(dimensions.S),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
 //                .height(310.dp)
@@ -51,9 +52,9 @@ fun AddJournalScreenLayout(journal: MutableState<Journal>, updateTrigger: Boolea
                 .fillMaxWidth()
                 .background(
                     color = ColorPalette.primarySurface1,
-                    shape = RoundedCornerShape(size = currentDimensions().Half)
+                    shape = RoundedCornerShape(size = dimensions.Half)
                 )
-                .padding(currentDimensions().S)
+                .padding(dimensions.S)
 
         ) {
             content()

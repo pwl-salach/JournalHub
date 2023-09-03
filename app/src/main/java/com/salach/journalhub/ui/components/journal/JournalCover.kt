@@ -38,7 +38,9 @@ fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
     val color by transition.animateColor(label = "CoverColor") { state ->
         Color(state)
     }
-    val bookmarkExtraLength = currentDimensions().S
+    val dimensions = currentDimensions()
+    val typography = currentTypography()
+    val bookmarkExtraLength = dimensions.S
     Box(
         modifier = Modifier
             .width(240.dp)
@@ -53,8 +55,8 @@ fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
                     color = color,
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
-                        topEnd = currentDimensions().S,
-                        bottomEnd = currentDimensions().S,
+                        topEnd = dimensions.S,
+                        bottomEnd = dimensions.S,
                         bottomStart = 0.dp
                     )
                 )
@@ -65,7 +67,7 @@ fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
 //            contentScale = ContentScale.None,
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = currentDimensions().S)
+                .offset(x = dimensions.S)
         )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -73,23 +75,26 @@ fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
             modifier = Modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
-                .padding(top = currentDimensions().S, bottom = currentDimensions().S + bookmarkExtraLength)
+                .padding(
+                    top = dimensions.S,
+                    bottom = dimensions.S + bookmarkExtraLength
+                )
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+                verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(currentDimensions().S, Alignment.Top),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
                 ) {
                     Text(
                         text = journal.title,
-                        style = currentTypography().T2R
+                        style = typography.T2R
                     )
                     Text(
                         text = journal.subtitle,
-                        style = currentTypography().T2R.copy(color = ColorPalette.inkLight)
+                        style = typography.T2R.copy(color = ColorPalette.inkLight)
                     )
                 }
                 if (journal.icon != null){
@@ -106,15 +111,15 @@ fun JournalCover(journal: Journal, updateTrigger: Boolean = false){
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(currentDimensions().Half)
+                verticalArrangement = Arrangement.spacedBy(dimensions.Half)
             ){
                 Text(
                     text = if (journal.showCreatedDate && journal.createdDate != null) "Created: " + DateUtils.formatDate(journal.createdDate) else  "",
-                    style = currentTypography().L3L.copy(color = ColorPalette.inkLight)
+                    style = typography.L3L.copy(color = ColorPalette.inkLight)
                 )
                 Text(
                     text = if (journal.showEditedDate && journal.editedDate != null) "Last edited: " + DateUtils.formatDate(journal.editedDate) else "",
-                    style = currentTypography().L3L.copy(color = ColorPalette.inkLight)
+                    style = typography.L3L.copy(color = ColorPalette.inkLight)
                 )
             }
         }

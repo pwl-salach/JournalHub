@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.salach.journalhub.enums.NotePartType
+import com.salach.journalhub.enums.PageType
 import com.salach.journalhub.ui.screens.MainScreen
 import com.salach.journalhub.ui.screens.journal.add.AddJournalScreen
 import com.salach.journalhub.ui.screens.journals.ProvideJournalViewModel
@@ -48,18 +48,18 @@ fun RootNavigationGraph(navController: NavHostController) {
                 },
                 navArgument("newPageType") {
                     type = NavType.StringType
-                    defaultValue = NotePartType.MEMO.name
+                    defaultValue = PageType.NOTE.name
                 }
             )
         ) {backStackEntry ->
             val journalId = backStackEntry.arguments?.getInt("journalId", 0) ?: 0
             val pageId = backStackEntry.arguments?.getLong("pageId", -1L) ?: -1L
-            val notePartType = NotePartType.valueOf(
-                backStackEntry.arguments?.getString("newPageType", NotePartType.MEMO.name)?: NotePartType.MEMO.name
+            val pageType = PageType.valueOf(
+                backStackEntry.arguments?.getString("newPageType", PageType.NOTE.name)?: PageType.NOTE.name
             )
 
             ProvidePagesViewModel {
-                ViewJournalPage(journalId = journalId, pageId = pageId, newPageType = notePartType, navController = navController)
+                ViewJournalPage(journalId = journalId, pageId = pageId, newPageType = pageType, navController = navController)
             }
         }
     }

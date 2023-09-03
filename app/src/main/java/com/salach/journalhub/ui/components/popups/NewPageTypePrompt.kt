@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
-import com.salach.journalhub.enums.NotePartType
+import com.salach.journalhub.enums.PageType
 import com.salach.journalhub.navigation.graphs.Graph
 import com.salach.journalhub.ui.components.PageTypeCard
 import com.salach.journalhub.ui.theme.ColorPalette
@@ -68,14 +68,14 @@ fun NewPageTypePrompt(sheetState: ModalBottomSheetState, navController: NavHostC
                         text = "Note",
                         description = "createNote"
                     ) {
-                        navController.navigate("${Graph.NOTE_PAGE}?newPageType=${NotePartType.MEMO.name}")
+                        navController.navigate("${Graph.NOTE_PAGE}?newPageType=${PageType.NOTE.name}")
                     }
                     PageTypeCard(
                         iconId = R.drawable.ic_checkup_list,
                         text = "Task list",
                         description = "createTaskList"
                     ) {
-                        navController.navigate("${Graph.NOTE_PAGE}?newPageType=${NotePartType.CHORE.name}")
+                        navController.navigate("${Graph.NOTE_PAGE}?newPageType=${PageType.CHORE.name}")
                     }
                     PageTypeCard(
                         iconId = R.drawable.ic_shopping_cart,
