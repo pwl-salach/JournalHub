@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmName: macos-latest
+  vmImage: macos-latest
 
 parameters:
   - name: runAppium
