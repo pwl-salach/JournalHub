@@ -3,8 +3,8 @@ package com.salach.journalhub.ui.screens.journal.add
 import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -16,8 +16,6 @@ import com.salach.journalhub.navigation.graphs.AddJournalNavGraph
 import com.salach.journalhub.ui.components.popups.QuitEditingPrompt
 import com.salach.journalhub.ui.screens.journals.JournalsViewModel
 import com.salach.journalhub.ui.screens.journals.LocalViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 
@@ -33,13 +31,11 @@ fun AddJournalScreen(
     )}
     var showPopup by remember { mutableStateOf(false) }
 
-
-    if (journalId != null && journalId != -1){
-        LaunchedEffect(Unit) {
-            val retrievedJournal = withContext(Dispatchers.IO) {
-                viewModel.getJournal(journalId)
-            }
-            journalState.value = retrievedJournal
+    journalId?.let { id ->
+        val journalLiveData = viewModel.getJournal(id)
+        val journal = journalLiveData.observeAsState().value
+        journal?.let { dbJournal ->
+            journalState.value = dbJournal
         }
     }
 

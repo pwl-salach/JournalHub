@@ -27,7 +27,7 @@ fun JournalPageTopBar(
         },
         actions = {
             IconButton(
-                iconId = if (editMode) R.drawable.ic_pencil else R.drawable.ic_book,
+                iconId = if (editMode) R.drawable.ic_book else R.drawable.ic_pencil,
                 description = "ReadMode",
                 onClick = modeOnClick
             )

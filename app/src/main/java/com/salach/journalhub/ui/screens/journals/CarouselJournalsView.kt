@@ -63,7 +63,7 @@ fun CarouselJournalView(
                 onAddClicked = {},
                 onEditClicked = {
                     rootController.navigate(
-                        "${Graph.NEW_JOURNAL}?journalId=${journals.value!![selectedIndex.value].id}"
+                        "${Graph.EDIT_JOURNAL}?journalId=${journals.value!![selectedIndex.value].id}"
                     )
                 },
                 onRemoveClicked = {

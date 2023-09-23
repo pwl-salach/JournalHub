@@ -85,7 +85,7 @@ abstract class AppDatabase : RoomDatabase() {
                     appDatabase.noteDao.deleteAll()
                     appDatabase.pageDao.deleteAll()
                     appDatabase.journalDao.deleteAll()
-
+                    appDatabase.journalDao.insert(Journal("", "", id = 0))
 //                    appDatabase.noteDao.insertAll(
 //                        Note("Generic", ListIcon.HOME.id, 0, 1),
 //                        Note("Initial", ListIcon.HOME.id, 0, 2),

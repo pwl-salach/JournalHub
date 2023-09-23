@@ -85,8 +85,11 @@ object ColorPalette {
         Color(0xFFF7CD94),
     )
 
+    val NeutralWhite = Color(0xFFFFFFFF)
+    val NeutralBlack = Color(0xFF000000)
+
     val Neutrals = listOf(
-        Color(0xFF000000),
-        Color(0xFFFFFFFF)
+        NeutralBlack,
+        NeutralWhite
     )
 }

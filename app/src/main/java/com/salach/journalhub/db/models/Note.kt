@@ -16,5 +16,5 @@ import androidx.room.PrimaryKey
 )
 data class Note(
     @PrimaryKey var id: Long = 0,
-    @ColumnInfo(typeAffinity = ColumnInfo.TEXT) val text: String,
+    @ColumnInfo(typeAffinity = ColumnInfo.TEXT) var text: String,
 )

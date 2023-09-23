@@ -13,7 +13,7 @@ interface NoteDao {
     fun getAll(): Flow<List<Note>>
 
     @Query("SELECT * FROM Note WHERE id = :id")
-    suspend fun getById(id: Long): Note
+    fun getById(id: Long): Note
 
     @Insert
     suspend fun insertAll(vararg notes: Note)

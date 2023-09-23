@@ -38,11 +38,14 @@ fun ListJournalsView(
         itemsIndexed(itemsState){index, journal ->
             JournalCardWIthPreview(
                 journal,
+                onOpenClicked = {
+                    rootController.navigate("${Graph.OPEN_JOURNAL}?journalId=${journals.value!![index].id}")
+                },
                 onShowClicked = {},
                 onAddClicked = {},
                 onEditClicked = {
                     rootController.navigate(
-                        "${Graph.NEW_JOURNAL}?journalId=${journals.value!![index].id}"
+                        "${Graph.EDIT_JOURNAL}?journalId=${journals.value!![index].id}"
                     )
                 },
                 onRemoveClicked = {

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">JournalHub</string>
+    <string name="note">Note</string>
+    <string name="task_list">Task list</string>
+    <string name="shopping_list">Shopping list</string>
+    <string name="goal">Goal</string>
+    <string name="activity_plan">Activity plan</string>
 </resources>

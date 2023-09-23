@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.salach.journalhub.enums.PageType
 import com.salach.journalhub.ui.screens.MainScreen
 import com.salach.journalhub.ui.screens.journal.add.AddJournalScreen
+import com.salach.journalhub.ui.screens.journal.view.JournalPagesGridScreen
 import com.salach.journalhub.ui.screens.journals.ProvideJournalViewModel
 import com.salach.journalhub.ui.screens.pages.ProvidePagesViewModel
 import com.salach.journalhub.ui.screens.pages.ViewJournalPage
@@ -24,7 +25,7 @@ fun RootNavigationGraph(navController: NavHostController) {
             MainScreen(navController)
         }
         composable(
-            route = "${Graph.NEW_JOURNAL}?journalId={journalId}",
+            route = "${Graph.EDIT_JOURNAL}?journalId={journalId}",
             arguments = listOf(navArgument("journalId") {
                 type = NavType.IntType
                 defaultValue = -1
@@ -36,11 +37,23 @@ fun RootNavigationGraph(navController: NavHostController) {
             }
         }
         composable(
+            route = "${Graph.OPEN_JOURNAL}?journalId={journalId}",
+            arguments = listOf(navArgument("journalId") {
+                type = NavType.IntType
+                defaultValue = -1
+            })
+        ){ backStackEntry ->
+            val journalId = backStackEntry.arguments?.getInt("journalId", -1) ?: -1
+            ProvidePagesViewModel {
+                JournalPagesGridScreen(journalId, navController)
+            }
+        }
+        composable(
             route = "${Graph.NOTE_PAGE}?journalId={journalId}&pageId={pageId}&newPageType={newPageType}",
             arguments = listOf(
                 navArgument("journalId"){
                     type = NavType.IntType
-                    defaultValue = -1
+                    defaultValue = 0
                 },
                 navArgument("pageId"){
                     type = NavType.LongType
@@ -69,6 +82,7 @@ object Graph {
     const val ROOT = "root_graph"
     const val AUTHENTICATION = "auth_graph"
     const val HOME = "home_graph"
-    const val NEW_JOURNAL = "new_journal_graph"
+    const val EDIT_JOURNAL = "edit_journal_graph"
+    const val OPEN_JOURNAL = "open_journal"
     const val NOTE_PAGE = "note_page_graph"
 }

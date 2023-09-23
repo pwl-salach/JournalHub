@@ -6,7 +6,9 @@ import com.salach.journalhub.db.daos.PageDao
 import com.salach.journalhub.db.models.Chore
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.db.models.Page
+import com.salach.journalhub.repositories.JournalsRepository
 import com.salach.journalhub.repositories.PagesRepository
+import com.salach.journalhub.ui.screens.journals.MockedJournalDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -38,7 +40,7 @@ class MockedMemoDao: NoteDao{
         TODO("Not yet implemented")
     }
 
-    override suspend fun getById(id: Long): Note {
+    override fun getById(id: Long): Note {
         TODO("Not yet implemented")
     }
 
@@ -57,7 +59,7 @@ class MockedChoreDao: ChoreDao{
         TODO("Not yet implemented")
     }
 
-    override suspend fun getById(id: Long): Chore {
+    override fun getById(id: Long): Chore {
         TODO("Not yet implemented")
     }
 
@@ -73,5 +75,6 @@ class MockedChoreDao: ChoreDao{
 
 internal fun provideViewModelForPreview(): PagesViewModel {
     val mockedRepository = PagesRepository(MockedPageDao(), MockedMemoDao(), MockedChoreDao())
-    return PagesViewModel(mockedRepository)
+    val mockedJournalsRepository = JournalsRepository(MockedJournalDao())
+    return PagesViewModel(mockedRepository, mockedJournalsRepository)
 }

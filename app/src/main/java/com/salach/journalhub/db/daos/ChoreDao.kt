@@ -15,7 +15,7 @@ interface ChoreDao {
 //    fun getAllFromNote(noteId: Int): Flow<List<Chore>>
 
     @Query("SELECT * FROM Chore WHERE id = :id")
-    suspend fun getById(id: Long): Chore
+    fun getById(id: Long): Chore
 
     @Insert
     suspend fun insertAll(vararg chores: Chore)

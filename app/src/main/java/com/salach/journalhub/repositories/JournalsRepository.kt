@@ -1,12 +1,13 @@
 package com.salach.journalhub.repositories
 
+import androidx.lifecycle.LiveData
 import com.salach.journalhub.db.daos.JournalDao
 import com.salach.journalhub.db.models.Journal
 import kotlinx.coroutines.flow.Flow
 
 class JournalsRepository(private val journalDao: JournalDao) {
 
-    fun getJournalById(id: Int): Journal{
+    fun getJournalById(id: Int): LiveData<Journal> {
         return journalDao.getJournal(id)
     }
     fun getJournals(): Flow<List<Journal>>{

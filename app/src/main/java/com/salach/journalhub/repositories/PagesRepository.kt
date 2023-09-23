@@ -11,37 +11,35 @@ import kotlinx.coroutines.flow.Flow
 
 class PagesRepository(private val pageDao: PageDao, private val noteDao: NoteDao, private val choreDao: ChoreDao) {
 
-    fun getAllPages(noteId: Int): Flow<List<Page>> {
-        return pageDao.getNoteParts(noteId)
+    fun getAllPages(journalId: Int): Flow<List<Page>> {
+        return pageDao.getNoteParts(journalId)
     }
 
-    suspend fun<T> getFullRepresentation(partId: Long, type: PageType): T? {
+    fun<T> getFullRepresentation(partId: Long, type: PageType): T? {
         if (type == PageType.NOTE ){
             @Suppress("UNCHECKED_CAST")
             return noteDao.getById(partId) as T
-        } else if (type == PageType.CHORE) {
+        } else if (type == PageType.TASK_LIST) {
             @Suppress("UNCHECKED_CAST")
             return choreDao.getById(partId) as T
         }
         return null
     }
 
-    suspend fun<T> insert(noteId: Int, obj: T, type: PageType){
-        val newPart = Page(noteId, type)
-        val partId = pageDao.insert(newPart)
+    suspend fun<T> insert(page: Page, obj: T, type: PageType){
+        val pageId = pageDao.insert(page)
         when (type) {
             PageType.NOTE -> {
                 val newNote = obj as Note
-                newNote.id = partId
+                newNote.id = pageId
                 noteDao.insertAll(newNote)
             }
-            PageType.CHORE -> {
+            PageType.TASK_LIST -> {
                 val newMemo = obj as Chore
-                newMemo.id = partId
+                newMemo.id = pageId
                 choreDao.insertAll(newMemo)
             }
+            else -> {}
         }
     }
-
-
 }

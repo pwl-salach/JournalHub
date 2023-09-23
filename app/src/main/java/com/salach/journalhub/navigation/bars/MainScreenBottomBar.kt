@@ -66,7 +66,7 @@ fun MainScreenBottomBar(
                     highlightedColor = ColorPalette.primary,
                     shape = CircleShape
                 ) {
-                    rootController.navigate(Graph.NEW_JOURNAL)
+                    rootController.navigate(Graph.EDIT_JOURNAL)
                 }
             } else {
                 NavBarIconButton(

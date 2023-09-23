@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class JournalsViewModel(private val repository: JournalsRepository) : ViewModel() {
     val journals: LiveData<List<Journal>> = repository.getJournals().asLiveData()
 
-    fun getJournal(journalId: Int): Journal {
+    fun getJournal(journalId: Int): LiveData<Journal> {
         return repository.getJournalById(journalId)
     }
     fun addJournal(journal: Journal) {

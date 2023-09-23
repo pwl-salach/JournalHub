@@ -1,6 +1,7 @@
 package com.salach.journalhub.ui.screens.journals
 
 import androidx.compose.ui.graphics.toArgb
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.salach.journalhub.R
 import com.salach.journalhub.db.daos.JournalDao
@@ -61,7 +62,7 @@ internal fun provideViewModelForPreview(): JournalsViewModel {
 }
 
 class MockedJournalDao: JournalDao {
-    override fun getJournal(id: Int): Journal {
+    override fun getJournal(id: Int): LiveData<Journal> {
         TODO("Not yet implemented")
     }
 

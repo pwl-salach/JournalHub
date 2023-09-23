@@ -36,6 +36,7 @@ import java.time.LocalDate
 @Composable
 fun JournalCardWIthPreview(
     journal: Journal,
+    onOpenClicked: () -> Unit,
     onShowClicked: () -> Unit,
     onAddClicked: () -> Unit,
     onEditClicked: () -> Unit,
@@ -47,6 +48,7 @@ fun JournalCardWIthPreview(
     Row(
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable { onOpenClicked() }
     ){
         SmallJournalCover(journal, hideTitle = true)
         Row(
@@ -157,6 +159,6 @@ fun JournalCardWIthPreview(
 fun PreviewJournalCardWIthPreview(){
     JournalCardWIthPreview(
         Journal("Title", "Subtitle", createdDate = LocalDate.now()),
-        {}, {}, {}, {}
+        {}, {}, {}, {}, {}
     )
 }

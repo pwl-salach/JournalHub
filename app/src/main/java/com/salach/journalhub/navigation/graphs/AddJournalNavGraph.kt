@@ -15,7 +15,7 @@ import com.salach.journalhub.ui.screens.journal.add.PickJournalIconColor
 fun AddJournalNavGraph(journal: MutableState<Journal>, navController: NavHostController){
     NavHost(
         navController = navController,
-        route = Graph.NEW_JOURNAL,
+        route = Graph.EDIT_JOURNAL,
         startDestination = Route.AddJournalInit.link
     ){
         composable(route = Route.AddJournalInit.link) {
