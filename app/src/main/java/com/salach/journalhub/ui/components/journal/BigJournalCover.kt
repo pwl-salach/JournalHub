@@ -133,20 +133,12 @@ fun BigJournalCover(
                 horizontalAlignment = Alignment.Start,
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_book),
-                    contentDescription = "Open",
+                    painter = painterResource(id = R.drawable.ic_trash),
+                    contentDescription = "Remove",
                     modifier = Modifier
                         .width(dimensions.L)
                         .height(dimensions.L)
-                        .clickable { onShowClicked() }
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_file_plus),
-                    contentDescription = "Add page",
-                    modifier = Modifier
-                        .width(dimensions.L)
-                        .height(dimensions.L)
-                        .clickable { onAddClicked() }
+                        .clickable { onRemoveClicked() }
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_pencil),
@@ -157,12 +149,12 @@ fun BigJournalCover(
                         .clickable { onEditClicked() }
                 )
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_trash),
-                    contentDescription = "Remove",
+                    painter = painterResource(id = R.drawable.ic_file_plus),
+                    contentDescription = "Add page",
                     modifier = Modifier
                         .width(dimensions.L)
                         .height(dimensions.L)
-                        .clickable { onRemoveClicked() }
+                        .clickable { onAddClicked() }
                 )
             }
         }

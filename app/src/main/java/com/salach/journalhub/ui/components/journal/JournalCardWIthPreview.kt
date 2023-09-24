@@ -124,14 +124,6 @@ fun JournalCardWIthPreview(
                             .clickable { onEditClicked() }
                     )
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_book),
-                        contentDescription = "Open",
-                        modifier = Modifier
-                            .width(dimensions.M)
-                            .height(dimensions.M)
-                            .clickable { onShowClicked() }
-                    )
-                    Icon(
                         painter = painterResource(id = R.drawable.ic_file_plus),
                         contentDescription = "Add page",
                         modifier = Modifier

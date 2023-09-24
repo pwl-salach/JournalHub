@@ -39,7 +39,7 @@ val LocalViewModel = compositionLocalOf<JournalsViewModel> {
 @Composable
 fun JournalsScreen(navController: NavHostController, rootController: NavHostController) {
     val viewModel: JournalsViewModel = LocalViewModel.current
-    val viewSwitch = remember {mutableStateOf(true) }
+    val viewSwitch = remember {mutableStateOf(false) }
     Scaffold(
         topBar = {
             TopAppBar(
