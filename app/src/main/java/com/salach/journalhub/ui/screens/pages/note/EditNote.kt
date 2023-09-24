@@ -8,7 +8,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.ui.components.InputLine
-import com.salach.journalhub.ui.screens.pages.PagesViewModel
 import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -36,43 +37,36 @@ fun ViewJournalPage(
     val editMode = remember { mutableStateOf(false) }
 
     val viewModel: PagesViewModel = LocalPagesViewModel.current
-    val itemsState by viewModel.getPages(journalId).observeAsState(emptyList())
+    val journalPages by viewModel.getPages(journalId).observeAsState(emptyList())
     val page = remember { mutableStateOf(
         Page(journalId, "", LocalDate.now(), type = newPageType)
     )}
     var prevPageId: Long = -1L
     var nextPageId: Long = -1L
     var currentIndex = 0
+    // FIXME support other types of pages
+    val note = remember { mutableStateOf(Note(id=-1, text="")) }
     if (pageId != -1L){
-        viewModel.getPages(journalId).value?.let { journalPages ->
-            for ((index, iterPage) in journalPages.withIndex()){
-                if(iterPage.id == pageId){
-                    page.value = iterPage
-                    currentIndex = index
-                    if(journalPages.count() > index + 1){
-                        nextPageId = journalPages[index + 1].id!!
+        for ((index, iterPage) in journalPages.withIndex()){
+            if(iterPage.id == pageId){
+                page.value = iterPage
+                page.value.id?.let { pageId ->
+                    viewModel.loadPage<Note>(pageId, page.value.type)?.observeAsState()?.value?.let {
+                        note.value = it
                     }
-                    break
-                } else {
-                    prevPageId = iterPage.id!!
                 }
+                currentIndex = index
+                if(journalPages.count() > index + 1){
+                    nextPageId = journalPages[index + 1].id!!
+                }
+                break
+            } else {
+                prevPageId = iterPage.id!!
             }
-        }
-
-        viewModel.getPages(journalId).value?.find{ it.id == pageId }?.let {
-            page.value = it
         }
     } else {
         editMode.value = true
     }
-    val note = remember {
-        mutableStateOf(
-            page.value.id?.let {
-                viewModel.loadPage<Note>(it, page.value.type)
-            } ?: Note(-1, "")
-        )
-    }
-
     Scaffold(
         topBar = {
             JournalPageTopBar(
@@ -92,7 +86,7 @@ fun ViewJournalPage(
             if (!editMode.value){
                 JournalPageBottomBar(
                     currentIndex = currentIndex,
-                    pagesCount = itemsState.count(),
+                    pagesCount = journalPages.count(),
                     viewPrevious = {
                         navController.navigate("${Graph.NOTE_PAGE}?journalId=${journalId}&pageId=${prevPageId}")
                     },
@@ -107,7 +101,8 @@ fun ViewJournalPage(
             JournalPageHeader(page = page.value, paddingValues = it)
             if(page.value.type == PageType.NOTE){
                 if(!editMode.value){
-                    ViewNote(note)
+                    if(note.value.id != -1L)
+                        ViewNote(note)
                 } else {
                     EditNote(note)
                 }

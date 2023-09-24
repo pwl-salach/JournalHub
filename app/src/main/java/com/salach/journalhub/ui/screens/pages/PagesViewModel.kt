@@ -28,7 +28,7 @@ class PagesViewModel(private val repository: PagesRepository, private val journa
         }
     }
 
-    fun <T> loadPage(pageId: Long, type: PageType): T?{
+    fun <T> loadPage(pageId: Long, type: PageType): LiveData<T>?{
         return repository.getFullRepresentation<T>(pageId, type)
     }
 

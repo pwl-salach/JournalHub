@@ -1,5 +1,6 @@
 package com.salach.journalhub.repositories
 
+import androidx.lifecycle.LiveData
 import com.salach.journalhub.db.daos.ChoreDao
 import com.salach.journalhub.db.daos.NoteDao
 import com.salach.journalhub.db.daos.PageDao
@@ -15,13 +16,13 @@ class PagesRepository(private val pageDao: PageDao, private val noteDao: NoteDao
         return pageDao.getNoteParts(journalId)
     }
 
-    fun<T> getFullRepresentation(partId: Long, type: PageType): T? {
+    fun<T> getFullRepresentation(partId: Long, type: PageType): LiveData<T>? {
         if (type == PageType.NOTE ){
             @Suppress("UNCHECKED_CAST")
-            return noteDao.getById(partId) as T
+            return noteDao.getById(partId) as LiveData<T>
         } else if (type == PageType.TASK_LIST) {
             @Suppress("UNCHECKED_CAST")
-            return choreDao.getById(partId) as T
+            return choreDao.getById(partId) as LiveData<T>
         }
         return null
     }

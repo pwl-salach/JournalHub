@@ -1,5 +1,6 @@
 package com.salach.journalhub.db.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -13,7 +14,7 @@ interface NoteDao {
     fun getAll(): Flow<List<Note>>
 
     @Query("SELECT * FROM Note WHERE id = :id")
-    fun getById(id: Long): Note
+    fun getById(id: Long): LiveData<Note>
 
     @Insert
     suspend fun insertAll(vararg notes: Note)

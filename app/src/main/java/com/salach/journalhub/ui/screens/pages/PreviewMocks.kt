@@ -1,5 +1,6 @@
 package com.salach.journalhub.ui.screens.pages
 
+import androidx.lifecycle.LiveData
 import com.salach.journalhub.db.daos.ChoreDao
 import com.salach.journalhub.db.daos.NoteDao
 import com.salach.journalhub.db.daos.PageDao
@@ -40,7 +41,7 @@ class MockedMemoDao: NoteDao{
         TODO("Not yet implemented")
     }
 
-    override fun getById(id: Long): Note {
+    override fun getById(id: Long): LiveData<Note> {
         TODO("Not yet implemented")
     }
 
@@ -59,7 +60,7 @@ class MockedChoreDao: ChoreDao{
         TODO("Not yet implemented")
     }
 
-    override fun getById(id: Long): Chore {
+    override fun getById(id: Long): LiveData<Chore> {
         TODO("Not yet implemented")
     }
 
