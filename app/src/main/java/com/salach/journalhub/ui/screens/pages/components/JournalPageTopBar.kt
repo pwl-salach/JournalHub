@@ -1,11 +1,14 @@
 package com.salach.journalhub.ui.screens.pages.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.salach.journalhub.R
 import com.salach.journalhub.ui.components.IconButton
+import com.salach.journalhub.ui.theme.currentDimensions
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,7 +30,7 @@ fun JournalPageTopBar(
         },
         actions = {
             IconButton(
-                iconId = if (editMode) R.drawable.ic_book else R.drawable.ic_pencil,
+                iconId = if (editMode) R.drawable.ic_check else R.drawable.ic_pencil,
                 description = "ReadMode",
                 onClick = modeOnClick
             )
@@ -48,5 +51,8 @@ fun JournalPageTopBar(
 @Preview
 @Composable
 fun PreviewJournalPageTopBar(){
-    JournalPageTopBar(false, {}, {}, {}, {})
+    Column(verticalArrangement = Arrangement.spacedBy(currentDimensions().S)){
+        JournalPageTopBar(false, {}, {}, {}, {})
+        JournalPageTopBar(true, {}, {}, {}, {})
+    }
 }

@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 
 class MockedPageDao: PageDao {
-    override fun getNoteParts(noteId: Int): Flow<List<Page>> {
+    override fun getPageParts(noteId: Int): Flow<List<Page>> {
         val mockedList = listOf<Page>()
         val mutableStateFlow = MutableStateFlow(mockedList)
         return mutableStateFlow.asStateFlow()
@@ -27,6 +27,10 @@ class MockedPageDao: PageDao {
     }
 
     override suspend fun insertAll(vararg note: Page): List<Long> {
+        TODO("Not yet implemented")
+    }
+
+    override fun update(page: Page) {
         TODO("Not yet implemented")
     }
 
@@ -49,6 +53,10 @@ class MockedMemoDao: NoteDao{
         TODO("Not yet implemented")
     }
 
+    override fun update(note: Note) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteAll() {
         TODO("Not yet implemented")
     }
@@ -65,6 +73,10 @@ class MockedChoreDao: ChoreDao{
     }
 
     override suspend fun insertAll(vararg chores: Chore) {
+        TODO("Not yet implemented")
+    }
+
+    override fun update(chore: Chore) {
         TODO("Not yet implemented")
     }
 

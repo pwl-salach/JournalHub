@@ -99,12 +99,14 @@ fun ViewJournalPage(
     ) {
         Column() {
             JournalPageHeader(page = page.value, paddingValues = it)
-            if(page.value.type == PageType.NOTE){
-                if(!editMode.value){
-                    if(note.value.id != -1L)
-                        ViewNote(note)
-                } else {
-                    EditNote(note)
+            if (pageId == note.value.id) {
+                if (page.value.type == PageType.NOTE) {
+                    if (!editMode.value) {
+                        if (note.value.id != -1L)
+                            ViewNote(note)
+                    } else {
+                        EditNote(note)
+                    }
                 }
             }
         }

@@ -34,7 +34,11 @@ class PagesViewModel(private val repository: PagesRepository, private val journa
 
     fun <T> saveNote(page: Page, note: Note){
         viewModelScope.launch {
-            repository.insert(page, note, PageType.NOTE)
+            if(page.id == -1L){
+                repository.insert(page, note, PageType.NOTE)
+            } else {
+
+            }
         }
     }
 }

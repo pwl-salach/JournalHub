@@ -13,7 +13,7 @@ import com.salach.journalhub.ui.theme.currentTypography
 @Composable
 fun EditNote(note: MutableState<Note>) {
     val text = remember {
-        mutableStateOf("")
+        mutableStateOf(note.value.text)
     }
     Column() {
         InputLine(

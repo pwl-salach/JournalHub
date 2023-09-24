@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.salach.journalhub.db.models.Chore
 import kotlinx.coroutines.flow.Flow
 
@@ -20,6 +21,9 @@ interface ChoreDao {
 
     @Insert
     suspend fun insertAll(vararg chores: Chore)
+
+    @Update
+    fun update(chore: Chore)
 
     @Query("DELETE FROM Chore")
     suspend fun deleteAll()
