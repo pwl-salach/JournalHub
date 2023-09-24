@@ -1,6 +1,8 @@
 package com.salach.journalhub.ui.screens.pages.note
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -15,17 +17,20 @@ fun EditNote(note: MutableState<Note>) {
     val text = remember {
         mutableStateOf(note.value.text)
     }
-    Column() {
-        InputLine(
-            value = text.value,
-            textStyle = currentTypography().B1B,
-            modifier = Modifier,
-            onValueChange = {
-                text.value = it
-                note.value.text = text.value
-            }
-        )
-    }
+    TextField(
+        value = text.value,
+        textStyle = currentTypography().B1B,
+        modifier = Modifier.fillMaxWidth(),
+        onValueChange = {
+            val annotatedText = applyAnnotations(it)
+            text.value = annotatedText
+            note.value.text = text.value
+        }
+    )
+}
+
+fun applyAnnotations(text: String): String {
+    return text
 }
 
 //@Preview

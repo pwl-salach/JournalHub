@@ -102,8 +102,7 @@ fun ViewJournalPage(
             if (pageId == note.value.id) {
                 if (page.value.type == PageType.NOTE) {
                     if (!editMode.value) {
-                        if (note.value.id != -1L)
-                            ViewNote(note)
+                        ViewNote(note)
                     } else {
                         EditNote(note)
                     }
