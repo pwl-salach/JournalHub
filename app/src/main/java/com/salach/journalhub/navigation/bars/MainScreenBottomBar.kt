@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
 import com.salach.journalhub.Screen
@@ -37,7 +38,12 @@ fun MainScreenBottomBar(
         Screen("settings", R.drawable.ic_notes, "Settings"),
         Screen("settings", R.drawable.ic_calendar, "Settings")
     )
-    var selectedItem by remember { mutableStateOf(0) }
+    val currentDestination = navController.currentBackStackEntryAsState()
+    var selectedItem by remember { mutableStateOf(
+        items.withIndex().firstOrNull { (_, it)  ->
+            it.route == currentDestination.value?.destination?.route
+        }?.index ?: 0
+    )}
 
     BottomNavigation(
         backgroundColor = ColorPalette.primarySurface3,
@@ -49,13 +55,20 @@ fun MainScreenBottomBar(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(currentDimensions().S)
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(currentDimensions().S)
         ){
             items.forEachIndexed { index, screen ->
                 val isSelected = selectedItem == index
                 NavBarIconButton(icon = screen.icon, description = screen.title, isSelected = isSelected) {
-                    navController.navigate(screen.route)
                     selectedItem = index
+                    navController.navigate(screen.route){
+                        popUpTo(navController.graph.id){
+                            inclusive = true
+                        }
+                    }
                 }
             }
             if (selectedItem == 1){
