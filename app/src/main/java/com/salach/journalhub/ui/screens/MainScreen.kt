@@ -6,7 +6,9 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.navigation.bars.MainScreenBottomBar
@@ -34,5 +36,12 @@ fun MainScreen(rootController: NavHostController = rememberNavController()) {
     ) {
         NewPageTypePrompt(popupState, rootController)
         TabNavGraph(nestedNavController, rootController)
+    }
+
+    DisposableEffect(popupState){
+        coroutineScope.launch {
+            popupState.hide()
+        }
+        onDispose {  }
     }
 }

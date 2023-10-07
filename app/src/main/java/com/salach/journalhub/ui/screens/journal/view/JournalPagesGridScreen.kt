@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.salach.journalhub.R
 import com.salach.journalhub.navigation.graphs.Graph
-import com.salach.journalhub.ui.components.IconButton
+import com.salach.journalhub.ui.components.basic.IconButton
 import com.salach.journalhub.ui.components.PageMiniature
 import com.salach.journalhub.ui.components.journal.JournalCardWIthPreview
 import com.salach.journalhub.ui.screens.pages.PagesViewModel

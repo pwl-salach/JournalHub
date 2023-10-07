@@ -7,7 +7,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.salach.journalhub.R
-import com.salach.journalhub.ui.components.IconButton
+import com.salach.journalhub.ui.components.basic.IconButton
 import com.salach.journalhub.ui.theme.currentDimensions
 
 @OptIn(ExperimentalMaterial3Api::class)

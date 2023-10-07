@@ -67,22 +67,7 @@ fun NoJournalView(
             Text(
                 text = "Let’s START!",
                 style = currentTypography().L2R,
-//                color = Color(0xFFFFFFFF),
-//                textAlign = TextAlign.Center,
-
                 modifier = Modifier.clickable {
-//                    viewModel.addJournal(
-//                        Journal("Title", "Test",
-//                            R.drawable.ic_planetscale, ColorPalette.FrenchGray40.toArgb(), ColorPalette.Leaf70.toArgb(),
-//                            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
-//                        )
-//                    )
-//                    viewModel.addJournal(
-//                        Journal("Title", "Test",
-//                            R.drawable.ic_planetscale, ColorPalette.AlertsNeutral50.toArgb(), ColorPalette.Lavender50.toArgb()    ,
-//                            LocalDate.of(2012, 5, 10), LocalDate.of(2012, 5, 10)
-//                        )
-//                    )
                     navigateToJournals.value = true
                 }
             )

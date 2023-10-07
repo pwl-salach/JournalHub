@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.salach.journalhub.R
-import com.salach.journalhub.ui.components.IconButton
+import com.salach.journalhub.ui.components.basic.IconButton
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
 

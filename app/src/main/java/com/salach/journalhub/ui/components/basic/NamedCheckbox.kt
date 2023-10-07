@@ -1,4 +1,4 @@
-package com.salach.journalhub.ui.components
+package com.salach.journalhub.ui.components.basic
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

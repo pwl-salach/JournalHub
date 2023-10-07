@@ -29,6 +29,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.salach.journalhub.R
 import com.salach.journalhub.db.models.Goal
+import com.salach.journalhub.ui.components.basic.Progress
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
 

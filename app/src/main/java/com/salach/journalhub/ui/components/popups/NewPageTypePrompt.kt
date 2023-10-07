@@ -46,7 +46,10 @@ fun getCreateButtonDescription(nameOfType: String): String {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun NewPageTypePrompt(sheetState: ModalBottomSheetState, navController: NavHostController) {
+fun NewPageTypePrompt(
+    sheetState: ModalBottomSheetState,
+    navController: NavHostController
+) {
     val dimensions = currentDimensions()
     val typography = currentTypography()
     ModalBottomSheetLayout(
@@ -93,7 +96,6 @@ fun NewPageTypePrompt(sheetState: ModalBottomSheetState, navController: NavHostC
                                     description = getCreateButtonDescription(typeName)
                                 ) {
                                     navController.navigate("${Graph.NOTE_PAGE}?newPageType=${it.name}")
-//                                    sheetState.hide()
                                 }
                             }
                         }

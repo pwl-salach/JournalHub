@@ -1,4 +1,4 @@
-package com.salach.journalhub.ui.components
+package com.salach.journalhub.ui.components.basic
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,8 +15,9 @@ import com.salach.journalhub.ui.theme.currentDimensions
 
 
 @Composable
-fun IconButton(iconId: Int, description: String ,onClick: () -> Unit) {
+fun IconButton(iconId: Int, description: String, onClick: () -> Unit) {
     val dimensions = currentDimensions()
+
     Column(
         verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,

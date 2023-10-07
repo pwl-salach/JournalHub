@@ -20,8 +20,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.ui.components.InputLine
-import com.salach.journalhub.ui.components.NamedCheckbox
+import com.salach.journalhub.ui.components.basic.InputLine
+import com.salach.journalhub.ui.components.basic.NamedCheckbox
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
 import java.time.LocalDate

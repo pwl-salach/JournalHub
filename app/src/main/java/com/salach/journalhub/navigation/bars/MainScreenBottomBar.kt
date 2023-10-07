@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,11 +40,13 @@ fun MainScreenBottomBar(
         Screen("settings", R.drawable.ic_calendar, "Settings")
     )
     val currentDestination = navController.currentBackStackEntryAsState()
-    var selectedItem by remember { mutableStateOf(
-        items.withIndex().firstOrNull { (_, it)  ->
+    var selectedItem by remember { mutableStateOf(0)}
+
+    LaunchedEffect(currentDestination.value) {
+        selectedItem = items.withIndex().firstOrNull { (_, it) ->
             it.route == currentDestination.value?.destination?.route
         }?.index ?: 0
-    )}
+    }
 
     BottomNavigation(
         backgroundColor = ColorPalette.primarySurface3,
