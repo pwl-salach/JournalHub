@@ -3,7 +3,6 @@ package com.salach.journalhub.ui.screens.pages.note
 import android.graphics.Rect
 import android.view.ViewTreeObserver
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,37 +10,38 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.ui.components.KeyboardToolbar
 import com.salach.journalhub.ui.theme.currentDimensions
-import com.salach.journalhub.ui.theme.currentTypography
+import com.salach.journalhub.utils.AnnotatedTextFormatter
 
-@OptIn(ExperimentalComposeUiApi::class)
+
 @Composable
 fun EditNote(note: MutableState<Note>) {
-    val text = remember { mutableStateOf(AnnotatedString(note.value.text)) }
+    val previousText = remember { mutableStateOf(AnnotatedString(note.value.text)) }
+    val currentText = remember { mutableStateOf(TextFieldValue(note.value.text)) }
+
     var isKeyboardVisible = remember { mutableStateOf(false) }
+
+    val annotator = remember {
+        mutableStateOf(AnnotatedTextFormatter())
+    }
 
     val rootView = LocalView.current
     val density = LocalDensity.current.density
@@ -70,53 +70,40 @@ fun EditNote(note: MutableState<Note>) {
             .navigationBarsPadding()
             .imePadding()
     ) {
-        TextField(
-            value = text.value.text,
-            textStyle = currentTypography().B1B,
-            modifier = Modifier
-                .fillMaxWidth()
-                .onFocusChanged { focusState ->
-                    isKeyboardVisible.value = focusState.isFocused
-                },
-            onValueChange = {
-                val annotatedText = applyAnnotations(it)
-                text.value = annotatedText
-                note.value.text = text.value.text
+        BasicTextField(
+            value = currentText.value,
+            modifier = Modifier.fillMaxWidth(),
+            onValueChange = { newText ->
+//                textValue.value = it
+                val annotatedText = annotator.value.annotateString(
+                    previousText.value, newText.annotatedString, newText.selection
+                )
+                currentText.value = TextFieldValue(annotatedText, newText.selection, newText.composition)
+                note.value.text = annotatedText.text
+                previousText.value = currentText.value.annotatedString
             },
+            visualTransformation = AnnotatedTextTransformation(annotator.value)
         )
         if(isKeyboardVisible.value){
-            Box(modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-            ){
-                KeyboardToolbar()
-            }
+            KeyboardToolbar(annotator)
             Spacer(modifier = Modifier.height(currentDimensions().M))
         }
     }
 }
 
-fun applyAnnotations(input: String): AnnotatedString {
-    val builder = AnnotatedString.Builder()
 
-    var currentIndex = 0
-    while (currentIndex < input.length) {
-        val nextIndex = input.indexOf("BOLD", currentIndex, ignoreCase = true)
-        if (nextIndex == -1) {
-            builder.append(
-                input.substring(currentIndex, input.length),
-            )
-            break
-        } else {
-            builder.withStyle(
-                style = SpanStyle(fontWeight = FontWeight.Bold),
-            ) {
-                append(AnnotatedString(input.substring(currentIndex, nextIndex + 4)))
+class AnnotatedTextTransformation(private val annotator: AnnotatedTextFormatter) : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        return TransformedText(
+            text = text, //annotator.annotateString(text.text, TextRange(text.length, text.length)),
+            offsetMapping = object : OffsetMapping {
+                override fun originalToTransformed(offset: Int): Int = offset
+                override fun transformedToOriginal(offset: Int): Int = offset
             }
-            currentIndex = nextIndex + 4
-        }
+        )
     }
-    return builder.toAnnotatedString()
 }
+
 
 //@Preview
 //@Composable

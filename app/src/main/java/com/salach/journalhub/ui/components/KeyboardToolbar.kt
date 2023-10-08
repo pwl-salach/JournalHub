@@ -12,6 +12,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -25,9 +28,10 @@ import com.salach.journalhub.ui.components.basic.IconButton
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
+import com.salach.journalhub.utils.AnnotatedTextFormatter
 
 @Composable
-fun KeyboardToolbar() {
+fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
     val dimensions = currentDimensions()
     val typography = currentTypography()
     Column(
@@ -77,16 +81,16 @@ fun KeyboardToolbar() {
                 verticalAlignment = Alignment.Top,
             ) {
                 IconButton(iconId = R.drawable.ic_bold, description = "") {
-
+                    annotator.value.boldEnabled = !annotator.value.boldEnabled
                 }
                 IconButton(iconId = R.drawable.ic_italic, description = "") {
-
+                    annotator.value.italicEnabled = !annotator.value.italicEnabled
                 }
                 IconButton(iconId = R.drawable.ic_underline, description = "") {
-
+                    annotator.value.underlineEnabled = !annotator.value.underlineEnabled
                 }
                 IconButton(iconId = R.drawable.ic_strikethrough, description = "") {
-
+                    annotator.value.strikethroughEnabled = !annotator.value.strikethroughEnabled
                 }
             }
             Row(
@@ -121,5 +125,6 @@ fun KeyboardToolbar() {
 @Preview
 @Composable
 fun PreviewKeyboardToolbar(){
-    KeyboardToolbar()
+    val annotator = remember {mutableStateOf(AnnotatedTextFormatter())}
+    KeyboardToolbar(annotator)
 }
