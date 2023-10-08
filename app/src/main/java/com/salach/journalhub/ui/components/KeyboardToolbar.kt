@@ -29,12 +29,13 @@ import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
 import com.salach.journalhub.utils.AnnotatedTextFormatter
+import kotlin.reflect.KFunction0
 
 @Composable
 fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
     val dimensions = currentDimensions()
     val typography = currentTypography()
-    val firstRowIconSize = dimensions.L + dimensions.XS
+
     Column(
         verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.Start,
@@ -52,26 +53,26 @@ fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
             .height(dimensions.XL + dimensions.XL + dimensions.XL)
             .padding(dimensions.S)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Top,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = "Text options",
-                style = typography.T2R
-            )
-            androidx.compose.material3.IconButton(
-                onClick = { /*TODO*/ },
-                modifier = Modifier.size(dimensions.M)
-            ){
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_x),
-                    contentDescription = "CloseToolbox"
-                )
-            }
-
-        }
+//        Row(
+//            horizontalArrangement = Arrangement.SpaceBetween,
+//            verticalAlignment = Alignment.Top,
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            Text(
+//                text = "Text options",
+//                style = typography.T2R
+//            )
+//            androidx.compose.material3.IconButton(
+//                onClick = { /*TODO*/ },
+//                modifier = Modifier.size(dimensions.M)
+//            ){
+//                Icon(
+//                    painter = painterResource(id = R.drawable.ic_x),
+//                    contentDescription = "CloseToolbox"
+//                )
+//            }
+//
+//        }
 
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -81,42 +82,10 @@ fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
                 horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
                 verticalAlignment = Alignment.Top,
             ) {
-                SelectableIconButton(
-                    iconId = R.drawable.ic_bold,
-                    description = "",
-                    iconSize = firstRowIconSize,
-                    borderSize = 0.dp,
-                    isSelected = annotator.value.boldEnabled
-                ) {
-                    annotator.value.boldEnabled = !annotator.value.boldEnabled
-                }
-                SelectableIconButton(
-                    iconId = R.drawable.ic_italic,
-                    description = "",
-                    iconSize = firstRowIconSize,
-                    borderSize = 0.dp,
-                    isSelected = annotator.value.italicEnabled
-                ) {
-                    annotator.value.italicEnabled = !annotator.value.italicEnabled
-                }
-                SelectableIconButton(
-                    iconId = R.drawable.ic_underline,
-                    description = "",
-                    iconSize = firstRowIconSize,
-                    borderSize = 0.dp,
-                    isSelected = annotator.value.underlineEnabled
-                ) {
-                    annotator.value.underlineEnabled = !annotator.value.underlineEnabled
-                }
-                SelectableIconButton(
-                    iconId = R.drawable.ic_strikethrough,
-                    description = "",
-                    iconSize = firstRowIconSize,
-                    borderSize = 0.dp,
-                    isSelected = annotator.value.strikethroughEnabled
-                ) {
-                    annotator.value.strikethroughEnabled = !annotator.value.strikethroughEnabled
-                }
+                TextModeButton(R.drawable.ic_bold, "SwitchBold", annotator.value::switchBold)
+                TextModeButton(R.drawable.ic_italic, "SwitchItalic", annotator.value::switchItalic)
+                TextModeButton(R.drawable.ic_underline, "SwitchUnderline", annotator.value::switchUnderline)
+                TextModeButton(R.drawable.ic_strikethrough, "SwitchStrikethrough", annotator.value::switchStrikethrough)
             }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
@@ -145,6 +114,24 @@ fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
         }
     }
 
+}
+
+@Composable
+fun TextModeButton(iconId: Int, description: String, switchFunction: KFunction0<Unit>){
+    val dimensions = currentDimensions()
+    val firstRowIconSize = dimensions.L + dimensions.XS
+
+    val triggerUpdate = remember { mutableStateOf(false) }
+    SelectableIconButton(
+        iconId = iconId,
+        description = "",
+        iconSize = firstRowIconSize,
+        borderSize = 0.dp,
+        isSelected = triggerUpdate.value
+    ) {
+        triggerUpdate.value = !triggerUpdate.value
+        switchFunction()
+    }
 }
 
 @Preview
