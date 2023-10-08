@@ -23,7 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
 import com.salach.journalhub.Screen
 import com.salach.journalhub.navigation.graphs.Graph
-import com.salach.journalhub.ui.components.NavBarIconButton
+import com.salach.journalhub.ui.components.SelectableIconButton
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 
@@ -65,7 +65,7 @@ fun MainScreenBottomBar(
         ){
             items.forEachIndexed { index, screen ->
                 val isSelected = selectedItem == index
-                NavBarIconButton(icon = screen.icon, description = screen.title, isSelected = isSelected) {
+                SelectableIconButton(iconId = screen.icon, description = screen.title, isSelected = isSelected) {
                     selectedItem = index
                     navController.navigate(screen.route){
                         popUpTo(navController.graph.id){
@@ -75,8 +75,8 @@ fun MainScreenBottomBar(
                 }
             }
             if (selectedItem == 1){
-                NavBarIconButton(
-                    icon = R.drawable.ic_notebook,
+                SelectableIconButton(
+                    iconId = R.drawable.ic_notebook,
                     description = "CreateJournal",
                     isSelected = true,
                     highlightedColor = ColorPalette.primary,
@@ -85,8 +85,8 @@ fun MainScreenBottomBar(
                     rootController.navigate(Graph.EDIT_JOURNAL)
                 }
             } else {
-                NavBarIconButton(
-                    icon = R.drawable.ic_pencil_plus,
+                SelectableIconButton(
+                    iconId = R.drawable.ic_pencil_plus,
                     description = "CreatePage",
                     isSelected = true,
                     highlightedColor = ColorPalette.primary,

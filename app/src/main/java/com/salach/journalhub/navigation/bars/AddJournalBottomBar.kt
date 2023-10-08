@@ -21,7 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.R
 import com.salach.journalhub.navigation.graphs.Route
-import com.salach.journalhub.ui.components.NavBarIconButton
+import com.salach.journalhub.ui.components.SelectableIconButton
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 
@@ -50,8 +50,8 @@ fun AddJournalBottomBar(
             .background(color = ColorPalette.primarySurface3)
             .padding(horizontal = dimensions.S)
     ) {
-        NavBarIconButton(
-            icon = R.drawable.ic_x, "", isSelected = false
+        SelectableIconButton(
+            iconId = R.drawable.ic_x, "", isSelected = false
         ) {
             cancelFlowCallback()
 //
@@ -68,21 +68,21 @@ fun AddJournalBottomBar(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (currentIndex > 0) {
-                NavBarIconButton(
-                    icon = R.drawable.ic_chevron_left, description = "PreviousStep", isSelected = false
+                SelectableIconButton(
+                    iconId = R.drawable.ic_chevron_left, description = "PreviousStep", isSelected = false
                 ) {
                     navController.popBackStack()
                 }
             }
             if (currentIndex + 1 < flowStages.size) {
-                NavBarIconButton(
-                    icon = R.drawable.ic_chevron_right, description = "NextStep", isSelected = false
+                SelectableIconButton(
+                    iconId = R.drawable.ic_chevron_right, description = "NextStep", isSelected = false
                 ) {
                     navController.navigate(flowStages[currentIndex + 1].route)
                 }
             } else {
-                NavBarIconButton(
-                    icon = R.drawable.ic_check, description = "FinishFlow", isSelected = false
+                SelectableIconButton(
+                    iconId = R.drawable.ic_check, description = "FinishFlow", isSelected = false
                 ) {
                     finishedFlowCallback()
                 }

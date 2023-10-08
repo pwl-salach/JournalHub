@@ -34,6 +34,7 @@ import com.salach.journalhub.utils.AnnotatedTextFormatter
 fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
     val dimensions = currentDimensions()
     val typography = currentTypography()
+    val firstRowIconSize = dimensions.L + dimensions.XS
     Column(
         verticalArrangement = Arrangement.spacedBy(dimensions.S, Alignment.Top),
         horizontalAlignment = Alignment.Start,
@@ -80,16 +81,40 @@ fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
                 horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
                 verticalAlignment = Alignment.Top,
             ) {
-                IconButton(iconId = R.drawable.ic_bold, description = "") {
+                SelectableIconButton(
+                    iconId = R.drawable.ic_bold,
+                    description = "",
+                    iconSize = firstRowIconSize,
+                    borderSize = 0.dp,
+                    isSelected = annotator.value.boldEnabled
+                ) {
                     annotator.value.boldEnabled = !annotator.value.boldEnabled
                 }
-                IconButton(iconId = R.drawable.ic_italic, description = "") {
+                SelectableIconButton(
+                    iconId = R.drawable.ic_italic,
+                    description = "",
+                    iconSize = firstRowIconSize,
+                    borderSize = 0.dp,
+                    isSelected = annotator.value.italicEnabled
+                ) {
                     annotator.value.italicEnabled = !annotator.value.italicEnabled
                 }
-                IconButton(iconId = R.drawable.ic_underline, description = "") {
+                SelectableIconButton(
+                    iconId = R.drawable.ic_underline,
+                    description = "",
+                    iconSize = firstRowIconSize,
+                    borderSize = 0.dp,
+                    isSelected = annotator.value.underlineEnabled
+                ) {
                     annotator.value.underlineEnabled = !annotator.value.underlineEnabled
                 }
-                IconButton(iconId = R.drawable.ic_strikethrough, description = "") {
+                SelectableIconButton(
+                    iconId = R.drawable.ic_strikethrough,
+                    description = "",
+                    iconSize = firstRowIconSize,
+                    borderSize = 0.dp,
+                    isSelected = annotator.value.strikethroughEnabled
+                ) {
                     annotator.value.strikethroughEnabled = !annotator.value.strikethroughEnabled
                 }
             }

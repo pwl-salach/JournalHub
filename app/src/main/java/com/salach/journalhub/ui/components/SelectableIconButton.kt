@@ -2,9 +2,10 @@ package com.salach.journalhub.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -14,36 +15,40 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.salach.journalhub.R
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 
 
 @Composable
-fun  NavBarIconButton(
-    icon: Int,
+fun SelectableIconButton(
+    iconId: Int,
     description: String,
     isSelected: Boolean,
     highlightedColor: Color = ColorPalette.tertiary,
     shape: Shape = RoundedCornerShape(size = currentDimensions().Half),
+    iconSize: Dp? = null, borderSize: Dp? = null,
     onClick: () -> Unit
 ){
     val dimensions = currentDimensions()
+    val iconSize = iconSize ?: dimensions.L
+    val totalSize = iconSize + (borderSize ?: dimensions.S)
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.width(dimensions.XL).height(dimensions.XL)
+        modifier = Modifier
+            .size(totalSize)
             .background(
                 if (isSelected) highlightedColor else ColorPalette.primarySurface3,
                 shape = shape
             )
     ) {
         Icon(
-            painter = painterResource(id = icon),
+            painter = painterResource(id = iconId),
             contentDescription = description,
             tint = if (isSelected) Color.White else Color.Black,
             modifier = Modifier
-                .height(dimensions.L)
-                .width(dimensions.L)
+                .size(iconSize)
                 .clickable { onClick() }
         )
     }
@@ -52,5 +57,10 @@ fun  NavBarIconButton(
 @Preview
 @Composable
 fun PreviewNavBarIconButton(){
-    NavBarIconButton(R.drawable.ic_dashboard, "Test", true){}
+    Column(
+        verticalArrangement = Arrangement.spacedBy(currentDimensions().M)
+    ){
+        SelectableIconButton(R.drawable.ic_dashboard, "Test", true){}
+        SelectableIconButton(R.drawable.ic_barbell, "Test", false){}
+    }
 }
