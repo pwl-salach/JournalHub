@@ -9,5 +9,5 @@ import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
 fun ViewNote(note: MutableState<Note>) {
-    Text(text = note.value.text, style = currentTypography().B1B)
+    Text(text = note.value.text)
 }

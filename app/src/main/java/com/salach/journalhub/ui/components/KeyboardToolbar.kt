@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -19,12 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.R
 import com.salach.journalhub.ui.components.basic.IconButton
-
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
@@ -77,6 +72,7 @@ fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Top,
+            modifier = Modifier.fillMaxWidth()
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
@@ -119,14 +115,14 @@ fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
 @Composable
 fun TextModeButton(iconId: Int, description: String, switchFunction: KFunction0<Unit>){
     val dimensions = currentDimensions()
-    val firstRowIconSize = dimensions.L + dimensions.XS
+    val firstRowIconSize = dimensions.M
 
     val triggerUpdate = remember { mutableStateOf(false) }
     SelectableIconButton(
         iconId = iconId,
         description = "",
         iconSize = firstRowIconSize,
-        borderSize = 0.dp,
+        borderSize = dimensions.XS,
         isSelected = triggerUpdate.value
     ) {
         triggerUpdate.value = !triggerUpdate.value

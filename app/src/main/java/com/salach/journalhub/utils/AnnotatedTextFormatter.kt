@@ -10,10 +10,10 @@ import androidx.compose.ui.text.withStyle
 
 
 class AnnotatedTextFormatter {
-    var boldEnabled: Boolean = false
-    var italicEnabled: Boolean = false
-    var underlineEnabled: Boolean = false
-    var strikethroughEnabled: Boolean = false
+    private var boldEnabled: Boolean = false
+    private var italicEnabled: Boolean = false
+    private var underlineEnabled: Boolean = false
+    private var strikethroughEnabled: Boolean = false
 
     fun annotateString(previousText: AnnotatedString, newText: AnnotatedString, selection: TextRange): AnnotatedString {
         val builder = AnnotatedString.Builder()
