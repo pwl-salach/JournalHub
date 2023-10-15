@@ -6,8 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.ui.theme.currentTypography
+import com.salach.journalhub.utils.AnnotatedTextTransformation
 
 @Composable
 fun ViewNote(note: MutableState<Note>) {
-    Text(text = note.value.text)
+    Text(
+        text = note.value.text,
+//        visualTransformation = AnnotatedTextTransformation()
+    )
 }

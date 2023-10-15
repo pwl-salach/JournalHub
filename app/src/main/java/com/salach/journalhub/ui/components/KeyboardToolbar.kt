@@ -115,13 +115,12 @@ fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
 @Composable
 fun TextModeButton(iconId: Int, description: String, switchFunction: KFunction0<Unit>){
     val dimensions = currentDimensions()
-    val firstRowIconSize = dimensions.M
 
     val triggerUpdate = remember { mutableStateOf(false) }
     SelectableIconButton(
         iconId = iconId,
-        description = "",
-        iconSize = firstRowIconSize,
+        description = description,
+        iconSize = dimensions.M,
         borderSize = dimensions.XS,
         isSelected = triggerUpdate.value
     ) {

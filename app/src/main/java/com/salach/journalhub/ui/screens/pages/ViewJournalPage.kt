@@ -4,12 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -45,7 +45,7 @@ fun ViewJournalPage(
     var nextPageId: Long = -1L
     var currentIndex = 0
     // FIXME support other types of pages
-    val note = remember { mutableStateOf(Note(id=-1, text="")) }
+    val note = remember { mutableStateOf(Note(id=-1, text= AnnotatedString(""))) }
     if (pageId != -1L){
         for ((index, iterPage) in journalPages.withIndex()){
             if(iterPage.id == pageId){

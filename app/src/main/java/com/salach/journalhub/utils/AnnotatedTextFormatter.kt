@@ -5,6 +5,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 
@@ -15,7 +16,7 @@ class AnnotatedTextFormatter {
     private var underlineEnabled: Boolean = false
     private var strikethroughEnabled: Boolean = false
 
-    fun annotateString(previousText: AnnotatedString, newText: AnnotatedString, selection: TextRange): AnnotatedString {
+    fun annotateString(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString {
         val builder = AnnotatedString.Builder()
         val fontWeight = if (boldEnabled) FontWeight.Bold else FontWeight.Normal
         val fontStyle = if (italicEnabled) FontStyle.Italic else FontStyle.Normal
@@ -26,8 +27,7 @@ class AnnotatedTextFormatter {
         if (strikethroughEnabled){
             textDecoration += TextDecoration.LineThrough
         }
-
-        val newPart = newText.subSequence(previousText.length, newText.length)
+        val newPart = newText.annotatedString.subSequence(previousText.length, newText.annotatedString.length)
         builder.append(previousText)
         if(boldEnabled || italicEnabled || underlineEnabled || strikethroughEnabled){
             builder.withStyle(

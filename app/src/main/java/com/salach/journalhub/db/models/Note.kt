@@ -1,5 +1,6 @@
 package com.salach.journalhub.db.models
 
+import androidx.compose.ui.text.AnnotatedString
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -16,5 +17,5 @@ import androidx.room.PrimaryKey
 )
 data class Note(
     @PrimaryKey var id: Long = 0,
-    @ColumnInfo(typeAffinity = ColumnInfo.TEXT) var text: String,
+    @ColumnInfo(typeAffinity = ColumnInfo.TEXT) var text: AnnotatedString,
 )
