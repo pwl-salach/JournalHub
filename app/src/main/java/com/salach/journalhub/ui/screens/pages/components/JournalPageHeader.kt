@@ -21,7 +21,6 @@ import com.salach.journalhub.ui.theme.currentTypography
 @Composable
 fun JournalPageHeader(
     page: Page,
-    paddingValues: PaddingValues
 ) {
     val dimensions = currentDimensions()
     Row(
@@ -29,7 +28,7 @@ fun JournalPageHeader(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(paddingValues)
+//            .padding(paddingValues)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(dimensions.XS, Alignment.CenterHorizontally),

@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.ui.components.KeyboardToolbar
 import com.salach.journalhub.ui.theme.currentDimensions
@@ -89,8 +90,11 @@ fun EditNote(note: MutableState<Note>) {
 }
 
 
-//@Preview
-//@Composable
-//fun PreviewEditNote(){
-//    EditNote()
-//}
+@Preview(showBackground = true)
+@Composable
+fun PreviewEditNote(){
+    val note = remember {
+        mutableStateOf(Note(id=0, text= AnnotatedString("Test 123")))
+    }
+    EditNote(note)
+}
