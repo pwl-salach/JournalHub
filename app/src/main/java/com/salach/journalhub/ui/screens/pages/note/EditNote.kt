@@ -33,7 +33,7 @@ import com.salach.journalhub.utils.AnnotatedTextTransformation
 
 @Composable
 fun EditNote(note: MutableState<Note>) {
-    val previousText = remember { mutableStateOf(AnnotatedString(note.value.text.text)) }
+    val previousText = remember { mutableStateOf(note.value.text) }
     val currentText = remember { mutableStateOf(TextFieldValue(note.value.text.text)) }
 
     var isKeyboardVisible = remember { mutableStateOf(false) }
