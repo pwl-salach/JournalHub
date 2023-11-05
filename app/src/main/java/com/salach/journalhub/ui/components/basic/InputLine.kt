@@ -77,7 +77,7 @@ fun InputLine(
 @Preview
 @Composable
 fun PreviewInputLine(){
-    Column() {
+    Column {
         InputLine("DDD", currentTypography().T2R, "", Modifier, {})
         InputLine("",  currentTypography().T2R, "Insert text", Modifier, {})
     }

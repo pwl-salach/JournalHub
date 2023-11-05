@@ -79,7 +79,7 @@ fun JournalCardWIthPreview(
                         style = typography.L1R.copy(color = Color(0xFF464646))
                     )
                 }
-                Column() {
+                Column {
                     if (journal.showCreatedDate && journal.createdDate != null) {
                         Text(
                             text = "Created: " + DateUtils.formatDate(journal.createdDate),

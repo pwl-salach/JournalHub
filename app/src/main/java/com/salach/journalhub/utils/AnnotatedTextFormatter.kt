@@ -2,7 +2,7 @@ package com.salach.journalhub.utils
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -17,24 +17,26 @@ class AnnotatedTextFormatter {
     private var strikethroughEnabled: Boolean = false
 
     fun annotateString(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString {
-        val builder = AnnotatedString.Builder()
-        val fontWeight = if (boldEnabled) FontWeight.Bold else FontWeight.Normal
-        val fontStyle = if (italicEnabled) FontStyle.Italic else FontStyle.Normal
-        var textDecoration = TextDecoration.None
-        if (underlineEnabled){
-            textDecoration += TextDecoration.Underline
+        if (previousText.length < newText.annotatedString.length){
+            return handleNewCharacter(previousText, newText)
+        } else if (previousText.length > newText.annotatedString.length) {
+            return handleRemovedCharacter(previousText, newText)
+        } else {
+            return previousText
         }
-        if (strikethroughEnabled){
-            textDecoration += TextDecoration.LineThrough
-        }
+    }
+
+    fun handleNewCharacter(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString{
         val newPart = newText.annotatedString.subSequence(previousText.length, newText.annotatedString.length)
+        val builder = AnnotatedString.Builder()
         builder.append(previousText)
+        val decoration = getTextAnnotationDetails()
         if(boldEnabled || italicEnabled || underlineEnabled || strikethroughEnabled){
             builder.withStyle(
                 style = SpanStyle(
-                    fontWeight = fontWeight,
-                    fontStyle = fontStyle,
-                    textDecoration = textDecoration
+                    fontWeight = decoration.fontWeight,
+                    fontStyle = decoration.fontStyle,
+                    textDecoration = decoration.decoration
                 ),
             ) {
                 append(newPart)
@@ -42,9 +44,50 @@ class AnnotatedTextFormatter {
         } else {
             builder.append(newPart)
         }
-
         return builder.toAnnotatedString()
     }
+
+    fun handleRemovedCharacter(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString{
+        var shift = 0
+        return buildAnnotatedString {
+            for(index in previousText.indices){
+                if (newText.annotatedString.length - 1< index - shift){
+                    continue
+                }
+                val newTextCounterpart = newText.annotatedString[index - shift]
+                val previousChar = previousText.subSequence(index, index + 1)
+                if (previousChar.text[0] == newTextCounterpart) {
+                    if(previousChar.spanStyles.isEmpty()){
+                        append(previousChar)
+                    } else {
+                        withStyle(style = previousText.spanStyles[0].item) {
+                            append(previousChar)
+                        }
+                    }
+                } else {
+                    shift++
+                }
+            }
+        }
+    }
+
+    fun handleAnnotateSelection(){
+
+    }
+
+    fun getTextAnnotationDetails(): AnnotationDetails{
+        val details = AnnotationDetails()
+        if (boldEnabled) details.fontWeight = FontWeight.Bold
+        if (italicEnabled) details.fontStyle = FontStyle.Italic
+        if (underlineEnabled){
+            details.decoration += TextDecoration.Underline
+        }
+        if (strikethroughEnabled){
+            details.decoration += TextDecoration.LineThrough
+        }
+        return details
+    }
+
 
     fun switchBold(){ boldEnabled = !boldEnabled }
     fun switchItalic(){ italicEnabled = !italicEnabled }

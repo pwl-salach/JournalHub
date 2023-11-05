@@ -152,7 +152,7 @@ fun PageMiniature(
 @Composable
 fun PreviewPageMiniature(){
     val page = Page(0, "My Long Title", LocalDate.now(), PageType.NOTE)
-    Column() {
+    Column {
         PageMiniature(page, true, {})
         PageMiniature(page, false, {})
     }

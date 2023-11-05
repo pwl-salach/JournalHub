@@ -36,8 +36,8 @@ open class BaseTest {
         caps.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, "com.salach.journalhub.MainActivity")
         caps.setCapability(AndroidMobileCapabilityType.DEVICE_READY_TIMEOUT, 2*60000)
         caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 2*60000)
-        caps.setCapability(AndroidMobileCapabilityType.UNICODE_KEYBOARD, false);
-        caps.setCapability(AndroidMobileCapabilityType.RESET_KEYBOARD, false);
+        caps.setCapability(AndroidMobileCapabilityType.UNICODE_KEYBOARD, false)
+        caps.setCapability(AndroidMobileCapabilityType.RESET_KEYBOARD, false)
         // Add other desired capabilities as needed
 
         // Initialize AndroidDriver

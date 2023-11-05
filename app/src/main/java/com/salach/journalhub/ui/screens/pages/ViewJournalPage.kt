@@ -122,7 +122,7 @@ fun ViewJournalPage(
                         shape = RoundedCornerShape(size = currentDimensions().S)
                     )
             ) {
-                Box(modifier = Modifier.padding(currentDimensions().M)) {
+                Box(modifier = Modifier.padding(currentDimensions().S)) {
                     if (pageId == note.value.id) {
                         if (page.value.type == PageType.NOTE) {
                             if (!editMode.value) {
