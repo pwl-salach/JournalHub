@@ -50,20 +50,14 @@ class AnnotatedTextFormatter {
     fun handleRemovedCharacter(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString{
         var shift = 0
         return buildAnnotatedString {
-            for(index in previousText.indices){
-                if (newText.annotatedString.length - 1< index - shift){
+            for(index in previousText.indices) {
+                if (newText.annotatedString.length - 1 < index - shift) {
                     continue
                 }
                 val newTextCounterpart = newText.annotatedString[index - shift]
                 val previousChar = previousText.subSequence(index, index + 1)
                 if (previousChar.text[0] == newTextCounterpart) {
-                    if(previousChar.spanStyles.isEmpty()){
-                        append(previousChar)
-                    } else {
-                        withStyle(style = previousText.spanStyles[0].item) {
-                            append(previousChar)
-                        }
-                    }
+                    append(previousChar)
                 } else {
                     shift++
                 }
