@@ -10,17 +10,18 @@ import com.salach.journalhub.db.models.Note
 
 
 class AnnotatedTextTransformation(
-    private val annotator: MutableState<AnnotatedTextFormatter>,
-    private val previousText: MutableState<AnnotatedString>,
-    private val note: MutableState<Note>,
-    private val currentText: MutableState<TextFieldValue>
+    private val annotator: AnnotatedTextFormatter,
+    private val note: Note,
+    private val currentText: TextFieldValue
 ) : VisualTransformation {
+    private var previousText: AnnotatedString = note.text
+
     override fun filter(text: AnnotatedString): TransformedText {
-        val annotatedText = annotator.value.annotateString(
-            previousText.value, currentText.value
+        val annotatedText = annotator.annotateString(
+            previousText, currentText
         )
-        note.value.text = annotatedText
-        previousText.value = annotatedText
+        note.text = annotatedText
+        previousText = annotatedText
         return TransformedText(
             text = annotatedText,
             offsetMapping = object : OffsetMapping {

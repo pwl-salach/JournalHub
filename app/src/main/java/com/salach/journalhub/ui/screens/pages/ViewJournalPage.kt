@@ -84,7 +84,7 @@ fun ViewJournalPage(
                 backOnClick = { navController.popBackStack() },
                 modeOnClick = {
                     if(editMode.value){
-                        viewModel.saveNote<Note>(page.value, note.value)
+                        viewModel.saveNote(page.value, note.value)
                     }
                     editMode.value = !editMode.value
                 },
@@ -126,9 +126,9 @@ fun ViewJournalPage(
                     if (pageId == note.value.id) {
                         if (page.value.type == PageType.NOTE) {
                             if (!editMode.value) {
-                                ViewNote(note)
+                                ViewNote(note.value)
                             } else {
-                                EditNote(note)
+                                EditNote(note.value)
                             }
                         }
                     }

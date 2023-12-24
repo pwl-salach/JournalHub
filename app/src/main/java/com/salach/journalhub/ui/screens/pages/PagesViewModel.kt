@@ -32,12 +32,12 @@ class PagesViewModel(private val repository: PagesRepository, private val journa
         return repository.getFullRepresentation<T>(pageId, type)
     }
 
-    fun <T> saveNote(page: Page, note: Note){
+    fun saveNote(page: Page, note: Note){
         viewModelScope.launch {
             if(page.id == null){
                 repository.insert(page, note, PageType.NOTE)
             } else {
-
+                repository.update(page, note, PageType.NOTE)
             }
         }
     }

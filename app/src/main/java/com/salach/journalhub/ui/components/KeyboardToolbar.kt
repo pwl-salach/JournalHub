@@ -27,7 +27,7 @@ import com.salach.journalhub.utils.AnnotatedTextFormatter
 import kotlin.reflect.KFunction0
 
 @Composable
-fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
+fun KeyboardToolbar(annotator: AnnotatedTextFormatter) {
     val dimensions = currentDimensions()
     val typography = currentTypography()
 
@@ -78,10 +78,10 @@ fun KeyboardToolbar(annotator: MutableState<AnnotatedTextFormatter>) {
                 horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
                 verticalAlignment = Alignment.Top,
             ) {
-                TextModeButton(R.drawable.ic_bold, "SwitchBold", annotator.value::switchBold)
-                TextModeButton(R.drawable.ic_italic, "SwitchItalic", annotator.value::switchItalic)
-                TextModeButton(R.drawable.ic_underline, "SwitchUnderline", annotator.value::switchUnderline)
-                TextModeButton(R.drawable.ic_strikethrough, "SwitchStrikethrough", annotator.value::switchStrikethrough)
+                TextModeButton(R.drawable.ic_bold, "SwitchBold", annotator::switchBold)
+                TextModeButton(R.drawable.ic_italic, "SwitchItalic", annotator::switchItalic)
+                TextModeButton(R.drawable.ic_underline, "SwitchUnderline", annotator::switchUnderline)
+                TextModeButton(R.drawable.ic_strikethrough, "SwitchStrikethrough", annotator::switchStrikethrough)
             }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
@@ -132,6 +132,5 @@ fun TextModeButton(iconId: Int, description: String, switchFunction: KFunction0<
 @Preview
 @Composable
 fun PreviewKeyboardToolbar(){
-    val annotator = remember {mutableStateOf(AnnotatedTextFormatter())}
-    KeyboardToolbar(annotator)
+    KeyboardToolbar(AnnotatedTextFormatter())
 }

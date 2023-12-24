@@ -9,9 +9,9 @@ import com.salach.journalhub.ui.theme.currentTypography
 import com.salach.journalhub.utils.AnnotatedTextTransformation
 
 @Composable
-fun ViewNote(note: MutableState<Note>) {
+fun ViewNote(note: Note) {
     Text(
-        text = note.value.text,
+        text = note.text,
 //        visualTransformation = AnnotatedTextTransformation()
     )
 }

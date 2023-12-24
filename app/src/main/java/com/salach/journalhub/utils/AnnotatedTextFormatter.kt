@@ -2,6 +2,7 @@ package com.salach.journalhub.utils
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -11,12 +12,15 @@ import androidx.compose.ui.text.withStyle
 
 
 class AnnotatedTextFormatter {
-    private var boldEnabled: Boolean = false
-    private var italicEnabled: Boolean = false
-    private var underlineEnabled: Boolean = false
-    private var strikethroughEnabled: Boolean = false
+    private val regularTextOptions = TextFormatterOptions()
+    private val selectionOptions = TextFormatterOptions()
+//    private var isSelectionEnabled = false
 
     fun annotateString(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString {
+//        isSelectionEnabled = newText.selection != TextRange.Zero
+//        if (!isSelectionEnabled && getActiveOptions() == selectionOptions){
+//            selectionOptions.resetAll()
+//        }
         if (previousText.length < newText.annotatedString.length){
             return handleNewCharacter(previousText, newText)
         } else if (previousText.length > newText.annotatedString.length) {
@@ -31,7 +35,7 @@ class AnnotatedTextFormatter {
         val builder = AnnotatedString.Builder()
         builder.append(previousText)
         val decoration = getTextAnnotationDetails()
-        if(boldEnabled || italicEnabled || underlineEnabled || strikethroughEnabled){
+        if(regularTextOptions.isAnyStyleEnabled()){
             builder.withStyle(
                 style = SpanStyle(
                     fontWeight = decoration.fontWeight,
@@ -65,26 +69,55 @@ class AnnotatedTextFormatter {
         }
     }
 
-    fun handleAnnotateSelection(){
-
+    fun handleAnnotateSelection(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString {
+        val builder = AnnotatedString.Builder()
+        builder.append(previousText.subSequence(0, newText.selection.start))
+        val decoration = getTextAnnotationDetails()
+        val newPart = previousText.subSequence(newText.selection.start, newText.selection.end)
+        if(regularTextOptions.isAnyStyleEnabled()) {
+            builder.withStyle(
+                style = SpanStyle(
+                    fontWeight = decoration.fontWeight,
+                    fontStyle = decoration.fontStyle,
+                    textDecoration = decoration.decoration
+                ),
+            ) {
+                append(newPart)
+            }
+        } else {
+            builder.append(newPart)
+        }
+        builder.append(previousText.subSequence(newText.selection.end, previousText.length))
+        return builder.toAnnotatedString()
     }
 
     fun getTextAnnotationDetails(): AnnotationDetails{
         val details = AnnotationDetails()
-        if (boldEnabled) details.fontWeight = FontWeight.Bold
-        if (italicEnabled) details.fontStyle = FontStyle.Italic
-        if (underlineEnabled){
+        if (getActiveOptions().boldEnabled) details.fontWeight = FontWeight.Bold
+        if (getActiveOptions().italicEnabled) details.fontStyle = FontStyle.Italic
+        if (getActiveOptions().underlineEnabled){
             details.decoration += TextDecoration.Underline
         }
-        if (strikethroughEnabled){
+        if (getActiveOptions().strikethroughEnabled){
             details.decoration += TextDecoration.LineThrough
         }
         return details
     }
 
+    private fun getActiveOptions(isSelectionEnabled: Boolean = false): TextFormatterOptions{
+        return if (isSelectionEnabled) selectionOptions else regularTextOptions
+    }
 
-    fun switchBold(){ boldEnabled = !boldEnabled }
-    fun switchItalic(){ italicEnabled = !italicEnabled }
-    fun switchUnderline(){ underlineEnabled = !underlineEnabled }
-    fun switchStrikethrough(){ strikethroughEnabled = !strikethroughEnabled }
+    fun switchBold(){
+        getActiveOptions().boldEnabled = !getActiveOptions().boldEnabled
+    }
+    fun switchItalic(){
+        getActiveOptions().italicEnabled = !getActiveOptions().italicEnabled
+    }
+    fun switchUnderline(){
+        getActiveOptions().underlineEnabled = !getActiveOptions().underlineEnabled
+    }
+    fun switchStrikethrough(){
+        getActiveOptions().strikethroughEnabled = !getActiveOptions().strikethroughEnabled
+    }
 }

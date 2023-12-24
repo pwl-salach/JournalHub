@@ -20,7 +20,7 @@ interface PageDao {
     suspend fun insertAll(vararg page: Page): List<Long>
 
     @Update
-    fun update(page: Page)
+    suspend fun update(page: Page)
 
     @Query("DELETE FROM Page")
     suspend fun deleteAll()

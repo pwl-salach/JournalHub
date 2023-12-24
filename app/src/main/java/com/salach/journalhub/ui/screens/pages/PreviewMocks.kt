@@ -30,7 +30,7 @@ class MockedPageDao: PageDao {
         TODO("Not yet implemented")
     }
 
-    override fun update(page: Page) {
+    override suspend fun update(page: Page) {
         TODO("Not yet implemented")
     }
 
@@ -53,7 +53,7 @@ class MockedMemoDao: NoteDao{
         TODO("Not yet implemented")
     }
 
-    override fun update(note: Note) {
+    override suspend fun update(note: Note) {
         TODO("Not yet implemented")
     }
 

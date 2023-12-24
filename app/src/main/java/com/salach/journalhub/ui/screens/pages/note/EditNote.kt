@@ -14,9 +14,10 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -32,15 +33,12 @@ import com.salach.journalhub.utils.AnnotatedTextTransformation
 
 
 @Composable
-fun EditNote(note: MutableState<Note>) {
-    val previousText = remember { mutableStateOf(note.value.text) }
-    val currentText = remember { mutableStateOf(TextFieldValue(note.value.text.text)) }
-
-    var isKeyboardVisible = remember { mutableStateOf(false) }
-
-    val annotator = remember {
+fun EditNote(note: Note) {
+    var currentText by remember { mutableStateOf(TextFieldValue(note.text.text)) }
+    val annotator by remember {
         mutableStateOf(AnnotatedTextFormatter())
     }
+    var isKeyboardVisible by remember { mutableStateOf(false) }
 
     val rootView = LocalView.current
     val density = LocalDensity.current.density
@@ -52,7 +50,7 @@ fun EditNote(note: MutableState<Note>) {
             rootView.getWindowVisibleDisplayFrame(rect)
             val screenHeight = rootView.height
             val keypadHeight = screenHeight - rect.bottom
-            isKeyboardVisible.value = keypadHeight > 100 * density
+            isKeyboardVisible = keypadHeight > 100 * density
         }
 
         rootView.viewTreeObserver.addOnGlobalLayoutListener(keyboardListener)
@@ -70,19 +68,18 @@ fun EditNote(note: MutableState<Note>) {
             .imePadding()
     ) {
         BasicTextField(
-            value = currentText.value,
+            value = currentText,
             modifier = Modifier.fillMaxWidth(),
             onValueChange = { newText ->
-                currentText.value = newText
+                currentText = newText
             },
             visualTransformation = AnnotatedTextTransformation(
                 annotator,
-                previousText,
                 note,
                 currentText
             )
         )
-        if(isKeyboardVisible.value){
+        if(isKeyboardVisible){
             KeyboardToolbar(annotator)
             Spacer(modifier = Modifier.height(currentDimensions().M))
         }
@@ -93,8 +90,5 @@ fun EditNote(note: MutableState<Note>) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewEditNote(){
-    val note = remember {
-        mutableStateOf(Note(id=0, text= AnnotatedString("Test 123")))
-    }
-    EditNote(note)
+    EditNote(Note(id=0, text= AnnotatedString("Test 123")))
 }
