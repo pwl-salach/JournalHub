@@ -11,55 +11,48 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 
 
-class AnnotatedTextFormatter {
+class AnnotatedTextFormatter(initialText: AnnotatedString) {
     private val regularTextOptions = TextFormatterOptions()
     private val selectionOptions = TextFormatterOptions()
-//    private var isSelectionEnabled = false
+    private var currentText: AnnotatedString = initialText
+    private var selection: TextRange = TextRange.Zero
 
-    fun annotateString(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString {
-//        isSelectionEnabled = newText.selection != TextRange.Zero
+    fun annotateString(changedTextField: TextFieldValue): AnnotatedString {
+        if (changedTextField.selection != TextRange.Zero){
+            selection = changedTextField.selection
+        } else {
+            selection = TextRange.Zero
+        }
 //        if (!isSelectionEnabled && getActiveOptions() == selectionOptions){
 //            selectionOptions.resetAll()
 //        }
-        if (previousText.length < newText.annotatedString.length){
-            return handleNewCharacter(previousText, newText)
-        } else if (previousText.length > newText.annotatedString.length) {
-            return handleRemovedCharacter(previousText, newText)
-        } else {
-            return previousText
+        var newVal = currentText
+        if (currentText.length < changedTextField.annotatedString.length){
+            newVal = handleNewCharacter(changedTextField)
+        } else if (currentText.length > changedTextField.annotatedString.length) {
+            newVal = handleRemovedCharacter(changedTextField)
         }
+        currentText = newVal
+        return currentText
     }
 
-    fun handleNewCharacter(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString{
-        val newPart = newText.annotatedString.subSequence(previousText.length, newText.annotatedString.length)
-        val builder = AnnotatedString.Builder()
-        builder.append(previousText)
-        val decoration = getTextAnnotationDetails()
-        if(regularTextOptions.isAnyStyleEnabled()){
-            builder.withStyle(
-                style = SpanStyle(
-                    fontWeight = decoration.fontWeight,
-                    fontStyle = decoration.fontStyle,
-                    textDecoration = decoration.decoration
-                ),
-            ) {
-                append(newPart)
-            }
-        } else {
-            builder.append(newPart)
-        }
-        return builder.toAnnotatedString()
+    private fun handleNewCharacter(newText: TextFieldValue): AnnotatedString{
+        return NewCharacterHandler(
+            currentText = currentText,
+            newText = newText,
+            annotationDetails = getTextAnnotationDetails()
+        ).build()
     }
 
-    fun handleRemovedCharacter(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString{
+    fun handleRemovedCharacter(newText: TextFieldValue): AnnotatedString{
         var shift = 0
         return buildAnnotatedString {
-            for(index in previousText.indices) {
+            for(index in currentText.indices) {
                 if (newText.annotatedString.length - 1 < index - shift) {
                     continue
                 }
                 val newTextCounterpart = newText.annotatedString[index - shift]
-                val previousChar = previousText.subSequence(index, index + 1)
+                val previousChar = currentText.subSequence(index, index + 1)
                 if (previousChar.text[0] == newTextCounterpart) {
                     append(previousChar)
                 } else {
@@ -69,11 +62,12 @@ class AnnotatedTextFormatter {
         }
     }
 
-    fun handleAnnotateSelection(previousText: AnnotatedString, newText: TextFieldValue): AnnotatedString {
+    private fun handleAnnotateSelection() {
+        if (selection == TextRange.Zero){ return }
         val builder = AnnotatedString.Builder()
-        builder.append(previousText.subSequence(0, newText.selection.start))
+        builder.append(currentText.subSequence(0, selection.start))
         val decoration = getTextAnnotationDetails()
-        val newPart = previousText.subSequence(newText.selection.start, newText.selection.end)
+        val newPart = currentText.subSequence(selection.start, selection.end)
         if(regularTextOptions.isAnyStyleEnabled()) {
             builder.withStyle(
                 style = SpanStyle(
@@ -87,11 +81,11 @@ class AnnotatedTextFormatter {
         } else {
             builder.append(newPart)
         }
-        builder.append(previousText.subSequence(newText.selection.end, previousText.length))
-        return builder.toAnnotatedString()
+        builder.append(currentText.subSequence(selection.end, currentText.length))
+        currentText = builder.toAnnotatedString()
     }
 
-    fun getTextAnnotationDetails(): AnnotationDetails{
+    private fun getTextAnnotationDetails(): AnnotationDetails{
         val details = AnnotationDetails()
         if (getActiveOptions().boldEnabled) details.fontWeight = FontWeight.Bold
         if (getActiveOptions().italicEnabled) details.fontStyle = FontStyle.Italic
@@ -110,6 +104,7 @@ class AnnotatedTextFormatter {
 
     fun switchBold(){
         getActiveOptions().boldEnabled = !getActiveOptions().boldEnabled
+        handleAnnotateSelection()
     }
     fun switchItalic(){
         getActiveOptions().italicEnabled = !getActiveOptions().italicEnabled

@@ -34,9 +34,9 @@ import com.salach.journalhub.utils.AnnotatedTextTransformation
 
 @Composable
 fun EditNote(note: Note) {
-    var currentText by remember { mutableStateOf(TextFieldValue(note.text.text)) }
+    var currentTextField by remember { mutableStateOf(TextFieldValue(note.text.text)) }
     val annotator by remember {
-        mutableStateOf(AnnotatedTextFormatter())
+        mutableStateOf(AnnotatedTextFormatter(note.text))
     }
     var isKeyboardVisible by remember { mutableStateOf(false) }
 
@@ -68,15 +68,15 @@ fun EditNote(note: Note) {
             .imePadding()
     ) {
         BasicTextField(
-            value = currentText,
+            value = currentTextField,
             modifier = Modifier.fillMaxWidth(),
             onValueChange = { newText ->
-                currentText = newText
+                currentTextField = newText
             },
             visualTransformation = AnnotatedTextTransformation(
                 annotator,
                 note,
-                currentText
+                currentTextField
             )
         )
         if(isKeyboardVisible){
