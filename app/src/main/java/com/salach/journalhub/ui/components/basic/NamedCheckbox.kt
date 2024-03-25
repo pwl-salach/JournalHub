@@ -33,7 +33,7 @@ fun NamedCheckbox(label: String, checked: Boolean, onCheckedChange: (Boolean) ->
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewLabeledCheckbox(){
     NamedCheckbox("Label", true, {})

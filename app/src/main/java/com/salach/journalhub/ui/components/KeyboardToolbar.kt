@@ -23,7 +23,7 @@ import com.salach.journalhub.ui.components.basic.IconButton
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
-import com.salach.journalhub.utils.AnnotatedTextFormatter
+import com.salach.journalhub.utils.text.AnnotatedTextFormatter
 import kotlin.reflect.KFunction0
 
 @Composable

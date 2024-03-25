@@ -1,9 +1,10 @@
-package com.salach.journalhub.utils
+package com.salach.journalhub.utils.text.manipulations
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
+import com.salach.journalhub.utils.text.AnnotationDetails
 
 class NewCharacterHandler(
     private val currentText: AnnotatedString,
@@ -12,7 +13,7 @@ class NewCharacterHandler(
 ){
     private val builder = AnnotatedString.Builder()
 
-    fun build(): AnnotatedString {
+    fun buildNew(): AnnotatedString {
         val newPartRange = getNewPartRange()
         appendBeginningOfOriginalText(newPartRange)
         appendNewPart(newPartRange)

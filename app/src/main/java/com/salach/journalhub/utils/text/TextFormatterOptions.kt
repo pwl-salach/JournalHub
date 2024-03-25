@@ -1,4 +1,4 @@
-package com.salach.journalhub.utils
+package com.salach.journalhub.utils.text
 
 class TextFormatterOptions {
     var boldEnabled: Boolean = false

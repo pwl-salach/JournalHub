@@ -1,4 +1,4 @@
-package com.salach.journalhub.utils
+package com.salach.journalhub.utils.text
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping

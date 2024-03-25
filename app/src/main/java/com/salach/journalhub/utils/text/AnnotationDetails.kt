@@ -1,4 +1,4 @@
-package com.salach.journalhub.utils
+package com.salach.journalhub.utils.text
 
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight

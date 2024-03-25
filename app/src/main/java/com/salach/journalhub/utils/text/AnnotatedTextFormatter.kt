@@ -1,14 +1,15 @@
-package com.salach.journalhub.utils
+package com.salach.journalhub.utils.text
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import com.salach.journalhub.utils.text.manipulations.NewCharacterHandler
+import com.salach.journalhub.utils.text.manipulations.RemoveCharacterHandler
 
 
 class AnnotatedTextFormatter(initialText: AnnotatedString) {
@@ -18,11 +19,7 @@ class AnnotatedTextFormatter(initialText: AnnotatedString) {
     private var selection: TextRange = TextRange.Zero
 
     fun annotateString(changedTextField: TextFieldValue): AnnotatedString {
-        if (changedTextField.selection != TextRange.Zero){
-            selection = changedTextField.selection
-        } else {
-            selection = TextRange.Zero
-        }
+        selection = changedTextField.selection
 //        if (!isSelectionEnabled && getActiveOptions() == selectionOptions){
 //            selectionOptions.resetAll()
 //        }
@@ -41,25 +38,14 @@ class AnnotatedTextFormatter(initialText: AnnotatedString) {
             currentText = currentText,
             newText = newText,
             annotationDetails = getTextAnnotationDetails()
-        ).build()
+        ).buildNew()
     }
 
     fun handleRemovedCharacter(newText: TextFieldValue): AnnotatedString{
-        var shift = 0
-        return buildAnnotatedString {
-            for(index in currentText.indices) {
-                if (newText.annotatedString.length - 1 < index - shift) {
-                    continue
-                }
-                val newTextCounterpart = newText.annotatedString[index - shift]
-                val previousChar = currentText.subSequence(index, index + 1)
-                if (previousChar.text[0] == newTextCounterpart) {
-                    append(previousChar)
-                } else {
-                    shift++
-                }
-            }
-        }
+        return RemoveCharacterHandler(
+            currentText = currentText,
+            newText = newText
+        ).buildNew()
     }
 
     private fun handleAnnotateSelection() {
@@ -85,7 +71,7 @@ class AnnotatedTextFormatter(initialText: AnnotatedString) {
         currentText = builder.toAnnotatedString()
     }
 
-    private fun getTextAnnotationDetails(): AnnotationDetails{
+    private fun getTextAnnotationDetails(): AnnotationDetails {
         val details = AnnotationDetails()
         if (getActiveOptions().boldEnabled) details.fontWeight = FontWeight.Bold
         if (getActiveOptions().italicEnabled) details.fontStyle = FontStyle.Italic
@@ -98,7 +84,7 @@ class AnnotatedTextFormatter(initialText: AnnotatedString) {
         return details
     }
 
-    private fun getActiveOptions(isSelectionEnabled: Boolean = false): TextFormatterOptions{
+    private fun getActiveOptions(isSelectionEnabled: Boolean = false): TextFormatterOptions {
         return if (isSelectionEnabled) selectionOptions else regularTextOptions
     }
 

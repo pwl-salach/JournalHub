@@ -28,8 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.ui.components.KeyboardToolbar
 import com.salach.journalhub.ui.theme.currentDimensions
-import com.salach.journalhub.utils.AnnotatedTextFormatter
-import com.salach.journalhub.utils.AnnotatedTextTransformation
+import com.salach.journalhub.utils.text.AnnotatedTextFormatter
+import com.salach.journalhub.utils.text.AnnotatedTextTransformation
 
 
 @Composable
