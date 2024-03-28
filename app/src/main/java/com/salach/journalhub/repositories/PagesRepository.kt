@@ -1,16 +1,24 @@
 package com.salach.journalhub.repositories
 
 import androidx.lifecycle.LiveData
-import com.salach.journalhub.db.daos.ChoreDao
+import com.salach.journalhub.db.daos.TaskDao
 import com.salach.journalhub.db.daos.NoteDao
 import com.salach.journalhub.db.daos.PageDao
-import com.salach.journalhub.db.models.Chore
+import com.salach.journalhub.db.daos.ScheduleDao
+import com.salach.journalhub.db.daos.TaskOccurrenceDao
+import com.salach.journalhub.db.models.Task
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.db.models.Page
 import com.salach.journalhub.enums.PageType
 import kotlinx.coroutines.flow.Flow
 
-class PagesRepository(private val pageDao: PageDao, private val noteDao: NoteDao, private val choreDao: ChoreDao) {
+class PagesRepository(
+    private val scheduleDao: ScheduleDao,
+    private val pageDao: PageDao,
+    private val noteDao: NoteDao,
+    private val taskDao: TaskDao,
+    private val taskOccurrenceDao: TaskOccurrenceDao
+) {
 
     fun getAllPages(journalId: Int): Flow<List<Page>> {
         return pageDao.getPageParts(journalId)
@@ -22,7 +30,7 @@ class PagesRepository(private val pageDao: PageDao, private val noteDao: NoteDao
             return noteDao.getById(partId) as LiveData<T>
         } else if (type == PageType.TASK_LIST) {
             @Suppress("UNCHECKED_CAST")
-            return choreDao.getById(partId) as LiveData<T>
+            return taskDao.getById(partId) as LiveData<T>
         }
         return null
     }
@@ -36,9 +44,9 @@ class PagesRepository(private val pageDao: PageDao, private val noteDao: NoteDao
                 noteDao.insertAll(newNote)
             }
             PageType.TASK_LIST -> {
-                val newMemo = obj as Chore
+                val newMemo = obj as Task
                 newMemo.id = pageId
-                choreDao.insertAll(newMemo)
+                taskDao.insertAll(newMemo)
             }
             else -> {}
         }
@@ -52,8 +60,8 @@ class PagesRepository(private val pageDao: PageDao, private val noteDao: NoteDao
                 noteDao.update(newNote)
             }
             PageType.TASK_LIST -> {
-                val newMemo = obj as Chore
-                choreDao.update(newMemo)
+                val newMemo = obj as Task
+                taskDao.update(newMemo)
             }
             else -> {}
         }

@@ -6,15 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.salach.journalhub.db.daos.ChoreDao
+import com.salach.journalhub.db.daos.TaskDao
 import com.salach.journalhub.db.daos.GoalDao
 import com.salach.journalhub.db.daos.JournalDao
 import com.salach.journalhub.db.daos.NoteDao
 import com.salach.journalhub.db.daos.PageDao
-import com.salach.journalhub.db.daos.ProductDao
-import com.salach.journalhub.db.daos.ShoppingListDao
-import com.salach.journalhub.db.daos.ShoppingListItemDao
-import com.salach.journalhub.db.models.Chore
+import com.salach.journalhub.db.daos.ScheduleDao
+import com.salach.journalhub.db.daos.TaskOccurrenceDao
+import com.salach.journalhub.db.models.Task
 import com.salach.journalhub.db.models.Converters
 import com.salach.journalhub.db.models.Goal
 import com.salach.journalhub.db.models.Journal
@@ -24,13 +23,14 @@ import com.salach.journalhub.db.models.Product
 import com.salach.journalhub.db.models.Schedule
 import com.salach.journalhub.db.models.ShoppingList
 import com.salach.journalhub.db.models.ShoppingListItem
+import com.salach.journalhub.db.models.TaskOccurrence
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
 @Database(
     entities = [
-        Chore::class,
+        Task::class,
         Note::class,
         Page::class,
         Product::class,
@@ -38,9 +38,11 @@ import kotlinx.coroutines.launch
         ShoppingListItem::class,
         Goal::class,
         Journal::class,
-        Schedule::class
+        Schedule::class,
+        TaskOccurrence::class
     ],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -67,10 +69,12 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract val choreDao: ChoreDao
-    abstract val productDao: ProductDao
-    abstract val shoppingList: ShoppingListDao
-    abstract val shoppingListItemDao: ShoppingListItemDao
+    abstract val scheduleDao: ScheduleDao
+    abstract val taskDao: TaskDao
+    abstract val taskOccurrenceDao: TaskOccurrenceDao
+//    abstract val productDao: ProductDao
+//    abstract val shoppingList: ShoppingListDao
+//    abstract val shoppingListItemDao: ShoppingListItemDao
     abstract val noteDao: NoteDao
     abstract val pageDao: PageDao
     abstract val goalDao: GoalDao
@@ -81,7 +85,7 @@ abstract class AppDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { appDatabase ->
                 scope.launch {
-                    appDatabase.choreDao.deleteAll()
+                    appDatabase.taskDao.deleteAll()
                     appDatabase.noteDao.deleteAll()
                     appDatabase.pageDao.deleteAll()
                     appDatabase.journalDao.deleteAll()

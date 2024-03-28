@@ -10,12 +10,12 @@ import androidx.room.PrimaryKey
     foreignKeys = [ForeignKey(
         entity = Page::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("id"),
+        childColumns = arrayOf("pageId"),
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class Chore(
+data class Task(
     @PrimaryKey var id: Long = 0,
+    @ColumnInfo(index = true) val pageId: Long,
     @ColumnInfo val shortDesc: String,
-    @ColumnInfo val done: Boolean = false
 )

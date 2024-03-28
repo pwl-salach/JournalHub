@@ -9,20 +9,20 @@ import androidx.room.PrimaryKey
     ForeignKey(
         entity = ShoppingList::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("shopping_list_id"),
+        childColumns = arrayOf("shoppingListId"),
         onDelete = ForeignKey.CASCADE
     ),
     ForeignKey(
         entity = Product::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("product_id"),
+        childColumns = arrayOf("productId"),
         onDelete = ForeignKey.CASCADE
     )
 ])
 data class ShoppingListItem(
     @PrimaryKey val id: Int,
-    @ColumnInfo(name = "shopping_list_id", index = true) val shoppingListId: Int,
-    @ColumnInfo(name = "product_id") val productId: Int,
+    @ColumnInfo(index = true) val shoppingListId: Int,
+    @ColumnInfo(index = true) val productId: Int,
     @ColumnInfo val quantity: Int,
     @ColumnInfo val unit: String
 )

@@ -15,9 +15,20 @@ import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): LocalDateTime? {
+        return if (value == null) null else LocalDateTime.ofEpochSecond(value, 0, null)
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: LocalDateTime?): Long? {
+        return date?.toEpochSecond(null)
+    }
+
     @TypeConverter
     fun fromLocalDate(date: LocalDate?): Long? {
         return date?.toEpochDay()

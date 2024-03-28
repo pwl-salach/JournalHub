@@ -192,9 +192,9 @@ fun MySchedule(schedules: LiveData<List<Schedule>>){
 fun PreviewMySchedule(){
     val previewData = MutableLiveData<List<Schedule>>()
     previewData.value = listOf(
-        Schedule(0, TimeUnit.DAYS, LocalDate.now(), null, LocalTime.now(), null),
-        Schedule(0, TimeUnit.DAYS, LocalDate.now(), null, LocalTime.now(), null),
-        Schedule(0, TimeUnit.DAYS, LocalDate.now(), null, LocalTime.now(), null),
+        Schedule(0, 1, TimeUnit.DAYS, LocalTime.now(), LocalDate.now()),
+        Schedule(0, 1, TimeUnit.DAYS, LocalTime.now(), LocalDate.now()),
+        Schedule(0, 2, TimeUnit.DAYS, LocalTime.now(), LocalDate.now())
     )
     MySchedule(schedules = previewData)
 }
