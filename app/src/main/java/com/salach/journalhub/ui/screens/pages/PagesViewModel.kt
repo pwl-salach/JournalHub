@@ -5,15 +5,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.salach.journalhub.db.helpers.PageRepresentation
 import com.salach.journalhub.db.models.Journal
-import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.db.models.Page
 import com.salach.journalhub.enums.PageType
 import com.salach.journalhub.repositories.JournalsRepository
 import com.salach.journalhub.repositories.PagesRepository
 import kotlinx.coroutines.launch
 
-class PagesViewModel(private val repository: PagesRepository, private val journalRepository: JournalsRepository): ViewModel(){
+class PagesViewModel(
+    private val repository: PagesRepository,
+    private val journalRepository: JournalsRepository
+): ViewModel(){
 
     fun getPages(journalId: Int): LiveData<List<Page>> {
         return repository.getAllPages(journalId).asLiveData()
@@ -28,16 +31,16 @@ class PagesViewModel(private val repository: PagesRepository, private val journa
         }
     }
 
-    fun <T> loadPage(pageId: Long, type: PageType): LiveData<T>?{
-        return repository.getFullRepresentation<T>(pageId, type)
+    fun <T: PageRepresentation> loadPage(pageId: Long, type: PageType): LiveData<T>?{
+        return repository.getFullRepresentation(pageId, type)
     }
 
-    fun saveNote(page: Page, note: Note){
+    fun savePage(page: Page, note: PageRepresentation, type: PageType){
         viewModelScope.launch {
             if(page.id == null){
-                repository.insert(page, note, PageType.NOTE)
+                repository.insert(page, note, type)
             } else {
-                repository.update(page, note, PageType.NOTE)
+                repository.update(page, note, type)
             }
         }
     }

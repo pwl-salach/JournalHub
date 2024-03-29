@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.salach.journalhub.db.helpers.PageRepresentation
 
 
 @Entity(
@@ -15,7 +16,7 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Task(
-    @PrimaryKey var id: Long = 0,
+    @PrimaryKey override var id: Long = 0,
     @ColumnInfo(index = true) val pageId: Long,
     @ColumnInfo val shortDesc: String,
-)
+) : PageRepresentation

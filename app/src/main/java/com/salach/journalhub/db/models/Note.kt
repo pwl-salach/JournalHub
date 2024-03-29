@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.salach.journalhub.db.helpers.PageRepresentation
 
 
 @Entity(
@@ -16,6 +17,6 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Note(
-    @PrimaryKey var id: Long = 0,
+    @PrimaryKey override var id: Long = 0,
     @ColumnInfo(typeAffinity = ColumnInfo.TEXT) var text: AnnotatedString,
-)
+) : PageRepresentation

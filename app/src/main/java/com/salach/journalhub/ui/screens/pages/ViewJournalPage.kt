@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -84,7 +83,7 @@ fun ViewJournalPage(
                 backOnClick = { navController.popBackStack() },
                 modeOnClick = {
                     if(editMode.value){
-                        viewModel.saveNote(page.value, note.value)
+                        viewModel.savePage(page.value, note.value, newPageType)
                     }
                     editMode.value = !editMode.value
                 },
