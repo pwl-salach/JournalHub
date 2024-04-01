@@ -1,5 +1,6 @@
 package com.salach.journalhub.db.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -10,6 +11,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PageDao {
+    @Query("SELECT * FROM Page where id = :pageId")
+    fun getPageById(pageId: Long): Flow<Page>
+
     @Query("SELECT * FROM Page where journalId = :pageId")
     fun getPageParts(pageId: Int): Flow<List<Page>>
 

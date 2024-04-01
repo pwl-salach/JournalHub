@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -22,12 +23,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.salach.journalhub.JournalHub
+import com.salach.journalhub.db.helpers.PageRepresentation
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.db.models.Page
 import com.salach.journalhub.enums.PageType
-import com.salach.journalhub.navigation.graphs.Graph
 import com.salach.journalhub.ui.screens.journal.view.LocalPagesViewModel
-import com.salach.journalhub.ui.screens.pages.components.JournalPageBottomBar
 import com.salach.journalhub.ui.screens.pages.components.JournalPageHeader
 import com.salach.journalhub.ui.screens.pages.components.JournalPageTopBar
 import com.salach.journalhub.ui.screens.pages.note.EditNote
@@ -43,36 +43,25 @@ fun ViewJournalPage(
     newPageType: PageType,
     navController: NavHostController
 ) {
+    val viewModel: PagesViewModel = LocalPagesViewModel.current
+    val pagination = Pagination(journalId)
     val editMode = remember { mutableStateOf(false) }
 
-    val viewModel: PagesViewModel = LocalPagesViewModel.current
     val journalPages by viewModel.getPages(journalId).observeAsState(emptyList())
-    val page = remember { mutableStateOf(
-        Page(journalId, "", LocalDate.now(), type = newPageType)
-    )}
-    var prevPageId: Long = -1L
-    var nextPageId: Long = -1L
-    var currentIndex = 0
-    // FIXME support other types of pages
-    val note = remember { mutableStateOf(Note(id=-1, text= AnnotatedString(""))) }
-    if (pageId != -1L){
-        for ((index, iterPage) in journalPages.withIndex()){
-            if(iterPage.id == pageId){
-                page.value = iterPage
-                page.value.id?.let { pageId ->
-                    viewModel.loadPage<Note>(pageId, page.value.type)?.observeAsState()?.value?.let {
-                        note.value = it
-                    }
-                }
-                currentIndex = index
-                if(journalPages.count() > index + 1){
-                    nextPageId = journalPages[index + 1].id!!
-                }
-                break
-            } else {
-                prevPageId = iterPage.id!!
-            }
-        }
+    val page = remember {
+        mutableStateOf(
+            Page(journalId, "", LocalDate.now(), type = newPageType)
+        )
+    }
+    val representation: MutableState<PageRepresentation> = remember {
+        mutableStateOf(Note(id = -1, text = AnnotatedString("")))
+    }
+
+    if (pageId != -1L) {
+        pagination.findPage(journalPages, pageId!!)
+        viewModel.getPage(pageId).observeAsState().value?.let { page.value = it }
+        viewModel.loadPageRepresentation<PageRepresentation>(pageId, PageType.NOTE)
+            ?.observeAsState()?.value?.let { representation.value = it }
     } else {
         editMode.value = true
     }
@@ -82,8 +71,8 @@ fun ViewJournalPage(
                 editMode = editMode.value,
                 backOnClick = { navController.popBackStack() },
                 modeOnClick = {
-                    if(editMode.value){
-                        viewModel.savePage(page.value, note.value, newPageType)
+                    if (editMode.value) {
+                        viewModel.savePage(page.value, representation.value, newPageType)
                     }
                     editMode.value = !editMode.value
                 },
@@ -92,17 +81,8 @@ fun ViewJournalPage(
             )
         },
         bottomBar = {
-            if (!editMode.value){
-                JournalPageBottomBar(
-                    currentIndex = currentIndex,
-                    pagesCount = journalPages.count(),
-                    viewPrevious = {
-                        navController.navigate("${Graph.NOTE_PAGE}?journalId=${journalId}&pageId=${prevPageId}")
-                    },
-                    viewNext = {
-                        navController.navigate("${Graph.NOTE_PAGE}?journalId=${journalId}&pageId=${nextPageId}")
-                    }
-                )
+            if (!editMode.value) {
+                pagination.Draw(navController, journalPages.count())
             }
         }
     ) {
@@ -118,16 +98,18 @@ fun ViewJournalPage(
                     .border(
                         width = 1.dp,
                         color = ColorPalette.outline,
-                        shape = RoundedCornerShape(size = currentDimensions().S)
+                        shape = RoundedCornerShape(topEnd = currentDimensions().S)
                     )
             ) {
-                Box(modifier = Modifier.padding(currentDimensions().S)) {
-                    if (pageId == note.value.id) {
+                Box(
+                    modifier = Modifier.padding(currentDimensions().S)
+                ) {
+                    if (pageId == representation.value.id) {
                         if (page.value.type == PageType.NOTE) {
                             if (!editMode.value) {
-                                ViewNote(note.value)
+                                ViewNote(representation.value as Note)
                             } else {
-                                EditNote(note.value)
+                                EditNote(representation.value as Note)
                             }
                         }
                     }
@@ -138,7 +120,7 @@ fun ViewJournalPage(
 }
 
 @Composable
-fun ProvidePagesViewModel(content: @Composable () -> Unit){
+fun ProvidePagesViewModel(content: @Composable () -> Unit) {
     val context = LocalContext.current
     val app = context.applicationContext as JournalHub
     val viewModel: PagesViewModel = viewModel(
@@ -154,9 +136,9 @@ fun ProvidePagesViewModel(content: @Composable () -> Unit){
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewViewJournalPage(){
+fun PreviewViewJournalPage() {
     val nav = rememberNavController()
     CompositionLocalProvider(LocalPagesViewModel provides provideViewModelForPreview()) {
-        ViewJournalPage(0,0, PageType.NOTE, nav)
+        ViewJournalPage(0, 0, PageType.NOTE, nav)
     }
 }

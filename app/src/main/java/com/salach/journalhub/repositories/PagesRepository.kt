@@ -27,6 +27,10 @@ class PagesRepository(
         PageType.TASK_LIST to TaskHandler(taskDao)
     )
 
+    fun getPage(pageId: Long): Flow<Page> {
+        return pageDao.getPageById(pageId)
+    }
+
     fun getAllPages(journalId: Int): Flow<List<Page>> {
         return pageDao.getPageParts(journalId)
     }

@@ -52,6 +52,10 @@ class MockedJournalDao: JournalDao {
 }
 
 class MockedPageDao: PageDao {
+    override fun getPageById(pageId: Long): Flow<Page> {
+        TODO("Not yet implemented")
+    }
+
     override fun getPageParts(noteId: Int): Flow<List<Page>> {
         val mockedList = listOf<Page>()
         val mutableStateFlow = MutableStateFlow(mockedList)

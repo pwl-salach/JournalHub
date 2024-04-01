@@ -18,6 +18,9 @@ class PagesViewModel(
     private val journalRepository: JournalsRepository
 ): ViewModel(){
 
+    fun getPage(pageId: Long): LiveData<Page> {
+        return repository.getPage(pageId).asLiveData()
+    }
     fun getPages(journalId: Int): LiveData<List<Page>> {
         return repository.getAllPages(journalId).asLiveData()
     }
@@ -31,7 +34,7 @@ class PagesViewModel(
         }
     }
 
-    fun <T: PageRepresentation> loadPage(pageId: Long, type: PageType): LiveData<T>?{
+    fun <T: PageRepresentation> loadPageRepresentation(pageId: Long, type: PageType): LiveData<T>?{
         return repository.getFullRepresentation(pageId, type)
     }
 
