@@ -95,7 +95,7 @@ fun NewPageTypePrompt(
                                     text = typeName,
                                     description = getCreateButtonDescription(typeName)
                                 ) {
-                                    navController.navigate("${Graph.NOTE_PAGE}?newPageType=${it.name}")
+                                    navController.navigate("${Graph.NOTE_PAGE}?pageType=${it.name}")
                                 }
                             }
                         }

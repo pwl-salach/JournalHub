@@ -92,7 +92,9 @@ fun JournalPagesGridScreen(journalId: Int, navController: NavHostController) {
                                 page = page,
                                 isSelectable = false,
                                 onClick = {
-                                    navController.navigate("${Graph.NOTE_PAGE}?journalId=${journalId}&pageId=${page.id}")
+                                    navController.navigate(
+                                        "${Graph.NOTE_PAGE}?journalId=${journalId}&pageId=${page.id}&pageType=${page.type}"
+                                    )
                                 }
                             )
                         }

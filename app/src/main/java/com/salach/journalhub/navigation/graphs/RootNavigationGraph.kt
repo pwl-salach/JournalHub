@@ -49,7 +49,7 @@ fun RootNavigationGraph(navController: NavHostController) {
             }
         }
         composable(
-            route = "${Graph.NOTE_PAGE}?journalId={journalId}&pageId={pageId}&newPageType={newPageType}",
+            route = "${Graph.NOTE_PAGE}?journalId={journalId}&pageId={pageId}&pageType={pageType}",
             arguments = listOf(
                 navArgument("journalId"){
                     type = NavType.IntType
@@ -59,7 +59,7 @@ fun RootNavigationGraph(navController: NavHostController) {
                     type = NavType.LongType
                     defaultValue = -1
                 },
-                navArgument("newPageType") {
+                navArgument("pageType") {
                     type = NavType.StringType
                     defaultValue = PageType.NOTE.name
                 }
@@ -68,11 +68,11 @@ fun RootNavigationGraph(navController: NavHostController) {
             val journalId = backStackEntry.arguments?.getInt("journalId", 0) ?: 0
             val pageId = backStackEntry.arguments?.getLong("pageId", -1L) ?: -1L
             val pageType = PageType.valueOf(
-                backStackEntry.arguments?.getString("newPageType", PageType.NOTE.name)?: PageType.NOTE.name
+                backStackEntry.arguments?.getString("pageType", PageType.NOTE.name)?: PageType.NOTE.name
             )
 
             ProvidePagesViewModel {
-                ViewJournalPage(journalId = journalId, pageId = pageId, newPageType = pageType, navController = navController)
+                ViewJournalPage(journalId, pageId, pageType, navController)
             }
         }
     }

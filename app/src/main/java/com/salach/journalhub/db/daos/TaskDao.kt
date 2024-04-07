@@ -4,20 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.salach.journalhub.db.models.Task
-import kotlinx.coroutines.flow.Flow
+import com.salach.journalhub.db.relations.TasksList
 
 @Dao
 interface TaskDao {
     @Query("SELECT * FROM Task")
-    fun getAll(): Flow<List<Task>>
-
-//    @Query("SELECT * FROM Chore WHERE noteId = :noteId")
-//    fun getAllFromNote(noteId: Int): Flow<List<Chore>>
-
-    @Query("SELECT * FROM Task WHERE id = :id")
-    fun getById(id: Long): LiveData<Task>
+    fun getAll(): LiveData<List<Task>>
 
     @Insert
     suspend fun insertAll(vararg tasks: Task)
@@ -27,4 +22,8 @@ interface TaskDao {
 
     @Query("DELETE FROM Task")
     suspend fun deleteAll()
+
+    @Transaction
+    @Query("SELECT * FROM Page WHERE id = :id")
+    fun getById(id: Long): LiveData<TasksList>
 }

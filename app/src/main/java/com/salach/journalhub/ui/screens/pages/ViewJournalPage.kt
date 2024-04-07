@@ -26,12 +26,14 @@ import com.salach.journalhub.JournalHub
 import com.salach.journalhub.db.helpers.PageRepresentation
 import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.db.models.Page
+import com.salach.journalhub.db.relations.TasksList
 import com.salach.journalhub.enums.PageType
 import com.salach.journalhub.ui.screens.journal.view.LocalPagesViewModel
 import com.salach.journalhub.ui.screens.pages.components.JournalPageHeader
 import com.salach.journalhub.ui.screens.pages.components.JournalPageTopBar
 import com.salach.journalhub.ui.screens.pages.note.EditNote
 import com.salach.journalhub.ui.screens.pages.note.ViewNote
+import com.salach.journalhub.ui.screens.pages.task.ViewTaskList
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 import java.time.LocalDate
@@ -40,7 +42,7 @@ import java.time.LocalDate
 fun ViewJournalPage(
     journalId: Int,
     pageId: Long?,
-    newPageType: PageType,
+    pageType: PageType,
     navController: NavHostController
 ) {
     val viewModel: PagesViewModel = LocalPagesViewModel.current
@@ -50,7 +52,7 @@ fun ViewJournalPage(
     val journalPages by viewModel.getPages(journalId).observeAsState(emptyList())
     val page = remember {
         mutableStateOf(
-            Page(journalId, "", LocalDate.now(), type = newPageType)
+            Page(journalId, "", LocalDate.now(), type = pageType)
         )
     }
     val representation: MutableState<PageRepresentation> = remember {
@@ -59,9 +61,13 @@ fun ViewJournalPage(
 
     if (pageId != -1L) {
         pagination.findPage(journalPages, pageId!!)
-        viewModel.getPage(pageId).observeAsState().value?.let { page.value = it }
-        viewModel.loadPageRepresentation<PageRepresentation>(pageId, PageType.NOTE)
-            ?.observeAsState()?.value?.let { representation.value = it }
+        viewModel.getPage(pageId).observeAsState().value?.let {
+            page.value = it
+        }
+        viewModel.loadPageRepresentation<PageRepresentation>(pageId, pageType)
+            ?.observeAsState()?.value?.let {
+                representation.value = it
+            }
     } else {
         editMode.value = true
     }
@@ -72,7 +78,7 @@ fun ViewJournalPage(
                 backOnClick = { navController.popBackStack() },
                 modeOnClick = {
                     if (editMode.value) {
-                        viewModel.savePage(page.value, representation.value, newPageType)
+                        viewModel.savePage(page.value, representation.value, pageType)
                     }
                     editMode.value = !editMode.value
                 },
@@ -104,19 +110,31 @@ fun ViewJournalPage(
                 Box(
                     modifier = Modifier.padding(currentDimensions().S)
                 ) {
-                    if (pageId == representation.value.id) {
-                        if (page.value.type == PageType.NOTE) {
-                            if (!editMode.value) {
-                                ViewNote(representation.value as Note)
-                            } else {
-                                EditNote(representation.value as Note)
+                    if (isRepresentationLoaded(representation.value, pageId)) {
+                        when (page.value.type) {
+                            PageType.NOTE -> {
+                                if (!editMode.value) {
+                                    ViewNote(representation.value as Note)
+                                } else {
+                                    EditNote(representation.value as Note)
+                                }
                             }
+                            PageType.TASK_LIST -> {
+                                ViewTaskList((representation.value as TasksList).tasks)
+                            }
+                            PageType.SHOPPING_LIST -> TODO()
+                            PageType.GOAL -> TODO()
+                            PageType.ACTIVITY_PLAN -> TODO()
                         }
                     }
                 }
             }
         }
     }
+}
+
+fun isRepresentationLoaded(representation: PageRepresentation, expectedId: Long): Boolean {
+    return representation.id == expectedId
 }
 
 @Composable

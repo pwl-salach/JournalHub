@@ -13,6 +13,7 @@ import com.salach.journalhub.db.models.Note
 import com.salach.journalhub.db.models.Page
 import com.salach.journalhub.db.models.Schedule
 import com.salach.journalhub.db.models.TaskOccurrence
+import com.salach.journalhub.db.relations.TasksList
 import com.salach.journalhub.repositories.JournalsRepository
 import com.salach.journalhub.repositories.PagesRepository
 import com.salach.journalhub.ui.screens.journals.MockedJournalDao
@@ -104,11 +105,11 @@ class MockedMemoDao: NoteDao{
 }
 
 class MockedTaskDao: TaskDao{
-    override fun getAll(): Flow<List<Task>> {
+    override fun getAll(): LiveData<List<Task>> {
         TODO("Not yet implemented")
     }
 
-    override fun getById(id: Long): LiveData<Task> {
+    override fun getById(id: Long): LiveData<TasksList> {
         TODO("Not yet implemented")
     }
 

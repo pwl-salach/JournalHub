@@ -24,8 +24,10 @@ import com.salach.journalhub.db.models.Schedule
 import com.salach.journalhub.db.models.ShoppingList
 import com.salach.journalhub.db.models.ShoppingListItem
 import com.salach.journalhub.db.models.TaskOccurrence
+import com.salach.journalhub.enums.PageType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 
 @Database(
@@ -90,6 +92,15 @@ abstract class AppDatabase : RoomDatabase() {
                     appDatabase.pageDao.deleteAll()
                     appDatabase.journalDao.deleteAll()
                     appDatabase.journalDao.insert(Journal("", "", id = 0))
+                    val page = Page(
+                        0, "Test",
+                        editedDate = LocalDate.now(), type = PageType.TASK_LIST
+                    )
+                    val pageId = appDatabase.pageDao.insert(page)
+                    appDatabase.taskDao.insertAll(
+                        Task(pageId, "qwe"),
+                        Task(pageId, "asd")
+                    )
 //                    appDatabase.noteDao.insertAll(
 //                        Note("Generic", ListIcon.HOME.id, 0, 1),
 //                        Note("Initial", ListIcon.HOME.id, 0, 2),
