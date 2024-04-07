@@ -20,13 +20,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salach.journalhub.R
+import com.salach.journalhub.db.models.Task
 import com.salach.journalhub.ui.components.basic.IconButton
 import com.salach.journalhub.ui.theme.ColorPalette
 import com.salach.journalhub.ui.theme.currentDimensions
 import com.salach.journalhub.ui.theme.currentTypography
 
 @Composable
-fun TaskRow() {
+fun TaskRow(task: Task) {
     val dimensions = currentDimensions()
     Column(
         verticalArrangement = Arrangement.spacedBy(dimensions.XS, Alignment.Top),
@@ -46,7 +47,7 @@ fun TaskRow() {
                     shape = RoundedCornerShape(size = dimensions.Half)
                 )
         ) {
-            TaskContent()
+            TaskContent(task)
             TaskControls()
         }
         ScheduleRepresentationRow()
@@ -54,7 +55,7 @@ fun TaskRow() {
 }
 
 @Composable
-fun TaskContent(){
+fun TaskContent(task: Task){
     val dimensions = currentDimensions()
     val size = dimensions.L + dimensions.XS
     Column(
@@ -81,7 +82,7 @@ fun TaskContent(){
                 )
             }
             Text(
-                text = "Task",
+                text = task.shortDesc,
                 style = currentTypography().B1R,
             )
         }
@@ -166,5 +167,5 @@ fun SchedulePart(icon: Int, text: String){
 @Preview(showBackground = true)
 @Composable
 fun TaskRowPreview() {
-    TaskRow()
+    TaskRow(Task(0, "Task 1"))
 }
