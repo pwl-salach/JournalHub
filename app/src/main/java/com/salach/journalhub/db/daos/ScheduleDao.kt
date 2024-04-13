@@ -14,8 +14,8 @@ interface ScheduleDao {
     @Query("SELECT * FROM Schedule WHERE id = :id")
     fun getById(id: Long): Schedule
 
-    @Query("SELECT * FROM Schedule WHERE pageId = :pageId")
-    fun getByTaskId(pageId: Long): List<Schedule>
+    @Query("SELECT * FROM Schedule WHERE parentId = :parentId")
+    fun getByTaskId(parentId: Long): List<Schedule>
 
     @Update
     fun update(schedule: Schedule)

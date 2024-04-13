@@ -11,6 +11,7 @@ import com.salach.journalhub.db.relations.TasksList
 
 @Dao
 interface TaskDao {
+
     @Query("SELECT * FROM Task")
     fun getAll(): LiveData<List<Task>>
 

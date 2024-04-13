@@ -4,19 +4,15 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.salach.journalhub.db.helpers.PageRepresentation
 import com.salach.journalhub.db.models.Page
+import com.salach.journalhub.db.models.Schedule
 import com.salach.journalhub.db.models.Task
 
 
-data class TasksList(
-    @Embedded val page: Page,
+data class ScheduledTask(
+    @Embedded val task: Task,
     @Relation(
-        entity = Task::class,
         parentColumn = "id",
-        entityColumn = "pageId"
+        entityColumn = "parentId"
     )
-    val tasks: List<ScheduledTask>
-) : PageRepresentation {
-    override var id: Long
-        get() = page.id!!
-        set(value) {}
-}
+    val schedules: List<Schedule>
+)
